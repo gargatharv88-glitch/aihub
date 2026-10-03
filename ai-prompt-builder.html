@@ -1,1 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>AI Prompt Builder – Free AI Prompt Generator | AIHub</title>
+
+  <meta
+    name="description"
+    content="Create clear, structured and effective AI prompts with AIHub's free AI Prompt Builder. Build prompts for ChatGPT, Gemini and other AI assistants."
+  >
+
+  <meta name="robots" content="index, follow">
+  <link
+  rel="canonical"
+  href="https://gargatharv88-glitch.github.io/aihub/ai-prompt-builder.html"
+>
+
+  <!-- Replace this with your actual GitHub Pages URL -->
+  <link
+    rel="canonical"
+    href="https://YOUR-USERNAME.github.io/YOUR-REPOSITORY/ai-prompt-builder.html"
+  >
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .prompt-page {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    .prompt-hero {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .prompt-hero h1 {
+      font-size: 42px;
+      margin-bottom: 12px;
+    }
+
+    .prompt-hero p {
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.7;
+      opacity: 0.85;
+    }
+
+    .prompt-box {
+      background: var(--card-bg, #ffffff);
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .prompt-form-group {
+      margin-bottom: 20px;
+    }
+
+    .prompt-form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .prompt-form-group input,
+    .prompt-form-group textarea {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid #d7d7d7;
+      border-radius: 10px;
+      font-size: 15px;
+      box-sizing: border-box;
+      font-family: inherit;
+      background: #fff;
+      color: #222;
+    }
+
+    .prompt-form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .prompt-form-group input:focus,
+    .prompt-form-group textarea:focus {
+      outline: none;
+      border-color: #6c63ff;
+      box-shadow: 0 0 0 3px rgba(108,99,255,0.12);
+    }
+
+    .build-btn {
+      width: 100%;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 10px;
+      background: #6c63ff;
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .build-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    .result-box {
+      margin-top: 25px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fafafa;
+    }
+
+    .result-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 15px;
+      background: #f1f1f1;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .result-header strong {
+      font-size: 15px;
+    }
+
+    .copy-btn {
+      border: none;
+      padding: 7px 13px;
+      border-radius: 7px;
+      background: #222;
+      color: white;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .copy-btn:hover {
+      opacity: 0.85;
+    }
+
+    #promptResult {
+      padding: 20px;
+      white-space: pre-wrap;
+      line-height: 1.7;
+      min-height: 160px;
+      font-family: inherit;
+      color: #222;
+    }
+
+    .info-section {
+      margin-top: 55px;
+      line-height: 1.8;
+    }
+
+    .info-section h2 {
+      margin-top: 35px;
+      margin-bottom: 12px;
+    }
+
+    .info-section h3 {
+      margin-top: 25px;
+    }
+
+    .faq-item {
+      margin: 12px 0;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+
+    .faq-item summary {
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .related-tools {
+      margin-top: 35px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .related-tools a {
+      display: inline-block;
+      padding: 10px 14px;
+      border-radius: 9px;
+      background: #f1f1f1;
+      text-decoration: none;
+      color: inherit;
+      font-weight: 600;
+    }
+
+    .page-nav {
+      padding: 18px 20px;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .page-nav a {
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    @media (max-width: 600px) {
+      .prompt-page {
+        padding: 25px 15px 60px;
+      }
+
+      .prompt-hero h1 {
+        font-size: 32px;
+      }
+
+      .prompt-box {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Simple navigation -->
+  <nav class="page-nav">
+    <a href="index.html">← AIHub Home</a>
+  </nav>
+
+  <main class="prompt-page">
+
+    <!-- Hero -->
+    <section class="prompt-hero">
+      <div class="eyebrow">FREE AI TOOL</div>
+
+      <h1>AI Prompt Builder</h1>
+
+      <p>
+        Create clear, structured and useful prompts for AI assistants.
+        Define your task, audience, tone and requirements to build a
+        ready-to-use prompt in seconds.
+      </p>
+    </section>
+
+
+    <!-- Prompt Builder -->
+    <section class="prompt-box">
+
+      <form id="promptForm">
+
+        <div class="prompt-form-group">
+          <label for="promptTask">What do you want the AI to do?</label>
+
+          <input
+            type="text"
+            id="promptTask"
+            placeholder="Make a YouTube video about space for kids"
+          >
+        </div>
+
+
+        <div class="prompt-form-group">
+          <label for="promptAudience">Target Audience</label>
+
+          <input
+            type="text"
+            id="promptAudience"
+            placeholder="Kids 2-8"
+          >
+        </div>
+
+
+        <div class="prompt-form-group">
+          <label for="promptTone">Tone</label>
+
+          <input
+            type="text"
+            id="promptTone"
+            placeholder="Friendly"
+          >
+        </div>
+
+
+        <div class="prompt-form-group">
+          <label for="promptRequirements">Additional Requirements</label>
+
+          <textarea
+            id="promptRequirements"
+            placeholder="Keep it simple and engaging. Include examples."
+          ></textarea>
+        </div>
+
+
+        <button type="submit" class="build-btn">
+          Build Prompt
+        </button>
+
+      </form>
+
+
+      <!-- Result -->
+      <div class="result-box">
+
+        <div class="result-header">
+          <strong>Your AI Prompt</strong>
+
+          <button
+            type="button"
+            class="copy-btn"
+            id="copyPrompt"
+          >
+            Copy
+          </button>
+        </div>
+
+        <div id="promptResult">Your generated prompt will appear here.</div>
+
+      </div>
+
+    </section>
+
+
+    <!-- SEO Content -->
+    <section class="info-section">
+
+      <h2>What is an AI Prompt Builder?</h2>
+
+      <p>
+        An AI Prompt Builder helps you create clear instructions for AI
+        assistants. Instead of writing a prompt from scratch, you can
+        describe your task, audience, tone and requirements and turn
+        those details into a structured prompt.
+      </p>
+
+      <p>
+        A well-structured prompt can make it easier for an AI assistant
+        to understand what you want and produce a response in the format
+        you need.
+      </p>
+
+
+      <h2>How to Use the AI Prompt Builder</h2>
+
+      <ol>
+        <li>Enter the task you want the AI to complete.</li>
+        <li>Specify your target audience.</li>
+        <li>Choose the tone you want the response to use.</li>
+        <li>Add any extra requirements or instructions.</li>
+        <li>Click <strong>Build Prompt</strong>.</li>
+        <li>Copy the generated prompt and use it with your AI assistant.</li>
+      </ol>
+
+
+      <h2>Example AI Prompt</h2>
+
+      <p>
+        For example, you can create a prompt for a children's YouTube
+        video, a blog post, study material, social media content,
+        product description or many other tasks.
+      </p>
+
+      <p>
+        The builder organizes your information into sections such as
+        Task, Target Audience, Tone and Requirements.
+      </p>
+
+
+      <h2>Why Use Structured AI Prompts?</h2>
+
+      <ul>
+        <li>Clearly explain the task to the AI.</li>
+        <li>Specify who the content is for.</li>
+        <li>Set the desired writing style or tone.</li>
+        <li>Add important instructions and limitations.</li>
+        <li>Create reusable prompts for repeated tasks.</li>
+      </ul>
+
+
+      <!-- FAQ -->
+      <h2>Frequently Asked Questions</h2>
+
+      <details class="faq-item">
+        <summary>Is the AI Prompt Builder free?</summary>
+
+        <p>
+          Yes. The AIHub Prompt Builder is designed as a free browser-based
+          tool for creating structured AI prompts.
+        </p>
+      </details>
+
+
+      <details class="faq-item">
+        <summary>Does this tool generate the AI answer?</summary>
+
+        <p>
+          No. The tool creates the prompt itself. You can then copy the
+          prompt and use it with an AI assistant such as ChatGPT or another
+          compatible AI tool.
+        </p>
+      </details>
+
+
+      <details class="faq-item">
+        <summary>What can I create prompts for?</summary>
+
+        <p>
+          You can create prompts for content writing, YouTube videos,
+          education, brainstorming, social media, marketing, explanations,
+          research and many other tasks.
+        </p>
+      </details>
+
+
+      <details class="faq-item">
+        <summary>Do I need an API key?</summary>
+
+        <p>
+          No. This Prompt Builder creates the prompt directly in your
+          browser and does not require an AI API key.
+        </p>
+      </details>
+
+
+      <!-- Related Tools -->
+      <h2>More AIHub Tools</h2>
+
+      <div class="related-tools">
+
+        <a href="index.html#tools">
+          Explore All AIHub Tools
+        </a>
+
+        <a href="index.html#tools">
+          YouTube Tools
+        </a>
+
+        <a href="index.html#tools">
+          Content Generators
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- Footer -->
+  <footer style="text-align:center; padding:30px 20px;">
+    <p>
+      © 2026 AIHub. Free AI and productivity tools.
+    </p>
+
+    <a href="index.html">
+      Back to AIHub
+    </a>
+  </footer>
+
+
+  <!-- Standalone Prompt Builder JavaScript -->
+  <script>
+
+    const promptForm = document.getElementById("promptForm");
+    const promptResult = document.getElementById("promptResult");
+    const copyPrompt = document.getElementById("copyPrompt");
+
+    promptForm.addEventListener("submit", function(event) {
+
+      event.preventDefault();
+
+      const task =
+        document.getElementById("promptTask").value.trim();
+
+      const audience =
+        document.getElementById("promptAudience").value.trim();
+
+      const tone =
+        document.getElementById("promptTone").value.trim();
+
+      const requirements =
+        document.getElementById("promptRequirements").value.trim();
+
+
+      const finalPrompt = `Act as an expert assistant.
+
+Task:
+${task || "Complete the requested task"}
+
+Target audience:
+${audience || "General audience"}
+
+Tone:
+${tone || "Clear and helpful"}
+
+Requirements:
+- Give a clear and useful answer.
+- Organize the response with headings where helpful.
+- Include practical examples when appropriate.
+- Avoid unnecessary information.
+- Make the final response easy to use.
+${requirements ? "- " + requirements : ""}`;
+
+
+      promptResult.textContent = finalPrompt;
+
+    });
+
+
+    copyPrompt.addEventListener("click", async function() {
+
+      const text = promptResult.textContent;
+
+      if (
+        !text ||
+        text === "Your generated prompt will appear here."
+      ) {
+        return;
+      }
+
+      try {
+
+        await navigator.clipboard.writeText(text);
+
+        copyPrompt.textContent = "Copied!";
+
+        setTimeout(function() {
+          copyPrompt.textContent = "Copy";
+        }, 1500);
+
+      } catch (error) {
+
+        copyPrompt.textContent = "Copy failed";
+
+        setTimeout(function() {
+          copyPrompt.textContent = "Copy";
+        }, 1500);
+
+      }
+
+    });
+
+  </script>
+
+</body>
+</html>
