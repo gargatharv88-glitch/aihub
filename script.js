@@ -751,450 +751,225 @@ ${requirements ? "- " + requirements : ""}`;
     });
 
 }
-
 /* =========================================
    2. ADVANCED YOUTUBE TITLE GENERATOR
    ========================================= */
 
-function youtubeTitleTool() {
-
-    return standardForm(`
-
-        <div class="form-group">
-
-            <label>What is your video about?</label>
-
-            <textarea
-                id="titleTopic"
-                placeholder="Example: Make a YouTube video about space for kids and explain planets in a simple way..."
-                rows="4"></textarea>
-
-        </div>
-
-        <div class="form-row">
-
-            <div class="form-group">
-
-                <label>Audience</label>
-
-                <select id="titleAudience">
-
-                    <option>Automatically detect</option>
-                    <option>Kids</option>
-                    <option>Students</option>
-                    <option>Beginners</option>
-                    <option>General Audience</option>
-                    <option>Creators</option>
-
-                </select>
-
-            </div>
-
-            <div class="form-group">
-
-                <label>Title Style</label>
-
-                <select id="titleStyle">
-
-                    <option>Automatically choose</option>
-                    <option>Curiosity</option>
-                    <option>Educational</option>
-                    <option>Fun</option>
-                    <option>Short & Punchy</option>
-                    <option>How-To</option>
-
-                </select>
-
-            </div>
-
-        </div>
-
-    `, "Generate Smart Titles");
-
-}
-
-
 function activateYoutubeTitle() {
+    const input = document.getElementById("titleTopic");
+    const audienceSelect = document.getElementById("titleAudience");
+    const styleSelect = document.getElementById("titleStyle");
 
-    document.getElementById(
-        "runTool"
-    ).addEventListener("click", () => {
+    if (!input) return;
 
-        const input =
-            getValue("titleTopic");
+    const userInput = input.value.trim();
 
-        if (!input) {
+    if (!userInput) {
+        setResult("youtube-title", "Please enter a video idea or topic first.");
+        return;
+    }
 
-            setResult(
-                "Please enter what your video is about."
+    // -----------------------------------------
+    // CLEAN USER INPUT
+    // -----------------------------------------
+
+    let topic = userInput
+        .replace(/\s+/g, " ")
+        .replace(/[.!?]+$/, "")
+        .trim();
+
+    // Remove common video-request phrases
+    topic = topic
+        .replace(/^(please\s+)?(make|create|write|generate|give|produce)\s+(me\s+)?/i, "")
+        .replace(/^(a|an|the)\s+/i, "")
+        .replace(/^youtube\s+video\s+(about|on)\s+/i, "")
+        .replace(/^video\s+(about|on)\s+/i, "")
+        .replace(/^(a|an)\s+(fun|educational|informative|interesting)\s+/i, "")
+        .replace(/^(fun|educational|informative|interesting)\s+(youtube\s+)?video\s+(about|on)\s+/i, "")
+        .replace(/\s+(in|with)\s+(a\s+)?simple\s+way$/i, "")
+        .replace(/,\s*(explaining|teaching|covering)\s+.+$/i, "")
+        .replace(/\s+(for\s+kids|for\s+children)$/i, "")
+        .trim();
+
+    // -----------------------------------------
+    // BETTER TOPIC EXTRACTION
+    // -----------------------------------------
+
+    const aboutMatch = userInput.match(
+        /(?:video|content|lesson|guide)\s+(?:about|on)\s+(.+?)(?:\s+(?:for|with|in)\s+.+)?$/i
+    );
+
+    if (aboutMatch && aboutMatch[1]) {
+        const extracted = aboutMatch[1]
+            .replace(/,\s*(explaining|teaching|covering)\s+.+$/i, "")
+            .replace(/\s+(in|with)\s+(a\s+)?simple\s+way.*$/i, "")
+            .replace(/\s+for\s+(kids|children).*$/i, "")
+            .trim();
+
+        if (extracted.length > 2) {
+            topic = extracted;
+        }
+    }
+
+    // Special handling for phrases like:
+    // "space, explaining the planets"
+    const explainingMatch = userInput.match(
+        /(?:about|on)\s+(.+?),?\s+(?:and\s+)?explaining\s+(.+?)(?:\s+in\s+(?:a\s+)?simple\s+way)?$/i
+    );
+
+    if (explainingMatch) {
+        const mainTopic = explainingMatch[1].trim();
+        const explanationTopic = explainingMatch[2].trim();
+
+        topic = `${mainTopic} & ${explanationTopic}`;
+    }
+
+    // Remove unnecessary words
+    topic = topic
+        .replace(/\b(fun|educational|informative|interesting)\s+(video|content)\b/gi, "")
+        .replace(/\s+/g, " ")
+        .replace(/^[,\s]+|[,\s]+$/g, "")
+        .trim();
+
+    if (!topic) {
+        topic = "Your Topic";
+    }
+
+    // -----------------------------------------
+    // AUDIENCE DETECTION
+    // -----------------------------------------
+
+    let audience = audienceSelect ? audienceSelect.value : "auto";
+
+    if (audience === "auto") {
+        if (/\b(kids|children|child|nursery|cartoon)\b/i.test(userInput)) {
+            audience = "Kids";
+        } else if (/\b(student|students|school|class|exam|study|education)\b/i.test(userInput)) {
+            audience = "Students";
+        } else if (/\b(beginner|beginners|basic|basics|learn)\b/i.test(userInput)) {
+            audience = "Beginners";
+        } else {
+            audience = "General Audience";
+        }
+    }
+
+    // -----------------------------------------
+    // CONTENT TYPE DETECTION
+    // -----------------------------------------
+
+    let contentType = "Video";
+
+    if (/\b(explain|explaining|explained|understand)\b/i.test(userInput)) {
+        contentType = "Explainer";
+    } else if (/\b(how to|tutorial|step by step|guide)\b/i.test(userInput)) {
+        contentType = "How-To";
+    } else if (/\b(fact|facts|amazing facts)\b/i.test(userInput)) {
+        contentType = "Facts";
+    } else if (/\b(review|reviews)\b/i.test(userInput)) {
+        contentType = "Review";
+    } else if (/\b(story|stories)\b/i.test(userInput)) {
+        contentType = "Story";
+    }
+
+    // -----------------------------------------
+    // STYLE DETECTION
+    // -----------------------------------------
+
+    let style = styleSelect ? styleSelect.value : "auto";
+
+    if (style === "auto") {
+        if (audience === "Kids") {
+            style = "Fun";
+        } else if (contentType === "How-To") {
+            style = "How-To";
+        } else if (contentType === "Explainer" || contentType === "Facts") {
+            style = "Educational";
+        } else {
+            style = "Curiosity";
+        }
+    }
+
+    // -----------------------------------------
+    // GENERATE TITLES
+    // -----------------------------------------
+
+    let titles = [];
+
+    if (style === "Curiosity") {
+        titles = [
+            `You Won't Believe These Amazing ${topic} Facts!`,
+            `What You Didn't Know About ${topic}`,
+            `The Amazing Truth About ${topic}`,
+            `How Much Do You Really Know About ${topic}?`,
+            `These ${topic} Facts Will Surprise You!`
+        ];
+    }
+
+    else if (style === "Educational") {
+        titles = [
+            `${topic} Explained Simply`,
+            `Learn About ${topic} in a Simple Way`,
+            `${topic}: Everything You Need to Know`,
+            `Understanding ${topic} Made Easy`,
+            `Amazing Facts About ${topic}`
+        ];
+    }
+
+    else if (style === "Fun") {
+        titles = [
+            `Let's Explore ${topic}! 🚀`,
+            `The Fun Side of ${topic}! 🌟`,
+            `Discover the Amazing World of ${topic}! 🎉`,
+            `Amazing ${topic} for Curious Kids! 🪐`,
+            `Fun Facts About ${topic}! 🤩`
+        ];
+
+        if (audience === "Kids") {
+            titles.push(
+                `Let's Learn About ${topic} Together! 🚀`,
+                `The Amazing ${topic} Adventure! 🌈`
             );
-
-            return;
-
         }
-
-        const text =
-            input.toLowerCase();
-
-        const audience =
-            getValue("titleAudience");
-
-        const selectedStyle =
-            getValue("titleStyle");
-
-
-        /* -----------------------------------------
-           DETECT AUDIENCE
-        ----------------------------------------- */
-
-        let detectedAudience =
-            audience;
-
-        if (
-            audience === "Automatically detect"
-        ) {
-
-            if (
-                text.includes("kids") ||
-                text.includes("children") ||
-                text.includes("child")
-            ) {
-
-                detectedAudience = "Kids";
-
-            } else if (
-                text.includes("student") ||
-                text.includes("school") ||
-                text.includes("class") ||
-                text.includes("exam") ||
-                text.includes("study")
-            ) {
-
-                detectedAudience = "Students";
-
-            } else if (
-                text.includes("beginner") ||
-                text.includes("beginners") ||
-                text.includes("basic") ||
-                text.includes("basics")
-            ) {
-
-                detectedAudience = "Beginners";
-
-            } else {
-
-                detectedAudience =
-                    "General Audience";
-
-            }
-
-        }
-
-
-        /* -----------------------------------------
-           CLEAN TOPIC
-        ----------------------------------------- */
-
-        let topic =
-            input
-                .replace(
-                    /^(make|create|give|generate|write)\s+/i,
-                    ""
-                )
-                .replace(
-                    /^(a|an|the)\s+/i,
-                    ""
-                )
-                .trim();
-
-        topic =
-            topic
-                .replace(
-                    /\bfor kids\b/gi,
-                    ""
-                )
-                .replace(
-                    /\bfor children\b/gi,
-                    ""
-                )
-                .replace(
-                    /\bin simple way\b/gi,
-                    ""
-                )
-                .replace(
-                    /\bsimply\b/gi,
-                    ""
-                )
-                .trim();
-
-
-        if (!topic) {
-
-            topic = input.trim();
-
-        }
-
-
-        /* -----------------------------------------
-           DETECT CONTENT TYPE
-        ----------------------------------------- */
-
-        let contentType =
-            "Video";
-
-        if (
-            text.includes("fact") ||
-            text.includes("facts")
-        ) {
-
-            contentType = "Facts";
-
-        } else if (
-            text.includes("tutorial") ||
-            text.includes("how to")
-        ) {
-
-            contentType = "How-To";
-
-        } else if (
-            text.includes("explained") ||
-            text.includes("explain")
-        ) {
-
-            contentType = "Explainer";
-
-        } else if (
-            text.includes("review")
-        ) {
-
-            contentType = "Review";
-
-        } else if (
-            text.includes("story")
-        ) {
-
-            contentType = "Story";
-
-        }
-
-
-        /* -----------------------------------------
-           SMART STYLE
-        ----------------------------------------- */
-
-        let style =
-            selectedStyle;
-
-        if (
-            selectedStyle ===
-            "Automatically choose"
-        ) {
-
-            if (detectedAudience === "Kids") {
-
-                style = "Fun";
-
-            } else if (
-                contentType === "How-To"
-            ) {
-
-                style = "How-To";
-
-            } else if (
-                contentType === "Facts" ||
-                contentType === "Explainer"
-            ) {
-
-                style = "Educational";
-
-            } else {
-
-                style = "Curiosity";
-
-            }
-
-        }
-
-
-        /* -----------------------------------------
-           TITLE GENERATION
-        ----------------------------------------- */
-
-        let titles = [];
-
-
-        if (style === "Curiosity") {
-
-            titles = [
-
-                `You Won't Believe These Amazing ${topic} Facts!`,
-
-                `What You Didn't Know About ${topic}`,
-
-                `The Amazing Truth About ${topic}`,
-
-                `How Much Do You Really Know About ${topic}?`,
-
-                `These ${topic} Facts Will Surprise You!`
-
-            ];
-
-        }
-
-
-        else if (style === "Educational") {
-
-            titles = [
-
-                `${topic} Explained Simply`,
-
-                `Learn About ${topic} in a Simple Way`,
-
-                `${topic}: Everything You Need to Know`,
-
-                `Understanding ${topic} Made Easy`,
-
-                `Amazing ${topic} Facts You Should Know`
-
-            ];
-
-        }
-
-
-        else if (style === "Fun") {
-
-            titles = [
-
-                `Let's Explore ${topic}! 🚀`,
-
-                `The Fun Side of ${topic}! 🌟`,
-
-                `${topic} Adventure Begins! 🎉`,
-
-                `Amazing ${topic} for Curious Kids! 🪐`,
-
-                `Fun Facts About ${topic}! 🤩`
-
-            ];
-
-        }
-
-
-        else if (style === "Short & Punchy") {
-
-            titles = [
-
-                `${topic} Made Easy`,
-
-                `${topic} Explained!`,
-
-                `${topic} — WOW!`,
-
-                `Quick ${topic} Facts`,
-
-                `${topic} in Minutes`
-
-            ];
-
-        }
-
-
-        else if (style === "How-To") {
-
-            titles = [
-
-                `How to Understand ${topic} Easily`,
-
-                `How ${topic} Works — Simple Explanation`,
-
-                `How to Learn ${topic} Step by Step`,
-
-                `How to Get Started With ${topic}`,
-
-                `${topic}: Easy Step-by-Step Guide`
-
-            ];
-
-        }
-
-
-        /* -----------------------------------------
-           AUDIENCE-SPECIFIC IMPROVEMENTS
-        ----------------------------------------- */
-
-        if (
-            detectedAudience === "Kids"
-        ) {
-
-            titles = [
-
-                ...titles,
-
-                `Amazing ${topic} for Kids! 🌟`,
-
-                `Let's Learn ${topic} Together! 🚀`
-
-            ];
-
-        }
-
-
-        if (
-            detectedAudience === "Students"
-        ) {
-
-            titles = [
-
-                ...titles,
-
-                `${topic} Explained for Students`,
-
-                `Learn ${topic} Quickly & Easily`
-
-            ];
-
-        }
-
-
-        if (
-            detectedAudience === "Beginners"
-        ) {
-
-            titles = [
-
-                ...titles,
-
-                `${topic} for Complete Beginners`,
-
-                `Beginner's Guide to ${topic}`
-
-            ];
-
-        }
-
-
-        /* -----------------------------------------
-           REMOVE DUPLICATES
-        ----------------------------------------- */
-
-        titles =
-            [...new Set(titles)]
-                .slice(0, 8);
-
-
-        /* -----------------------------------------
-           FINAL OUTPUT
-        ----------------------------------------- */
-
-        const result =
-
-`SMART YOUTUBE TITLES
+    }
+
+    else if (style === "Short & Punchy") {
+        titles = [
+            `${topic} Made Easy`,
+            `${topic} Explained!`,
+            `${topic} — WOW!`,
+            `Quick ${topic} Facts`,
+            `${topic} in Minutes`
+        ];
+    }
+
+    else if (style === "How-To") {
+        titles = [
+            `How to Understand ${topic} Easily`,
+            `How ${topic} Works — Simple Explanation`,
+            `How to Learn ${topic} Step by Step`,
+            `How to Get Started With ${topic}`,
+            `${topic}: Easy Step-by-Step Guide`
+        ];
+    }
+
+    // -----------------------------------------
+    // REMOVE DUPLICATES
+    // -----------------------------------------
+
+    titles = [...new Set(titles)].slice(0, 8);
+
+    // -----------------------------------------
+    // SHOW RESULT
+    // -----------------------------------------
+
+    const result = `
+SMART YOUTUBE TITLES
 
 Topic:
 ${topic}
 
 Audience:
-${detectedAudience}
+${audience}
 
 Content Type:
 ${contentType}
@@ -1204,22 +979,14 @@ ${style}
 
 Generated Titles:
 
-${titles
-    .map(
-        (title, index) =>
-            `${index + 1}. ${title}`
-    )
-    .join("\n\n")}
+${titles.map((title, index) => `${index + 1}. ${title}`).join("\n\n")}
 
 
 TIP:
-Choose the title that best matches the actual content of your video. Avoid misleading clickbait.`;
+Choose the title that best matches the actual content of your video. Avoid misleading clickbait.
+`;
 
-
-        setResult(result);
-
-    });
-
+    setResult("youtube-title", result);
 }
 
 /* =========================================
