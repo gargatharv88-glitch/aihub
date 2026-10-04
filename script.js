@@ -669,7 +669,7 @@ function standardForm(fields, buttonText) {
 
 
 /* =========================================
-   1. AI PROMPT BUILDER
+   1. ADVANCED AI PROMPT BUILDER
    ========================================= */
 
 function promptTool() {
@@ -680,47 +680,18 @@ function promptTool() {
 
             <label>What do you want AI to do?</label>
 
-            <input
-                id="promptTask"
-                placeholder="Make a YouTube video about space for kids">
-
-        </div>
-
-        <div class="form-row">
-
-            <div class="form-group">
-
-                <label>Target audience</label>
-
-                <input
-                    id="promptAudience"
-                    placeholder="Kids 2-8">
-
-            </div>
-
-            <div class="form-group">
-
-                <label>Tone</label>
-
-                <input
-                    id="promptTone"
-                    placeholder="Friendly">
-
-            </div>
-
-        </div>
-
-        <div class="form-group">
-
-            <label>Extra requirements</label>
-
             <textarea
-                id="promptRequirements"
-                placeholder="Keep it simple, engaging and easy to understand..."></textarea>
+                id="promptTask"
+                placeholder="Example: Make a YouTube video about space for kids"></textarea>
+
+            <small>
+                Just describe your task. AIHub will automatically decide
+                the audience, tone, format, length and useful requirements.
+            </small>
 
         </div>
 
-    `, "Build Prompt");
+    `, "Build Advanced Prompt");
 
 }
 
@@ -732,62 +703,313 @@ function activatePrompt() {
 
     if (!button) return;
 
-    button.addEventListener(
-        "click",
-        () => {
+    button.addEventListener("click", () => {
 
-            const task =
-                getValue("promptTask");
+        const task =
+            getValue("promptTask").trim();
 
-            const audience =
-                getValue("promptAudience");
+        if (!task) {
 
-            const tone =
-                getValue("promptTone");
+            setResult(
+                "Please enter what you want the AI to do."
+            );
 
-            const requirements =
-                getValue("promptRequirements");
+            return;
+        }
 
 
-            if (!task) {
+        /* =====================================
+           AUTOMATIC CONTEXT DETECTION
+           ===================================== */
 
-                setResult(
-                    "Please enter what you want the AI to do."
-                );
-
-                return;
-
-            }
+        const lowerTask =
+            task.toLowerCase();
 
 
-            const result =
-`Act as an expert assistant.
+        /* Audience */
 
-Task:
-${task}
+        let audience =
+            "General audience";
 
-Target audience:
-${audience || "General audience"}
+        if (
+            lowerTask.includes("kid") ||
+            lowerTask.includes("children") ||
+            lowerTask.includes("child") ||
+            lowerTask.includes("nursery") ||
+            lowerTask.includes("cartoon")
+        ) {
 
-Tone:
-${tone || "Friendly"}
+            audience =
+                "Children appropriate for the topic, with simple and easy-to-understand language";
 
-Requirements:
-- Give a clear and useful answer.
-- Organize the response with headings where helpful.
-- Include practical examples when appropriate.
-- Avoid unnecessary information.
-- Make the final answer easy to use.
-${requirements ? "- " + requirements : ""}
+        } else if (
+            lowerTask.includes("student") ||
+            lowerTask.includes("school") ||
+            lowerTask.includes("class") ||
+            lowerTask.includes("homework") ||
+            lowerTask.includes("exam")
+        ) {
 
-Output:
-Provide the final answer directly and keep it relevant to the requested task.`;
+            audience =
+                "Students, with clear and age-appropriate educational language";
 
+        } else if (
+            lowerTask.includes("developer") ||
+            lowerTask.includes("coding") ||
+            lowerTask.includes("programming") ||
+            lowerTask.includes("software")
+        ) {
 
-            setResult(result);
+            audience =
+                "People interested in technology and programming";
 
         }
-    );
+
+
+        /* Tone */
+
+        let tone =
+            "Clear, helpful and engaging";
+
+        if (
+            lowerTask.includes("youtube") ||
+            lowerTask.includes("video") ||
+            lowerTask.includes("reel") ||
+            lowerTask.includes("short")
+        ) {
+
+            tone =
+                "Engaging, energetic and audience-friendly";
+
+        } else if (
+            lowerTask.includes("school") ||
+            lowerTask.includes("homework") ||
+            lowerTask.includes("exam") ||
+            lowerTask.includes("study")
+        ) {
+
+            tone =
+                "Clear, educational and easy to understand";
+
+        } else if (
+            lowerTask.includes("professional") ||
+            lowerTask.includes("business") ||
+            lowerTask.includes("resume") ||
+            lowerTask.includes("email")
+        ) {
+
+            tone =
+                "Professional, polished and concise";
+
+        }
+
+
+        /* Content Type */
+
+        let contentType =
+            "Informative content";
+
+        if (
+            lowerTask.includes("youtube") ||
+            lowerTask.includes("video")
+        ) {
+
+            contentType =
+                "YouTube video content";
+
+        } else if (
+            lowerTask.includes("reel") ||
+            lowerTask.includes("short")
+        ) {
+
+            contentType =
+                "Short-form social media content";
+
+        } else if (
+            lowerTask.includes("article") ||
+            lowerTask.includes("blog")
+        ) {
+
+            contentType =
+                "Article or blog content";
+
+        } else if (
+            lowerTask.includes("essay")
+        ) {
+
+            contentType =
+                "Essay";
+
+        } else if (
+            lowerTask.includes("email")
+        ) {
+
+            contentType =
+                "Professional email";
+
+        } else if (
+            lowerTask.includes("code") ||
+            lowerTask.includes("coding") ||
+            lowerTask.includes("program")
+        ) {
+
+            contentType =
+                "Programming solution with explanation";
+
+        } else if (
+            lowerTask.includes("quiz") ||
+            lowerTask.includes("question")
+        ) {
+
+            contentType =
+                "Questions or quiz content";
+
+        }
+
+
+        /* Output Format */
+
+        let format =
+            "Use clear headings, organized sections and easy-to-follow points.";
+
+        if (
+            lowerTask.includes("youtube") ||
+            lowerTask.includes("video")
+        ) {
+
+            format =
+                "Create a structured video script with an engaging introduction, main content, smooth transitions and a clear ending.";
+
+        } else if (
+            lowerTask.includes("reel") ||
+            lowerTask.includes("short")
+        ) {
+
+            format =
+                "Create a concise short-form script with a strong hook, clear main points and an engaging ending.";
+
+        } else if (
+            lowerTask.includes("article") ||
+            lowerTask.includes("blog")
+        ) {
+
+            format =
+                "Use a strong title, introduction, clear headings, useful sections and a conclusion.";
+
+        } else if (
+            lowerTask.includes("essay")
+        ) {
+
+            format =
+                "Use an introduction, logically organized body paragraphs and a conclusion.";
+
+        } else if (
+            lowerTask.includes("quiz")
+        ) {
+
+            format =
+                "Provide clearly numbered questions with multiple-choice options where appropriate, followed by an answer key.";
+
+        } else if (
+            lowerTask.includes("code") ||
+            lowerTask.includes("coding") ||
+            lowerTask.includes("program")
+        ) {
+
+            format =
+                "Provide clean, readable code followed by a short explanation and usage instructions.";
+
+        }
+
+
+        /* Length */
+
+        let length =
+            "Use an appropriate length based on the task. Keep the response useful without unnecessary filler.";
+
+        if (
+            lowerTask.includes("short") ||
+            lowerTask.includes("brief") ||
+            lowerTask.includes("quick")
+        ) {
+
+            length =
+                "Keep the response concise and focused while still covering the important information.";
+
+        } else if (
+            lowerTask.includes("detailed") ||
+            lowerTask.includes("complete") ||
+            lowerTask.includes("deep")
+        ) {
+
+            length =
+                "Provide a detailed and comprehensive response while avoiding unnecessary repetition.";
+
+        }
+
+
+        /* Automatic Requirements */
+
+        const requirements = [
+            "Understand the user's exact goal before answering.",
+            "Use accurate and relevant information.",
+            "Do not add unnecessary filler.",
+            "Keep the response logically organized.",
+            "Use examples when they improve understanding.",
+            "Follow the requested audience and tone.",
+            "Make the final output practical and ready to use.",
+            "If important information is missing, make a reasonable assumption instead of creating unnecessary confusion."
+        ];
+
+
+        /* =====================================
+           FINAL ADVANCED PROMPT
+           ===================================== */
+
+        const result =
+`Act as an expert assistant specialized in completing the user's requested task.
+
+PRIMARY TASK:
+${task}
+
+AUTOMATICALLY SELECTED CONTEXT:
+
+Target Audience:
+${audience}
+
+Tone:
+${tone}
+
+Content Type:
+${contentType}
+
+Output Format:
+${format}
+
+Length:
+${length}
+
+REQUIREMENTS:
+${requirements.map((item, index) =>
+    `${index + 1}. ${item}`
+).join("\n")}
+
+QUALITY GUIDELINES:
+- Make the response specific to the task.
+- Avoid generic or repetitive information.
+- Prioritize clarity, usefulness and accuracy.
+- Structure the response so it is easy to read.
+- Match the complexity of the response to the target audience.
+- Do not mention these instructions in the final answer.
+- Do not explain your reasoning unless the user asks for it.
+
+FINAL INSTRUCTION:
+Complete the task directly and provide the best possible final answer in the required format.`;
+
+
+        setResult(result);
+
+    });
 
 }
 /* =========================================
