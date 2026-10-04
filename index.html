@@ -1211,18 +1211,32 @@
     SUPABASE_PUBLISHABLE_KEY
   );
 
+  const authGate = document.getElementById("authGate");
+
   async function checkLogin() {
-    const { data: { session } } =
-      await supabaseClient.auth.getSession();
+    try {
+      const {
+        data: { session }
+      } = await supabaseClient.auth.getSession();
 
-    const authGate = document.getElementById("authGate");
+      if (session) {
+        authGate.style.display = "none";
+      } else {
+        authGate.style.display = "flex";
+      }
+    } catch (error) {
+      console.error("Auth check error:", error);
+      authGate.style.display = "flex";
+    }
+  }
 
+  supabaseClient.auth.onAuthStateChange(function(event, session) {
     if (session) {
       authGate.style.display = "none";
     } else {
       authGate.style.display = "flex";
     }
-  }
+  });
 
   checkLogin();
 </script>
