@@ -1873,7 +1873,7 @@ Avoid:
 
 
 /* =========================================
-   6. QUIZ
+   6. QUIZ GENERATOR
    ========================================= */
 
 function quizTool() {
@@ -1882,24 +1882,38 @@ function quizTool() {
 
         <div class="form-group">
 
-            <label>Quiz topic</label>
+            <label>Quiz Topic</label>
 
-            <input
+            <textarea
                 id="quizTopic"
-                placeholder="Solar System">
+                placeholder="Example: Planets and the Solar System"></textarea>
 
         </div>
 
-        <div class="form-group">
+        <div class="form-row">
 
-            <label>Number of questions</label>
+            <div class="form-group">
 
-            <select id="quizNumber">
+                <label>Number of Questions</label>
 
-                <option>5</option>
-                <option>10</option>
+                <select id="quizCount">
+                    <option value="5">5 Questions</option>
+                    <option value="10">10 Questions</option>
+                </select>
 
-            </select>
+            </div>
+
+            <div class="form-group">
+
+                <label>Difficulty</label>
+
+                <select id="quizDifficulty">
+                    <option value="Easy">Easy</option>
+                    <option value="Medium" selected>Medium</option>
+                    <option value="Hard">Hard</option>
+                </select>
+
+            </div>
 
         </div>
 
@@ -1915,83 +1929,298 @@ function activateQuiz() {
 
     if (!button) return;
 
+    button.addEventListener("click", () => {
 
-    button.addEventListener(
-        "click",
-        () => {
+        const topic =
+            getValue("quizTopic").trim();
 
-            const topic =
-                getValue("quizTopic") ||
-                "General Knowledge";
+        const count =
+            parseInt(getValue("quizCount")) || 5;
 
-            const number =
-                Number(
-                    getValue("quizNumber")
-                ) || 5;
+        const difficulty =
+            getValue("quizDifficulty") || "Medium";
 
 
-            const templates = [
+        if (!topic) {
 
-                `What is one important fact about ${topic}?`,
+            setResult(
+                "Please enter a quiz topic."
+            );
 
-                `Which statement about ${topic} is correct?`,
+            return;
 
-                `Why is ${topic} important?`,
+        }
 
-                `What is a key feature of ${topic}?`,
 
-                `Which option best describes ${topic}?`,
+        /*
+         * Built-in question database.
+         * Works completely offline.
+         */
 
-                `What should a beginner know about ${topic}?`,
+        const questionBank = {
 
-                `Which of these is related to ${topic}?`,
+            "space": [
 
-                `What is the main idea behind ${topic}?`
+                {
+                    q: "Which planet is known as the Red Planet?",
+                    options: ["Earth", "Mars", "Jupiter", "Venus"],
+                    answer: "B) Mars"
+                },
+
+                {
+                    q: "Which planet is the largest in our Solar System?",
+                    options: ["Earth", "Saturn", "Jupiter", "Neptune"],
+                    answer: "C) Jupiter"
+                },
+
+                {
+                    q: "Which planet is closest to the Sun?",
+                    options: ["Mercury", "Venus", "Earth", "Mars"],
+                    answer: "A) Mercury"
+                },
+
+                {
+                    q: "Which planet is famous for its beautiful rings?",
+                    options: ["Mars", "Saturn", "Venus", "Mercury"],
+                    answer: "B) Saturn"
+                },
+
+                {
+                    q: "How many planets are in our Solar System?",
+                    options: ["7", "8", "9", "10"],
+                    answer: "B) 8"
+                },
+
+                {
+                    q: "Which planet is known for having life?",
+                    options: ["Earth", "Mars", "Jupiter", "Neptune"],
+                    answer: "A) Earth"
+                },
+
+                {
+                    q: "Which planet is the hottest in our Solar System?",
+                    options: ["Mercury", "Venus", "Mars", "Jupiter"],
+                    answer: "B) Venus"
+                },
+
+                {
+                    q: "What is at the center of our Solar System?",
+                    options: ["Earth", "The Moon", "The Sun", "Jupiter"],
+                    answer: "C) The Sun"
+                }
+
+            ],
+
+            "solar": [
+
+                {
+                    q: "How many planets are in our Solar System?",
+                    options: ["7", "8", "9", "10"],
+                    answer: "B) 8"
+                },
+
+                {
+                    q: "Which object is at the center of the Solar System?",
+                    options: ["Earth", "Moon", "Sun", "Mars"],
+                    answer: "C) Sun"
+                },
+
+                {
+                    q: "Which planet is closest to the Sun?",
+                    options: ["Venus", "Earth", "Mercury", "Mars"],
+                    answer: "C) Mercury"
+                },
+
+                {
+                    q: "Which planet is the largest?",
+                    options: ["Earth", "Jupiter", "Saturn", "Neptune"],
+                    answer: "B) Jupiter"
+                },
+
+                {
+                    q: "Which planet is known as the Red Planet?",
+                    options: ["Venus", "Mars", "Mercury", "Earth"],
+                    answer: "B) Mars"
+                }
+
+            ]
+
+        };
+
+
+        const topicLower =
+            topic.toLowerCase();
+
+
+        let questions = null;
+
+
+        if (
+            topicLower.includes("space") ||
+            topicLower.includes("planet")
+        ) {
+
+            questions =
+                questionBank.space;
+
+        } else if (
+            topicLower.includes("solar")
+        ) {
+
+            questions =
+                questionBank.solar;
+
+        }
+
+
+        /*
+         * For topics without a built-in question bank,
+         * create useful question templates instead of
+         * showing empty placeholders.
+         */
+
+        if (!questions) {
+
+            questions = [
+
+                {
+                    q: `What is one important fact about ${topic}?`,
+                    options: [
+                        `It is an important subject to learn`,
+                        `It has no useful information`,
+                        `It cannot be studied`,
+                        `It has no real-world connection`
+                    ],
+                    answer: "A) It is an important subject to learn"
+                },
+
+                {
+                    q: `Which statement best describes ${topic}?`,
+                    options: [
+                        `It can be understood through learning and examples`,
+                        `It is impossible to understand`,
+                        `It has no important concepts`,
+                        `It cannot be explained`
+                    ],
+                    answer: "A) It can be understood through learning and examples"
+                },
+
+                {
+                    q: `Why is learning about ${topic} useful?`,
+                    options: [
+                        `It helps build knowledge`,
+                        `It prevents learning`,
+                        `It has no purpose`,
+                        `It cannot be studied`
+                    ],
+                    answer: "A) It helps build knowledge"
+                },
+
+                {
+                    q: `Which approach is best when learning about ${topic}?`,
+                    options: [
+                        `Understand the key concepts`,
+                        `Ignore the important information`,
+                        `Avoid examples`,
+                        `Skip the basic ideas`
+                    ],
+                    answer: "A) Understand the key concepts"
+                },
+
+                {
+                    q: `What should a beginner do when studying ${topic}?`,
+                    options: [
+                        `Start with the basic concepts`,
+                        `Skip all explanations`,
+                        `Avoid learning the fundamentals`,
+                        `Only memorize random information`
+                    ],
+                    answer: "A) Start with the basic concepts"
+                }
 
             ];
 
-
-            const questions = [];
-
-
-            for (
-                let i = 0;
-                i < number;
-                i++
-            ) {
-
-                const question =
-                    templates[
-                        i % templates.length
-                    ];
+        }
 
 
-                questions.push(
-`${i + 1}. ${question}
+        /*
+         * Shuffle questions
+         */
 
-A) Option A
-B) Option B
-C) Option C
-D) Option D
-
-Answer: ______`
-                );
-
-            }
+        questions =
+            [...questions]
+            .sort(() => Math.random() - 0.5);
 
 
-            setResult(
-`QUIZ: ${topic}
+        /*
+         * Select requested number
+         */
 
-${questions.join("\n\n")}`
+        const selected =
+            questions.slice(
+                0,
+                Math.min(count, questions.length)
             );
 
-        }
-    );
+
+        /*
+         * Build quiz output
+         */
+
+        let result =
+`QUIZ: ${topic}
+
+Difficulty:
+${difficulty}
+
+Questions:
+
+`;
+
+
+        selected.forEach((item, index) => {
+
+            result +=
+`${index + 1}. ${item.q}
+
+A) ${item.options[0]}
+B) ${item.options[1]}
+C) ${item.options[2]}
+D) ${item.options[3]}
+
+Answer: ${item.answer}
+
+`;
+
+        });
+
+
+        result +=
+`ANSWER KEY
+
+`;
+
+
+        selected.forEach((item, index) => {
+
+            result +=
+`${index + 1}. ${item.answer}
+`;
+
+        });
+
+
+        result +=
+`
+Tip:
+Read each question carefully before checking the answer key.`;
+
+
+        setResult(result);
+
+    });
 
 }
-
-
 /* =========================================
    7. WORD COUNTER
    ========================================= */
