@@ -530,10 +530,61 @@ const toolData = {
 
 };
 
-
 /* =========================================
    OPEN TOOL
    ========================================= */
+
+const toolPages = {
+
+    "prompt": "ai-prompt-builder.html",
+
+    "youtube-title":
+        "youtube-title-generator.html",
+
+    "content-ideas":
+        "content-idea-generator.html",
+
+    "youtube-description":
+        "youtube-description-generator.html",
+
+    "thumbnail":
+        "thumbnail-prompt-generator.html",
+
+    "quiz":
+        "quiz-generator.html",
+
+    "word":
+        "word-counter.html",
+
+    "formatter":
+        "text-formatter.html",
+
+    "characters":
+        "character-counter.html",
+
+    "case":
+        "case-converter.html",
+
+    "sentences":
+        "sentence-counter.html",
+
+    "reading":
+        "reading-time-calculator.html",
+
+    "tags":
+        "youtube-tag-generator.html",
+
+    "hashtags":
+        "hashtag-generator.html",
+
+    "cleaner":
+        "text-cleaner.html",
+
+    "bio":
+        "bio-generator.html"
+
+};
+
 
 document.querySelectorAll(".tool-open")
     .forEach(button => {
@@ -542,16 +593,20 @@ document.querySelectorAll(".tool-open")
             "click",
             () => {
 
-                openTool(
-                    button.dataset.tool
-                );
+                const toolName =
+                    button.dataset.tool;
+
+                if (toolPages[toolName]) {
+
+                    window.location.href =
+                        toolPages[toolName];
+
+                }
 
             }
         );
 
     });
-
-
 function openTool(toolName) {
 
     const tool =
