@@ -667,6 +667,7 @@ function standardForm(fields, buttonText) {
 }
 
 
+
 /* =========================================
    1. AI PROMPT BUILDER
    ========================================= */
@@ -769,7 +770,7 @@ Target audience:
 ${audience || "General audience"}
 
 Tone:
-${tone || "Clear, friendly and helpful"}
+${tone || "Friendly"}
 
 Requirements:
 - Give a clear and useful answer.
@@ -789,8 +790,6 @@ Provide the final answer directly and keep it relevant to the requested task.`;
     );
 
 }
-
-
 /* =========================================
    2. ADVANCED YOUTUBE TITLE GENERATOR
    ========================================= */
