@@ -1200,6 +1200,32 @@
 
 
 <script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script>
+  const SUPABASE_URL = "YAHAN_APNA_WAHI_PROJECT_URL";
+  const SUPABASE_PUBLISHABLE_KEY = "YAHAN_APNI_WAHI_PUBLISHABLE_KEY";
+
+  const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+  async function checkLogin() {
+    const { data: { session } } =
+      await supabaseClient.auth.getSession();
+
+    const authGate = document.getElementById("authGate");
+
+    if (session) {
+      authGate.style.display = "none";
+    } else {
+      authGate.style.display = "flex";
+    }
+  }
+
+  checkLogin();
+</script>
+    
 </body>
 </html>
