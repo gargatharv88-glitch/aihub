@@ -752,9 +752,8 @@ ${requirements ? "- " + requirements : ""}`;
 
 }
 
-
 /* =========================================
-   2. YOUTUBE TITLE
+   2. ADVANCED YOUTUBE TITLE GENERATOR
    ========================================= */
 
 function youtubeTitleTool() {
@@ -763,31 +762,54 @@ function youtubeTitleTool() {
 
         <div class="form-group">
 
-            <label>Video topic</label>
+            <label>What is your video about?</label>
 
-            <input
+            <textarea
                 id="titleTopic"
-                placeholder="Space facts for kids">
+                placeholder="Example: Make a YouTube video about space for kids and explain planets in a simple way..."
+                rows="4"></textarea>
 
         </div>
 
+        <div class="form-row">
 
-        <div class="form-group">
+            <div class="form-group">
 
-            <label>Style</label>
+                <label>Audience</label>
 
-            <select id="titleStyle">
+                <select id="titleAudience">
 
-                <option>Curiosity</option>
-                <option>Educational</option>
-                <option>Fun</option>
-                <option>Short & Punchy</option>
+                    <option>Automatically detect</option>
+                    <option>Kids</option>
+                    <option>Students</option>
+                    <option>Beginners</option>
+                    <option>General Audience</option>
+                    <option>Creators</option>
 
-            </select>
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Title Style</label>
+
+                <select id="titleStyle">
+
+                    <option>Automatically choose</option>
+                    <option>Curiosity</option>
+                    <option>Educational</option>
+                    <option>Fun</option>
+                    <option>Short & Punchy</option>
+                    <option>How-To</option>
+
+                </select>
+
+            </div>
 
         </div>
 
-    `, "Generate Titles");
+    `, "Generate Smart Titles");
 
 }
 
@@ -798,60 +820,407 @@ function activateYoutubeTitle() {
         "runTool"
     ).addEventListener("click", () => {
 
-        const topic =
-            getValue("titleTopic") ||
-            "Your Topic";
+        const input =
+            getValue("titleTopic");
 
-        const style =
+        if (!input) {
+
+            setResult(
+                "Please enter what your video is about."
+            );
+
+            return;
+
+        }
+
+        const text =
+            input.toLowerCase();
+
+        const audience =
+            getValue("titleAudience");
+
+        const selectedStyle =
             getValue("titleStyle");
 
 
-        const titles = {
+        /* -----------------------------------------
+           DETECT AUDIENCE
+        ----------------------------------------- */
 
-            "Curiosity": [
-                `You Won't Believe These Facts About ${topic}`,
-                `What Nobody Tells You About ${topic}`,
-                `7 Amazing Things About ${topic}`,
+        let detectedAudience =
+            audience;
+
+        if (
+            audience === "Automatically detect"
+        ) {
+
+            if (
+                text.includes("kids") ||
+                text.includes("children") ||
+                text.includes("child")
+            ) {
+
+                detectedAudience = "Kids";
+
+            } else if (
+                text.includes("student") ||
+                text.includes("school") ||
+                text.includes("class") ||
+                text.includes("exam") ||
+                text.includes("study")
+            ) {
+
+                detectedAudience = "Students";
+
+            } else if (
+                text.includes("beginner") ||
+                text.includes("beginners") ||
+                text.includes("basic") ||
+                text.includes("basics")
+            ) {
+
+                detectedAudience = "Beginners";
+
+            } else {
+
+                detectedAudience =
+                    "General Audience";
+
+            }
+
+        }
+
+
+        /* -----------------------------------------
+           CLEAN TOPIC
+        ----------------------------------------- */
+
+        let topic =
+            input
+                .replace(
+                    /^(make|create|give|generate|write)\s+/i,
+                    ""
+                )
+                .replace(
+                    /^(a|an|the)\s+/i,
+                    ""
+                )
+                .trim();
+
+        topic =
+            topic
+                .replace(
+                    /\bfor kids\b/gi,
+                    ""
+                )
+                .replace(
+                    /\bfor children\b/gi,
+                    ""
+                )
+                .replace(
+                    /\bin simple way\b/gi,
+                    ""
+                )
+                .replace(
+                    /\bsimply\b/gi,
+                    ""
+                )
+                .trim();
+
+
+        if (!topic) {
+
+            topic = input.trim();
+
+        }
+
+
+        /* -----------------------------------------
+           DETECT CONTENT TYPE
+        ----------------------------------------- */
+
+        let contentType =
+            "Video";
+
+        if (
+            text.includes("fact") ||
+            text.includes("facts")
+        ) {
+
+            contentType = "Facts";
+
+        } else if (
+            text.includes("tutorial") ||
+            text.includes("how to")
+        ) {
+
+            contentType = "How-To";
+
+        } else if (
+            text.includes("explained") ||
+            text.includes("explain")
+        ) {
+
+            contentType = "Explainer";
+
+        } else if (
+            text.includes("review")
+        ) {
+
+            contentType = "Review";
+
+        } else if (
+            text.includes("story")
+        ) {
+
+            contentType = "Story";
+
+        }
+
+
+        /* -----------------------------------------
+           SMART STYLE
+        ----------------------------------------- */
+
+        let style =
+            selectedStyle;
+
+        if (
+            selectedStyle ===
+            "Automatically choose"
+        ) {
+
+            if (detectedAudience === "Kids") {
+
+                style = "Fun";
+
+            } else if (
+                contentType === "How-To"
+            ) {
+
+                style = "How-To";
+
+            } else if (
+                contentType === "Facts" ||
+                contentType === "Explainer"
+            ) {
+
+                style = "Educational";
+
+            } else {
+
+                style = "Curiosity";
+
+            }
+
+        }
+
+
+        /* -----------------------------------------
+           TITLE GENERATION
+        ----------------------------------------- */
+
+        let titles = [];
+
+
+        if (style === "Curiosity") {
+
+            titles = [
+
+                `You Won't Believe These Amazing ${topic} Facts!`,
+
+                `What You Didn't Know About ${topic}`,
+
+                `The Amazing Truth About ${topic}`,
+
                 `How Much Do You Really Know About ${topic}?`,
-                `The Truth About ${topic}`
-            ],
 
-            "Educational": [
-                `${topic}: Complete Guide`,
+                `These ${topic} Facts Will Surprise You!`
+
+            ];
+
+        }
+
+
+        else if (style === "Educational") {
+
+            titles = [
+
                 `${topic} Explained Simply`,
-                `Learn ${topic} in Minutes`,
-                `Everything You Need to Know About ${topic}`,
-                `${topic} Facts Everyone Should Know`
-            ],
 
-            "Fun": [
-                `${topic} Is WAY More Fun Than You Think!`,
+                `Learn About ${topic} in a Simple Way`,
+
+                `${topic}: Everything You Need to Know`,
+
+                `Understanding ${topic} Made Easy`,
+
+                `Amazing ${topic} Facts You Should Know`
+
+            ];
+
+        }
+
+
+        else if (style === "Fun") {
+
+            titles = [
+
                 `Let's Explore ${topic}! 🚀`,
-                `The Funniest Facts About ${topic}`,
-                `${topic} Adventure Begins!`,
-                `You Need to See This ${topic} Video!`
-            ],
 
-            "Short & Punchy": [
-                `${topic} in 60 Seconds`,
-                `${topic} Explained Fast`,
-                `${topic} — WOW!`,
+                `The Fun Side of ${topic}! 🌟`,
+
+                `${topic} Adventure Begins! 🎉`,
+
+                `Amazing ${topic} for Curious Kids! 🪐`,
+
+                `Fun Facts About ${topic}! 🤩`
+
+            ];
+
+        }
+
+
+        else if (style === "Short & Punchy") {
+
+            titles = [
+
                 `${topic} Made Easy`,
-                `Quick ${topic} Facts`
 
-            ]
+                `${topic} Explained!`,
 
-        };
+                `${topic} — WOW!`,
+
+                `Quick ${topic} Facts`,
+
+                `${topic} in Minutes`
+
+            ];
+
+        }
 
 
-        setResult(
-            titles[style].join("\n\n")
-        );
+        else if (style === "How-To") {
+
+            titles = [
+
+                `How to Understand ${topic} Easily`,
+
+                `How ${topic} Works — Simple Explanation`,
+
+                `How to Learn ${topic} Step by Step`,
+
+                `How to Get Started With ${topic}`,
+
+                `${topic}: Easy Step-by-Step Guide`
+
+            ];
+
+        }
+
+
+        /* -----------------------------------------
+           AUDIENCE-SPECIFIC IMPROVEMENTS
+        ----------------------------------------- */
+
+        if (
+            detectedAudience === "Kids"
+        ) {
+
+            titles = [
+
+                ...titles,
+
+                `Amazing ${topic} for Kids! 🌟`,
+
+                `Let's Learn ${topic} Together! 🚀`
+
+            ];
+
+        }
+
+
+        if (
+            detectedAudience === "Students"
+        ) {
+
+            titles = [
+
+                ...titles,
+
+                `${topic} Explained for Students`,
+
+                `Learn ${topic} Quickly & Easily`
+
+            ];
+
+        }
+
+
+        if (
+            detectedAudience === "Beginners"
+        ) {
+
+            titles = [
+
+                ...titles,
+
+                `${topic} for Complete Beginners`,
+
+                `Beginner's Guide to ${topic}`
+
+            ];
+
+        }
+
+
+        /* -----------------------------------------
+           REMOVE DUPLICATES
+        ----------------------------------------- */
+
+        titles =
+            [...new Set(titles)]
+                .slice(0, 8);
+
+
+        /* -----------------------------------------
+           FINAL OUTPUT
+        ----------------------------------------- */
+
+        const result =
+
+`SMART YOUTUBE TITLES
+
+Topic:
+${topic}
+
+Audience:
+${detectedAudience}
+
+Content Type:
+${contentType}
+
+Style:
+${style}
+
+Generated Titles:
+
+${titles
+    .map(
+        (title, index) =>
+            `${index + 1}. ${title}`
+    )
+    .join("\n\n")}
+
+
+TIP:
+Choose the title that best matches the actual content of your video. Avoid misleading clickbait.`;
+
+
+        setResult(result);
 
     });
 
 }
-
 
 /* =========================================
    3. CONTENT IDEAS
