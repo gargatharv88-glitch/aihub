@@ -2,35 +2,41 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>AI Prompt Builder – Free AI Prompt Generator | AIHub</title>
+  <title>AI Prompt Builder – Free Smart Prompt Generator | AIHub</title>
 
   <meta
     name="description"
-    content="Create clear, structured and effective AI prompts with AIHub's free AI Prompt Builder. Build prompts for ChatGPT, Gemini and other AI assistants."
+    content="Create detailed, professional AI prompts from a simple task with AIHub's free Smart AI Prompt Builder. Automatically structure your task, audience, tone, goals and output format."
   >
 
   <meta name="robots" content="index, follow">
-  <link
-  rel="canonical"
-  href="https://gargatharv88-glitch.github.io/aihub/ai-prompt-builder.html"
->
 
-  <!-- Replace this with your actual GitHub Pages URL -->
   <link
     rel="canonical"
-    href="https://YOUR-USERNAME.github.io/YOUR-REPOSITORY/ai-prompt-builder.html"
+    href="https://gargatharv88-glitch.github.io/aihub/ai-prompt-builder.html"
   >
+
+  <meta property="og:title" content="AI Prompt Builder – AIHub">
+  <meta
+    property="og:description"
+    content="Turn a simple idea into a detailed, structured AI prompt with AIHub's free Smart Prompt Builder."
+  >
+  <meta property="og:type" content="website">
 
   <link rel="stylesheet" href="style.css">
 
   <style>
+    /* =========================================
+       AIHUB SMART PROMPT BUILDER
+       Page-specific styling
+    ========================================= */
+
     .prompt-page {
-      max-width: 1000px;
+      max-width: 1050px;
       margin: 0 auto;
-      padding: 40px 20px 80px;
+      padding: 45px 20px 80px;
     }
 
     .prompt-hero {
@@ -39,167 +45,231 @@
     }
 
     .prompt-hero h1 {
-      font-size: 42px;
-      margin-bottom: 12px;
+      font-size: clamp(32px, 5vw, 48px);
+      margin: 10px 0 14px;
     }
 
     .prompt-hero p {
-      max-width: 700px;
+      max-width: 760px;
       margin: 0 auto;
-      line-height: 1.7;
-      opacity: 0.85;
+      line-height: 1.75;
+      opacity: 0.82;
+      font-size: 17px;
     }
 
-    .prompt-box {
-      background: var(--card-bg, #ffffff);
-      border-radius: 18px;
-      padding: 28px;
-      box-shadow: 0 10px 35px rgba(0,0,0,0.08);
-      border: 1px solid rgba(0,0,0,0.08);
+    .smart-badge {
+      display: inline-block;
+      padding: 7px 13px;
+      border-radius: 999px;
+      background: rgba(108, 99, 255, 0.1);
+      color: #635bff;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
     }
 
-    .prompt-form-group {
-      margin-bottom: 20px;
+    .builder-card {
+      background: var(--card-bg, #fff);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
     }
 
-    .prompt-form-group label {
+    .input-label {
       display: block;
-      font-weight: 600;
-      margin-bottom: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 9px;
     }
 
-    .prompt-form-group input,
-    .prompt-form-group textarea {
+    .input-help {
+      font-size: 13px;
+      opacity: 0.68;
+      margin: 0 0 12px;
+    }
+
+    #taskInput {
       width: 100%;
-      padding: 13px 14px;
-      border: 1px solid #d7d7d7;
-      border-radius: 10px;
-      font-size: 15px;
+      min-height: 155px;
+      resize: vertical;
       box-sizing: border-box;
+      padding: 17px;
+      border-radius: 13px;
+      border: 1px solid #d8d8d8;
       font-family: inherit;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #222;
       background: #fff;
+    }
+
+    #taskInput:focus {
+      outline: none;
+      border-color: #6c63ff;
+      box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.1);
+    }
+
+    .char-count {
+      text-align: right;
+      font-size: 12px;
+      opacity: 0.6;
+      margin-top: 6px;
+    }
+
+    .action-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .primary-btn,
+    .secondary-btn,
+    .copy-btn {
+      border: none;
+      border-radius: 10px;
+      padding: 13px 18px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .primary-btn {
+      flex: 1;
+      background: #6c63ff;
+      color: #fff;
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-1px);
+      opacity: 0.92;
+    }
+
+    .secondary-btn {
+      background: #eeeeee;
       color: #222;
     }
 
-    .prompt-form-group textarea {
-      min-height: 120px;
-      resize: vertical;
+    .secondary-btn:hover,
+    .copy-btn:hover {
+      opacity: 0.85;
     }
 
-    .prompt-form-group input:focus,
-    .prompt-form-group textarea:focus {
-      outline: none;
-      border-color: #6c63ff;
-      box-shadow: 0 0 0 3px rgba(108,99,255,0.12);
-    }
-
-    .build-btn {
-      width: 100%;
-      padding: 14px 20px;
-      border: none;
-      border-radius: 10px;
-      background: #6c63ff;
-      color: white;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .build-btn:hover {
-      opacity: 0.9;
-      transform: translateY(-1px);
+    .status-message {
+      min-height: 20px;
+      margin-top: 12px;
+      font-size: 13px;
+      opacity: 0.7;
     }
 
     .result-box {
-      margin-top: 25px;
+      margin-top: 28px;
       border: 1px solid #ddd;
-      border-radius: 12px;
+      border-radius: 14px;
       overflow: hidden;
       background: #fafafa;
     }
 
     .result-header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 12px 15px;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 13px 15px;
       background: #f1f1f1;
       border-bottom: 1px solid #ddd;
     }
 
-    .result-header strong {
-      font-size: 15px;
+    .result-title {
+      font-weight: 800;
     }
 
     .copy-btn {
-      border: none;
-      padding: 7px 13px;
-      border-radius: 7px;
       background: #222;
-      color: white;
+      color: #fff;
+      padding: 8px 13px;
+      font-size: 13px;
+    }
+
+    #promptResult {
+      padding: 22px;
+      white-space: pre-wrap;
+      line-height: 1.7;
+      min-height: 220px;
+      color: #222;
+      font-family: inherit;
+      overflow-wrap: anywhere;
+    }
+
+    .example-section {
+      margin-top: 25px;
+    }
+
+    .example-title {
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .example-chip {
+      display: inline-block;
+      margin: 5px 5px 0 0;
+      padding: 9px 12px;
+      border-radius: 9px;
+      border: 1px solid #ddd;
+      background: #f7f7f7;
       cursor: pointer;
       font-size: 13px;
     }
 
-    .copy-btn:hover {
-      opacity: 0.85;
-    }
-
-    #promptResult {
-      padding: 20px;
-      white-space: pre-wrap;
-      line-height: 1.7;
-      min-height: 160px;
-      font-family: inherit;
-      color: #222;
+    .example-chip:hover {
+      background: #eeeeee;
     }
 
     .info-section {
-      margin-top: 55px;
+      margin-top: 60px;
       line-height: 1.8;
     }
 
     .info-section h2 {
-      margin-top: 35px;
+      margin-top: 38px;
       margin-bottom: 12px;
     }
 
-    .info-section h3 {
-      margin-top: 25px;
+    .info-section li {
+      margin-bottom: 8px;
     }
 
     .faq-item {
       margin: 12px 0;
       border: 1px solid #ddd;
-      border-radius: 10px;
+      border-radius: 11px;
       padding: 14px 16px;
     }
 
     .faq-item summary {
       cursor: pointer;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .related-tools {
-      margin-top: 35px;
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
+      margin-top: 18px;
     }
 
     .related-tools a {
-      display: inline-block;
       padding: 10px 14px;
       border-radius: 9px;
       background: #f1f1f1;
-      text-decoration: none;
       color: inherit;
+      text-decoration: none;
       font-weight: 600;
     }
 
     .page-nav {
-      padding: 18px 20px;
+      padding: 17px 20px;
       border-bottom: 1px solid rgba(0,0,0,0.08);
     }
 
@@ -208,17 +278,22 @@
       font-weight: 700;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 650px) {
       .prompt-page {
-        padding: 25px 15px 60px;
+        padding: 28px 15px 60px;
       }
 
-      .prompt-hero h1 {
-        font-size: 32px;
-      }
-
-      .prompt-box {
+      .builder-card {
         padding: 20px;
+      }
+
+      .action-row {
+        flex-direction: column;
+      }
+
+      .primary-btn,
+      .secondary-btn {
+        width: 100%;
       }
     }
   </style>
@@ -226,158 +301,201 @@
 
 <body>
 
-  <!-- Simple navigation -->
+  <!-- Navigation -->
   <nav class="page-nav">
-    <a href="index.html">← AIHub Home</a>
+    <a href="index.html">← Back to AIHub</a>
   </nav>
+
 
   <main class="prompt-page">
 
     <!-- Hero -->
     <section class="prompt-hero">
-      <div class="eyebrow">FREE AI TOOL</div>
+
+      <span class="smart-badge">
+        ✨ SMART AI TOOL
+      </span>
 
       <h1>AI Prompt Builder</h1>
 
       <p>
-        Create clear, structured and useful prompts for AI assistants.
-        Define your task, audience, tone and requirements to build a
-        ready-to-use prompt in seconds.
+        Turn a simple idea into a clear, detailed and professional AI prompt.
+        Just describe what you want AI to do and AIHub will structure the
+        task, audience, tone, goals, requirements and output format for you.
       </p>
+
     </section>
 
 
-    <!-- Prompt Builder -->
-    <section class="prompt-box">
+    <!-- Builder -->
+    <section class="builder-card">
 
-      <form id="promptForm">
+      <label class="input-label" for="taskInput">
+        What do you want AI to do?
+      </label>
 
-        <div class="prompt-form-group">
-          <label for="promptTask">What do you want the AI to do?</label>
+      <p class="input-help">
+        Describe your idea naturally. You don't need to write a perfect prompt.
+      </p>
 
-          <input
-            type="text"
-            id="promptTask"
-            placeholder="Make a YouTube video about space for kids"
-          >
+      <textarea
+        id="taskInput"
+        maxlength="3000"
+        placeholder="Example: Make a YouTube video about space for kids"
+      ></textarea>
+
+      <div class="char-count">
+        <span id="charCount">0</span>/3000
+      </div>
+
+
+      <!-- Examples -->
+      <div class="example-section">
+
+        <div class="example-title">
+          Try an example:
         </div>
 
-
-        <div class="prompt-form-group">
-          <label for="promptAudience">Target Audience</label>
-
-          <input
-            type="text"
-            id="promptAudience"
-            placeholder="Kids 2-8"
-          >
-        </div>
-
-
-        <div class="prompt-form-group">
-          <label for="promptTone">Tone</label>
-
-          <input
-            type="text"
-            id="promptTone"
-            placeholder="Friendly"
-          >
-        </div>
-
-
-        <div class="prompt-form-group">
-          <label for="promptRequirements">Additional Requirements</label>
-
-          <textarea
-            id="promptRequirements"
-            placeholder="Keep it simple and engaging. Include examples."
-          ></textarea>
-        </div>
-
-
-        <button type="submit" class="build-btn">
-          Build Prompt
+        <button class="example-chip" type="button"
+          data-example="Make a YouTube video about space for kids">
+          YouTube Video
         </button>
 
-      </form>
+        <button class="example-chip" type="button"
+          data-example="Explain photosynthesis for a Class 10 student">
+          Education
+        </button>
+
+        <button class="example-chip" type="button"
+          data-example="Write an Instagram caption for a new clothing brand">
+          Social Media
+        </button>
+
+        <button class="example-chip" type="button"
+          data-example="Write a professional resume for a student">
+          Resume
+        </button>
+
+        <button class="example-chip" type="button"
+          data-example="Create a blog article about healthy study habits">
+          Blog
+        </button>
+
+        <button class="example-chip" type="button"
+          data-example="Create a Python program that calculates the average of numbers">
+          Coding
+        </button>
+
+      </div>
+
+
+      <!-- Actions -->
+      <div class="action-row">
+
+        <button
+          type="button"
+          class="primary-btn"
+          id="buildPromptBtn"
+        >
+          ✨ Build Smart Prompt
+        </button>
+
+        <button
+          type="button"
+          class="secondary-btn"
+          id="clearBtn"
+        >
+          Clear
+        </button>
+
+      </div>
+
+      <div
+        class="status-message"
+        id="statusMessage"
+        aria-live="polite"
+      ></div>
 
 
       <!-- Result -->
       <div class="result-box">
 
         <div class="result-header">
-          <strong>Your AI Prompt</strong>
+
+          <span class="result-title">
+            Your Smart Prompt
+          </span>
 
           <button
             type="button"
             class="copy-btn"
-            id="copyPrompt"
+            id="copyBtn"
           >
             Copy
           </button>
+
         </div>
 
-        <div id="promptResult">Your generated prompt will appear here.</div>
+        <div
+          id="promptResult"
+          aria-live="polite"
+        >
+Your detailed prompt will appear here.
+        </div>
 
       </div>
 
     </section>
 
 
-    <!-- SEO Content -->
+    <!-- SEO / Educational Content -->
     <section class="info-section">
 
-      <h2>What is an AI Prompt Builder?</h2>
+      <h2>What Is an AI Prompt Builder?</h2>
 
       <p>
-        An AI Prompt Builder helps you create clear instructions for AI
-        assistants. Instead of writing a prompt from scratch, you can
-        describe your task, audience, tone and requirements and turn
-        those details into a structured prompt.
+        An AI Prompt Builder helps turn a simple idea into a structured
+        instruction that an AI assistant can understand more easily.
+        Instead of worrying about writing the perfect prompt, you can
+        describe what you need in normal language.
       </p>
 
       <p>
-        A well-structured prompt can make it easier for an AI assistant
-        to understand what you want and produce a response in the format
-        you need.
+        AIHub's Smart Prompt Builder analyzes common task patterns and
+        creates a structured prompt with relevant instructions, context,
+        tone and output guidance.
       </p>
 
 
-      <h2>How to Use the AI Prompt Builder</h2>
+      <h2>How to Create a Better AI Prompt</h2>
 
       <ol>
-        <li>Enter the task you want the AI to complete.</li>
-        <li>Specify your target audience.</li>
-        <li>Choose the tone you want the response to use.</li>
-        <li>Add any extra requirements or instructions.</li>
-        <li>Click <strong>Build Prompt</strong>.</li>
-        <li>Copy the generated prompt and use it with your AI assistant.</li>
+        <li>Describe what you want the AI to accomplish.</li>
+        <li>Give important context when you have it.</li>
+        <li>Mention the intended audience if it matters.</li>
+        <li>Specify important limitations or requirements.</li>
+        <li>Tell the AI what type of output you want when necessary.</li>
       </ol>
 
 
-      <h2>Example AI Prompt</h2>
-
-      <p>
-        For example, you can create a prompt for a children's YouTube
-        video, a blog post, study material, social media content,
-        product description or many other tasks.
-      </p>
-
-      <p>
-        The builder organizes your information into sections such as
-        Task, Target Audience, Tone and Requirements.
-      </p>
-
-
-      <h2>Why Use Structured AI Prompts?</h2>
+      <h2>Why Use a Smart Prompt Builder?</h2>
 
       <ul>
-        <li>Clearly explain the task to the AI.</li>
-        <li>Specify who the content is for.</li>
-        <li>Set the desired writing style or tone.</li>
-        <li>Add important instructions and limitations.</li>
-        <li>Create reusable prompts for repeated tasks.</li>
+        <li>You don't need to know complicated prompt-writing techniques.</li>
+        <li>You can start with a simple idea.</li>
+        <li>Common task types receive more relevant instructions.</li>
+        <li>The resulting prompt is easier to copy and reuse.</li>
+        <li>You can adapt the generated prompt for different AI assistants.</li>
       </ul>
+
+
+      <h2>Who Can Use This Tool?</h2>
+
+      <p>
+        The Prompt Builder can be useful for students, content creators,
+        YouTubers, writers, marketers, developers, teachers, businesses
+        and anyone who regularly works with AI assistants.
+      </p>
 
 
       <!-- FAQ -->
@@ -387,51 +505,60 @@
         <summary>Is the AI Prompt Builder free?</summary>
 
         <p>
-          Yes. The AIHub Prompt Builder is designed as a free browser-based
-          tool for creating structured AI prompts.
+          Yes. AIHub provides this basic Smart Prompt Builder as a free
+          browser-based tool.
         </p>
       </details>
 
 
       <details class="faq-item">
-        <summary>Does this tool generate the AI answer?</summary>
+        <summary>Do I need to know prompt engineering?</summary>
 
         <p>
-          No. The tool creates the prompt itself. You can then copy the
-          prompt and use it with an AI assistant such as ChatGPT or another
-          compatible AI tool.
+          No. You can describe your task in normal language. The builder
+          structures the information into a more detailed prompt.
         </p>
       </details>
 
 
       <details class="faq-item">
-        <summary>What can I create prompts for?</summary>
+        <summary>Can I use the generated prompt with ChatGPT?</summary>
 
         <p>
-          You can create prompts for content writing, YouTube videos,
-          education, brainstorming, social media, marketing, explanations,
-          research and many other tasks.
+          Yes. You can copy the generated prompt and use it with ChatGPT
+          or another AI assistant that accepts text prompts.
         </p>
       </details>
 
 
       <details class="faq-item">
-        <summary>Do I need an API key?</summary>
+        <summary>Does this tool require an API key?</summary>
 
         <p>
-          No. This Prompt Builder creates the prompt directly in your
-          browser and does not require an AI API key.
+          No. This version runs its prompt-building logic directly in the
+          browser and does not require you to enter an AI API key.
         </p>
       </details>
 
 
-      <!-- Related Tools -->
-      <h2>More AIHub Tools</h2>
+      <details class="faq-item">
+        <summary>What types of tasks can it handle?</summary>
+
+        <p>
+          It includes smart handling for common categories such as
+          YouTube content, education, writing, social media, resumes,
+          blogging, coding, marketing and general tasks.
+        </p>
+      </details>
+
+
+      <!-- Related -->
+      <h2>Explore More AIHub Tools</h2>
 
       <div class="related-tools">
 
         <a href="index.html#tools">
-          Explore All AIHub Tools
+          All AIHub Tools
         </a>
 
         <a href="index.html#tools">
@@ -440,6 +567,10 @@
 
         <a href="index.html#tools">
           Content Generators
+        </a>
+
+        <a href="index.html#tools">
+          Productivity Tools
         </a>
 
       </div>
@@ -451,97 +582,712 @@
 
   <!-- Footer -->
   <footer style="text-align:center; padding:30px 20px;">
+
     <p>
-      © 2026 AIHub. Free AI and productivity tools.
+      © 2026 AIHub. Free AI & productivity tools.
     </p>
 
     <a href="index.html">
       Back to AIHub
     </a>
+
   </footer>
 
 
-  <!-- Standalone Prompt Builder JavaScript -->
   <script>
 
-    const promptForm = document.getElementById("promptForm");
+    /* =========================================
+       AIHUB SMART PROMPT ENGINE
+    ========================================= */
+
+    const taskInput = document.getElementById("taskInput");
+    const buildPromptBtn = document.getElementById("buildPromptBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    const copyBtn = document.getElementById("copyBtn");
     const promptResult = document.getElementById("promptResult");
-    const copyPrompt = document.getElementById("copyPrompt");
-
-    promptForm.addEventListener("submit", function(event) {
-
-      event.preventDefault();
-
-      const task =
-        document.getElementById("promptTask").value.trim();
-
-      const audience =
-        document.getElementById("promptAudience").value.trim();
-
-      const tone =
-        document.getElementById("promptTone").value.trim();
-
-      const requirements =
-        document.getElementById("promptRequirements").value.trim();
+    const charCount = document.getElementById("charCount");
+    const statusMessage = document.getElementById("statusMessage");
 
 
-      const finalPrompt = `Act as an expert assistant.
+    /* Character counter */
 
-Task:
-${task || "Complete the requested task"}
+    taskInput.addEventListener("input", function() {
 
-Target audience:
-${audience || "General audience"}
+      charCount.textContent = taskInput.value.length;
 
-Tone:
-${tone || "Clear and helpful"}
+    });
 
-Requirements:
-- Give a clear and useful answer.
-- Organize the response with headings where helpful.
-- Include practical examples when appropriate.
-- Avoid unnecessary information.
-- Make the final response easy to use.
-${requirements ? "- " + requirements : ""}`;
+
+    /* =========================================
+       TEXT NORMALIZATION
+    ========================================= */
+
+    function normalizeText(text) {
+
+      return text
+        .replace(/\s+/g, " ")
+        .trim();
+
+    }
+
+
+    function capitalizeFirst(text) {
+
+      if (!text) return "";
+
+      return text.charAt(0).toUpperCase() + text.slice(1);
+
+    }
+
+
+    /* =========================================
+       TASK DETECTION
+    ========================================= */
+
+    function detectTask(text) {
+
+      const lower = text.toLowerCase();
+
+      if (
+        /youtube|video|shorts|reel|channel|thumbnail|title|description/.test(lower)
+      ) {
+        return "content";
+      }
+
+      if (
+        /class\s*(6|7|8|9|10|11|12)|student|homework|study|exam|lesson|chapter|explain.*science|math|biology|chemistry|physics/.test(lower)
+      ) {
+        return "education";
+      }
+
+      if (
+        /instagram|facebook|social media|caption|hashtag|linkedin|tweet|post/.test(lower)
+      ) {
+        return "social";
+      }
+
+      if (
+        /resume|cv|cover letter|job application|career|interview/.test(lower)
+      ) {
+        return "career";
+      }
+
+      if (
+        /python|javascript|html|css|code|coding|program|programming|website|bug|function|api/.test(lower)
+      ) {
+        return "coding";
+      }
+
+      if (
+        /blog|article|essay|story|script|write|rewrite|paragraph|email|letter/.test(lower)
+      ) {
+        return "writing";
+      }
+
+      if (
+        /business|marketing|brand|product|customer|advertisement|ad copy|sales/.test(lower)
+      ) {
+        return "business";
+      }
+
+      if (
+        /research|report|analysis|compare|comparison|data|survey/.test(lower)
+      ) {
+        return "research";
+      }
+
+      return "general";
+
+    }
+
+
+    /* =========================================
+       AUDIENCE DETECTION
+    ========================================= */
+
+    function detectAudience(text, category) {
+
+      const lower = text.toLowerCase();
+
+      const ageMatch = lower.match(
+        /(?:age|aged)\s*(\d+)\s*(?:to|-)\s*(\d+)/
+      );
+
+      if (ageMatch) {
+        return `People aged ${ageMatch[1]}–${ageMatch[2]}`;
+      }
+
+      if (/kids|children|child/.test(lower)) {
+        return "Children";
+      }
+
+      if (/student|class\s*\d+|school/.test(lower)) {
+        return "Students";
+      }
+
+      if (/teacher|teachers|educator/.test(lower)) {
+        return "Teachers and educators";
+      }
+
+      if (/developer|programmer|coding/.test(lower)) {
+        return "Developers and technical users";
+      }
+
+      if (/customer|customers|buyer|buyers/.test(lower)) {
+        return "Potential customers";
+      }
+
+      if (/business|marketing|brand/.test(lower)) {
+        return "Business and marketing audiences";
+      }
+
+      if (category === "social") {
+        return "Social media audience";
+      }
+
+      if (category === "career") {
+        return "Recruiters and professional audiences";
+      }
+
+      return "A general audience";
+
+    }
+
+
+    /* =========================================
+       TONE DETECTION
+    ========================================= */
+
+    function detectTone(text, category) {
+
+      const lower = text.toLowerCase();
+
+      if (/kids|children|child/.test(lower)) {
+        return "Friendly, fun, engaging and age-appropriate";
+      }
+
+      if (
+        /class\s*\d+|student|homework|exam|study|lesson/.test(lower)
+      ) {
+        return "Clear, educational and easy to understand";
+      }
+
+      if (/resume|cv|job|career|interview/.test(lower)) {
+        return "Professional, confident and concise";
+      }
+
+      if (/business|marketing|brand|sales|customer/.test(lower)) {
+        return "Professional, persuasive and audience-focused";
+      }
+
+      if (/research|report|analysis|compare/.test(lower)) {
+        return "Objective, analytical and informative";
+      }
+
+      if (/code|coding|program|developer|api/.test(lower)) {
+        return "Technical, precise and practical";
+      }
+
+      if (/instagram|social media|caption|reel/.test(lower)) {
+        return "Engaging, concise and platform-appropriate";
+      }
+
+      if (category === "writing") {
+        return "Clear, natural and polished";
+      }
+
+      if (category === "content") {
+        return "Engaging, clear and audience-focused";
+      }
+
+      return "Clear, helpful and professional";
+
+    }
+
+
+    /* =========================================
+       GOAL DETECTION
+    ========================================= */
+
+    function detectGoal(text, category) {
+
+      const lower = text.toLowerCase();
+
+      if (/youtube|video|shorts/.test(lower)) {
+        return "Create useful and engaging video content that keeps the intended audience interested.";
+      }
+
+      if (/study|exam|homework|student|explain/.test(lower)) {
+        return "Make the subject easy to understand and useful for learning.";
+      }
+
+      if (/resume|cv|career|job/.test(lower)) {
+        return "Present information clearly and professionally for a career-related purpose.";
+      }
+
+      if (/instagram|social media|caption|reel/.test(lower)) {
+        return "Create concise and engaging content suitable for social media.";
+      }
+
+      if (/blog|article|essay/.test(lower)) {
+        return "Create useful, well-organized written content that is easy to read.";
+      }
+
+      if (/code|coding|program|website/.test(lower)) {
+        return "Provide a practical and reliable technical solution with clear implementation guidance.";
+      }
+
+      if (/marketing|business|sales|brand/.test(lower)) {
+        return "Create practical content designed to communicate value and achieve a business objective.";
+      }
+
+      if (/research|analysis|compare/.test(lower)) {
+        return "Provide an organized and evidence-oriented response that supports understanding and decision-making.";
+      }
+
+      return "Complete the requested task accurately and provide a useful, practical result.";
+
+    }
+
+
+    /* =========================================
+       REQUIREMENTS
+    ========================================= */
+
+    function getRequirements(category, text) {
+
+      const requirements = [];
+
+      requirements.push(
+        "Understand the user's task before producing the final answer."
+      );
+
+      requirements.push(
+        "Do not add unnecessary information."
+      );
+
+      requirements.push(
+        "Use clear structure with appropriate headings or sections."
+      );
+
+      requirements.push(
+        "Keep the response practical and easy to use."
+      );
+
+      if (category === "content") {
+
+        requirements.push(
+          "Create an engaging structure with a strong introduction and logical flow."
+        );
+
+        requirements.push(
+          "Keep the content appropriate for the intended audience."
+        );
+
+      }
+
+      if (category === "education") {
+
+        requirements.push(
+          "Explain difficult concepts using simple language."
+        );
+
+        requirements.push(
+          "Use examples when they improve understanding."
+        );
+
+        requirements.push(
+          "Avoid unexplained jargon."
+        );
+
+      }
+
+      if (category === "social") {
+
+        requirements.push(
+          "Keep the content concise and attention-grabbing."
+        );
+
+        requirements.push(
+          "Use natural language suitable for the selected platform."
+        );
+
+      }
+
+      if (category === "career") {
+
+        requirements.push(
+          "Use professional and polished language."
+        );
+
+        requirements.push(
+          "Highlight relevant strengths without making unsupported claims."
+        );
+
+      }
+
+      if (category === "coding") {
+
+        requirements.push(
+          "Provide practical, readable and maintainable code when code is requested."
+        );
+
+        requirements.push(
+          "Explain important implementation details clearly."
+        );
+
+        requirements.push(
+          "Do not invent unavailable APIs, libraries or requirements."
+        );
+
+      }
+
+      if (category === "writing") {
+
+        requirements.push(
+          "Use natural language and avoid unnecessary repetition."
+        );
+
+        requirements.push(
+          "Maintain a logical beginning, middle and ending where appropriate."
+        );
+
+      }
+
+      if (category === "business") {
+
+        requirements.push(
+          "Focus on the intended audience and business objective."
+        );
+
+        requirements.push(
+          "Keep recommendations practical and realistic."
+        );
+
+      }
+
+      if (category === "research") {
+
+        requirements.push(
+          "Separate facts, assumptions and recommendations when relevant."
+        );
+
+        requirements.push(
+          "Avoid presenting uncertain information as confirmed fact."
+        );
+
+      }
+
+      return requirements;
+
+    }
+
+
+    /* =========================================
+       OUTPUT FORMAT
+    ========================================= */
+
+    function getOutputFormat(category, text) {
+
+      const lower = text.toLowerCase();
+
+      if (/youtube|video|shorts/.test(lower)) {
+
+        return [
+          "Provide:",
+          "1. A suitable title",
+          "2. A strong introduction",
+          "3. The main content/script",
+          "4. Useful supporting details or examples",
+          "5. A clear ending",
+          "6. A suitable call to action when appropriate"
+        ];
+
+      }
+
+      if (category === "education") {
+
+        return [
+          "Provide:",
+          "1. A simple explanation",
+          "2. Key concepts",
+          "3. Examples where useful",
+          "4. Important points to remember",
+          "5. A short recap"
+        ];
+
+      }
+
+      if (category === "social") {
+
+        return [
+          "Provide:",
+          "1. The main content",
+          "2. A concise version if useful",
+          "3. Relevant hashtags or supporting elements when appropriate"
+        ];
+
+      }
+
+      if (category === "career") {
+
+        return [
+          "Provide:",
+          "1. A polished final version",
+          "2. Clear sections",
+          "3. Professional wording",
+          "4. A concise version where useful"
+        ];
+
+      }
+
+      if (category === "coding") {
+
+        return [
+          "Provide:",
+          "1. The solution or code",
+          "2. A short explanation",
+          "3. Important implementation notes",
+          "4. Common issues or edge cases when relevant"
+        ];
+
+      }
+
+      if (category === "business") {
+
+        return [
+          "Provide:",
+          "1. The recommended result",
+          "2. Key reasoning or strategy",
+          "3. Practical examples",
+          "4. Actionable next steps"
+        ];
+
+      }
+
+      if (category === "research") {
+
+        return [
+          "Provide:",
+          "1. A concise overview",
+          "2. Key findings or points",
+          "3. Relevant comparisons or evidence",
+          "4. Practical conclusions"
+        ];
+
+      }
+
+      return [
+        "Provide:",
+        "1. A clear direct answer or result",
+        "2. Well-organized supporting details",
+        "3. Practical examples when useful",
+        "4. A concise conclusion or next step"
+      ];
+
+    }
+
+
+    /* =========================================
+       SMART PROMPT GENERATOR
+    ========================================= */
+
+    function buildSmartPrompt() {
+
+      const rawTask = normalizeText(taskInput.value);
+
+      if (!rawTask) {
+
+        statusMessage.textContent =
+          "Please describe what you want AI to do.";
+
+        taskInput.focus();
+
+        return;
+
+      }
+
+      const category = detectTask(rawTask);
+
+      const audience = detectAudience(rawTask, category);
+
+      const tone = detectTone(rawTask, category);
+
+      const goal = detectGoal(rawTask, category);
+
+      const requirements = getRequirements(category, rawTask);
+
+      const outputFormat = getOutputFormat(category, rawTask);
+
+
+      const taskSentence = capitalizeFirst(rawTask);
+
+
+      const finalPrompt = `Act as an expert assistant specialized in the user's requested task.
+
+PRIMARY TASK:
+${taskSentence}
+
+TASK CATEGORY:
+${capitalizeFirst(category)}
+
+TARGET AUDIENCE:
+${audience}
+
+PRIMARY GOAL:
+${goal}
+
+TONE AND STYLE:
+${tone}
+
+CONTEXT:
+Use the user's original task as the primary source of intent. Infer only reasonable details that are necessary to complete the task. Do not invent specific facts, names, statistics, sources or requirements that were not provided.
+
+REQUIREMENTS:
+${requirements.map(item => "- " + item).join("\n")}
+
+OUTPUT FORMAT:
+${outputFormat.join("\n")}
+
+QUALITY RULES:
+- Follow the user's actual intent rather than blindly following a generic template.
+- Prioritize accuracy, clarity and usefulness.
+- Keep the response appropriate for the target audience.
+- Use specific details when they are available.
+- Ask for clarification only when an essential detail is genuinely missing.
+- Do not overcomplicate a simple request.
+- Avoid repetition and filler.
+- Make the final result ready to use.
+
+FINAL INSTRUCTION:
+Complete the task above and return the best possible result while following all relevant requirements.`;
 
 
       promptResult.textContent = finalPrompt;
 
-    });
+      statusMessage.textContent =
+        "Smart prompt created successfully.";
+
+    }
 
 
-    copyPrompt.addEventListener("click", async function() {
+    /* =========================================
+       BUTTONS
+    ========================================= */
 
-      const text = promptResult.textContent;
+    buildPromptBtn.addEventListener(
+      "click",
+      buildSmartPrompt
+    );
 
-      if (
-        !text ||
-        text === "Your generated prompt will appear here."
-      ) {
-        return;
+
+    clearBtn.addEventListener(
+      "click",
+      function() {
+
+        taskInput.value = "";
+
+        charCount.textContent = "0";
+
+        promptResult.textContent =
+          "Your detailed prompt will appear here.";
+
+        statusMessage.textContent = "";
+
+        taskInput.focus();
+
       }
+    );
 
-      try {
 
-        await navigator.clipboard.writeText(text);
+    /* =========================================
+       COPY
+    ========================================= */
 
-        copyPrompt.textContent = "Copied!";
+    copyBtn.addEventListener(
+      "click",
+      async function() {
 
-        setTimeout(function() {
-          copyPrompt.textContent = "Copy";
-        }, 1500);
+        const text = promptResult.textContent;
 
-      } catch (error) {
+        if (
+          !text ||
+          text === "Your detailed prompt will appear here."
+        ) {
 
-        copyPrompt.textContent = "Copy failed";
+          statusMessage.textContent =
+            "Create a prompt first.";
 
-        setTimeout(function() {
-          copyPrompt.textContent = "Copy";
-        }, 1500);
+          return;
+
+        }
+
+        try {
+
+          await navigator.clipboard.writeText(text);
+
+          copyBtn.textContent = "Copied!";
+
+          setTimeout(function() {
+
+            copyBtn.textContent = "Copy";
+
+          }, 1500);
+
+          statusMessage.textContent =
+            "Prompt copied to clipboard.";
+
+        } catch (error) {
+
+          statusMessage.textContent =
+            "Copy failed. Please select and copy the prompt manually.";
+
+        }
 
       }
+    );
 
-    });
+
+    /* =========================================
+       EXAMPLE BUTTONS
+    ========================================= */
+
+    document.querySelectorAll(".example-chip")
+      .forEach(function(button) {
+
+        button.addEventListener("click", function() {
+
+          taskInput.value =
+            button.getAttribute("data-example");
+
+          charCount.textContent =
+            taskInput.value.length;
+
+          taskInput.focus();
+
+        });
+
+      });
+
+
+    /* =========================================
+       CTRL + ENTER SHORTCUT
+    ========================================= */
+
+    taskInput.addEventListener(
+      "keydown",
+      function(event) {
+
+        if (event.ctrlKey && event.key === "Enter") {
+
+          event.preventDefault();
+
+          buildSmartPrompt();
+
+        }
+
+      }
+    );
 
   </script>
 
