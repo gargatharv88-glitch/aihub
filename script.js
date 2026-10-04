@@ -1,5 +1,7 @@
 /* =========================================
-   AIHUB V1 JAVASCRIPT
+   AIHUB - ADVANCED JAVASCRIPT
+   GitHub Pages Compatible
+   No API / No External Dependencies
    ========================================= */
 
 
@@ -40,6 +42,72 @@ const toast =
 
 
 /* =========================================
+   SAFE HELPERS
+   ========================================= */
+
+function getValue(id) {
+
+    const element = document.getElementById(id);
+
+    return element
+        ? element.value.trim()
+        : "";
+
+}
+
+
+function setResult(text) {
+
+    const result =
+        document.getElementById("result");
+
+    if (result) {
+        result.textContent =
+            text || "No result.";
+    }
+
+}
+
+
+function escapeRegExp(text) {
+
+    return text.replace(
+        /[.*+?^${}()|[\]\\]/g,
+        "\\$&"
+    );
+
+}
+
+
+function cleanSpaces(text) {
+
+    return String(text || "")
+        .replace(/\s+/g, " ")
+        .trim();
+
+}
+
+
+function capitalize(text) {
+
+    if (!text) return "";
+
+    return text.charAt(0).toUpperCase() +
+        text.slice(1);
+
+}
+
+
+function unique(array) {
+
+    return [...new Set(
+        array.filter(Boolean)
+    )];
+
+}
+
+
+/* =========================================
    THEME
    ========================================= */
 
@@ -49,7 +117,10 @@ const themeBtn =
 const savedTheme =
     localStorage.getItem("aihub-theme");
 
-if (savedTheme === "dark") {
+if (
+    savedTheme === "dark" &&
+    themeBtn
+) {
 
     document.body.classList.add("dark");
 
@@ -58,22 +129,29 @@ if (savedTheme === "dark") {
 }
 
 
-themeBtn.addEventListener("click", () => {
+if (themeBtn) {
 
-    document.body.classList.toggle("dark");
+    themeBtn.addEventListener(
+        "click",
+        () => {
 
-    const dark =
-        document.body.classList.contains("dark");
+            document.body.classList.toggle("dark");
 
-    localStorage.setItem(
-        "aihub-theme",
-        dark ? "dark" : "light"
+            const dark =
+                document.body.classList.contains("dark");
+
+            localStorage.setItem(
+                "aihub-theme",
+                dark ? "dark" : "light"
+            );
+
+            themeBtn.textContent =
+                dark ? "☀️" : "🌙";
+
+        }
     );
 
-    themeBtn.textContent =
-        dark ? "☀️" : "🌙";
-
-});
+}
 
 
 /* =========================================
@@ -87,21 +165,33 @@ const mainNav =
     document.getElementById("mainNav");
 
 
-menuBtn.addEventListener("click", () => {
+if (menuBtn && mainNav) {
 
-    mainNav.classList.toggle("open");
+    menuBtn.addEventListener(
+        "click",
+        () => {
 
-});
+            mainNav.classList.toggle("open");
+
+        }
+    );
+
+}
 
 
 document.querySelectorAll("#mainNav a")
     .forEach(link => {
 
-        link.addEventListener("click", () => {
+        link.addEventListener(
+            "click",
+            () => {
 
-            mainNav.classList.remove("open");
+                if (mainNav) {
+                    mainNav.classList.remove("open");
+                }
 
-        });
+            }
+        );
 
     });
 
@@ -111,6 +201,8 @@ document.querySelectorAll("#mainNav a")
    ========================================= */
 
 function showToast(message) {
+
+    if (!toast) return;
 
     toast.textContent = message;
 
@@ -154,26 +246,33 @@ async function copyText(text) {
 
 function filterTools() {
 
+    if (!toolSearch) return;
+
     const query =
         toolSearch.value
             .toLowerCase()
             .trim();
 
-    const activeCategory =
+    const activeButton =
         document.querySelector(
             ".category-btn.active"
-        ).dataset.category;
+        );
+
+    const activeCategory =
+        activeButton
+            ? activeButton.dataset.category
+            : "all";
 
     let visible = 0;
-
 
     toolCards.forEach(card => {
 
         const name =
-            card.dataset.name.toLowerCase();
+            (card.dataset.name || "")
+                .toLowerCase();
 
         const category =
-            card.dataset.category;
+            card.dataset.category || "";
 
         const matchesSearch =
             name.includes(query);
@@ -181,7 +280,6 @@ function filterTools() {
         const matchesCategory =
             activeCategory === "all" ||
             category === activeCategory;
-
 
         if (
             matchesSearch &&
@@ -201,38 +299,59 @@ function filterTools() {
     });
 
 
-    document.getElementById("noTools")
-        .style.display =
+    const noTools =
+        document.getElementById("noTools");
+
+    if (noTools) {
+
+        noTools.style.display =
             visible === 0
                 ? "block"
                 : "none";
 
+    }
+
 }
 
 
-toolSearch.addEventListener(
-    "input",
-    filterTools
-);
+if (toolSearch) {
+
+    toolSearch.addEventListener(
+        "input",
+        filterTools
+    );
+
+}
 
 
-heroSearch.addEventListener(
-    "input",
-    () => {
+if (heroSearch) {
 
-        toolSearch.value =
-            heroSearch.value;
+    heroSearch.addEventListener(
+        "input",
+        () => {
 
-        document
-            .getElementById("tools")
-            .scrollIntoView({
-                behavior: "smooth"
-            });
+            if (toolSearch) {
+                toolSearch.value =
+                    heroSearch.value;
+            }
 
-        filterTools();
+            const tools =
+                document.getElementById("tools");
 
-    }
-);
+            if (tools) {
+
+                tools.scrollIntoView({
+                    behavior: "smooth"
+                });
+
+            }
+
+            filterTools();
+
+        }
+    );
+
+}
 
 
 /* =========================================
@@ -241,17 +360,20 @@ heroSearch.addEventListener(
 
 categoryButtons.forEach(button => {
 
-    button.addEventListener("click", () => {
+    button.addEventListener(
+        "click",
+        () => {
 
-        categoryButtons.forEach(btn =>
-            btn.classList.remove("active")
-        );
+            categoryButtons.forEach(btn =>
+                btn.classList.remove("active")
+            );
 
-        button.classList.add("active");
+            button.classList.add("active");
 
-        filterTools();
+            filterTools();
 
-    });
+        }
+    );
 
 });
 
@@ -263,258 +385,147 @@ categoryButtons.forEach(button => {
 const toolData = {
 
     prompt: {
-
         title: "AI Prompt Builder",
-
         category: "CONTENT",
-
         icon: "🧠",
-
         description:
             "Create structured prompts that are easier for AI assistants to understand.",
-
         interface: promptTool
-
     },
-
 
     "youtube-title": {
-
         title: "YouTube Title Generator",
-
         category: "YOUTUBE",
-
         icon: "▶️",
-
         description:
-            "Generate multiple title ideas from a simple video topic.",
-
+            "Generate smart, audience-aware and SEO-friendly YouTube title ideas.",
         interface: youtubeTitleTool
-
     },
-
 
     "content-ideas": {
-
         title: "Content Idea Generator",
-
         category: "CONTENT",
-
         icon: "💡",
-
         description:
-            "Generate practical content ideas for videos, posts and blogs.",
-
+            "Generate practical and varied content ideas for videos, posts and blogs.",
         interface: contentIdeasTool
-
     },
-
 
     "youtube-description": {
-
         title: "YouTube Description Generator",
-
         category: "YOUTUBE",
-
         icon: "📝",
-
         description:
-            "Create a clean YouTube description template.",
-
+            "Create structured YouTube descriptions with keywords, CTAs and hashtags.",
         interface: youtubeDescriptionTool
-
     },
-
 
     thumbnail: {
-
         title: "Thumbnail Prompt Generator",
-
         category: "YOUTUBE",
-
         icon: "🎨",
-
         description:
-            "Generate detailed prompts for creating YouTube thumbnails.",
-
+            "Create detailed prompts for eye-catching YouTube thumbnails.",
         interface: thumbnailTool
-
     },
-
 
     quiz: {
-
         title: "Quiz Generator",
-
         category: "STUDY",
-
         icon: "❓",
-
         description:
-            "Create practice questions from any topic.",
-
+            "Create varied practice questions from any topic.",
         interface: quizTool
-
     },
-
 
     word: {
-
         title: "Word Counter",
-
         category: "TEXT",
-
         icon: "🔢",
-
         description:
-            "Count words, characters, sentences and reading time.",
-
+            "Count words, characters, sentences and estimated reading time.",
         interface: wordTool
-
     },
-
 
     formatter: {
-
         title: "Text Formatter",
-
         category: "TEXT",
-
         icon: "✨",
-
         description:
             "Transform text using common formatting options.",
-
         interface: formatterTool
-
     },
-
 
     characters: {
-
         title: "Character Counter",
-
         category: "TEXT",
-
         icon: "🔤",
-
         description:
-            "Count characters with or without spaces.",
-
+            "Count characters with and without spaces.",
         interface: characterTool
-
     },
-
 
     case: {
-
         title: "Case Converter",
-
         category: "TEXT",
-
         icon: "Aa",
-
         description:
-            "Convert text into different letter cases.",
-
+            "Convert text into uppercase, lowercase, title case and sentence case.",
         interface: caseTool
-
     },
-
 
     sentences: {
-
         title: "Sentence Counter",
-
         category: "TEXT",
-
         icon: "📄",
-
         description:
-            "Count the number of sentences in your text.",
-
+            "Count sentences in any text.",
         interface: sentenceTool
-
     },
-
 
     reading: {
-
         title: "Reading Time Calculator",
-
         category: "TEXT",
-
         icon: "⏱️",
-
         description:
-            "Estimate the reading time of your content.",
-
+            "Estimate reading time and word count.",
         interface: readingTool
-
     },
-
 
     tags: {
-
         title: "YouTube Tag Generator",
-
         category: "YOUTUBE",
-
         icon: "🏷️",
-
         description:
-            "Create relevant tag suggestions from your topic.",
-
+            "Generate related YouTube keyword and tag suggestions.",
         interface: tagTool
-
     },
-
 
     hashtags: {
-
         title: "Hashtag Generator",
-
         category: "CONTENT",
-
         icon: "#️⃣",
-
         description:
-            "Generate useful social media hashtag ideas.",
-
+            "Generate useful platform-friendly hashtag ideas.",
         interface: hashtagTool
-
     },
-
 
     cleaner: {
-
         title: "Text Cleaner",
-
         category: "TEXT",
-
         icon: "🧹",
-
         description:
-            "Clean unnecessary spaces and blank lines.",
-
+            "Clean extra spaces, blank lines and messy formatting.",
         interface: cleanerTool
-
     },
 
-
     bio: {
-
         title: "Bio Generator",
-
         category: "CONTENT",
-
         icon: "👤",
-
         description:
-            "Create simple social media bio ideas.",
-
+            "Create polished social media bio ideas.",
         interface: bioTool
-
     }
 
 };
@@ -527,13 +538,16 @@ const toolData = {
 document.querySelectorAll(".tool-open")
     .forEach(button => {
 
-        button.addEventListener("click", () => {
+        button.addEventListener(
+            "click",
+            () => {
 
-            openTool(
-                button.dataset.tool
-            );
+                openTool(
+                    button.dataset.tool
+                );
 
-        });
+            }
+        );
 
     });
 
@@ -580,22 +594,36 @@ function openTool(toolName) {
    CLOSE WORKSPACE
    ========================================= */
 
-document.getElementById(
-    "closeWorkspace"
-).addEventListener("click", () => {
+const closeWorkspace =
+    document.getElementById("closeWorkspace");
 
-    workspace.classList.add("hidden");
+if (closeWorkspace) {
 
-    document.getElementById("tools")
-        .scrollIntoView({
-            behavior: "smooth"
-        });
+    closeWorkspace.addEventListener(
+        "click",
+        () => {
 
-});
+            workspace.classList.add("hidden");
+
+            const tools =
+                document.getElementById("tools");
+
+            if (tools) {
+
+                tools.scrollIntoView({
+                    behavior: "smooth"
+                });
+
+            }
+
+        }
+    );
+
+}
 
 
 /* =========================================
-   GENERIC INTERFACE
+   GENERIC FORM
    ========================================= */
 
 function standardForm(fields, buttonText) {
@@ -640,7 +668,7 @@ function standardForm(fields, buttonText) {
 
 
 /* =========================================
-   1. PROMPT BUILDER
+   1. AI PROMPT BUILDER
    ========================================= */
 
 function promptTool() {
@@ -657,7 +685,6 @@ function promptTool() {
 
         </div>
 
-
         <div class="form-row">
 
             <div class="form-group">
@@ -669,7 +696,6 @@ function promptTool() {
                     placeholder="Kids 2-8">
 
             </div>
-
 
             <div class="form-group">
 
@@ -683,14 +709,13 @@ function promptTool() {
 
         </div>
 
-
         <div class="form-group">
 
             <label>Extra requirements</label>
 
             <textarea
                 id="promptRequirements"
-                placeholder="Keep it simple and engaging..."></textarea>
+                placeholder="Keep it simple, engaging and easy to understand..."></textarea>
 
         </div>
 
@@ -701,269 +726,591 @@ function promptTool() {
 
 function activatePrompt() {
 
-    document.getElementById(
-        "runTool"
-    ).addEventListener("click", () => {
+    const button =
+        document.getElementById("runTool");
 
-        const task =
-            document.getElementById(
-                "promptTask"
-            ).value.trim();
+    if (!button) return;
 
-        const audience =
-            document.getElementById(
-                "promptAudience"
-            ).value.trim();
+    button.addEventListener(
+        "click",
+        () => {
 
-        const tone =
-            document.getElementById(
-                "promptTone"
-            ).value.trim();
+            const task =
+                getValue("promptTask");
 
-        const requirements =
-            document.getElementById(
-                "promptRequirements"
-            ).value.trim();
+            const audience =
+                getValue("promptAudience");
+
+            const tone =
+                getValue("promptTone");
+
+            const requirements =
+                getValue("promptRequirements");
 
 
-        const result = `Act as an expert assistant.
+            if (!task) {
+
+                setResult(
+                    "Please enter what you want the AI to do."
+                );
+
+                return;
+
+            }
+
+
+            const result =
+`Act as an expert assistant.
 
 Task:
-${task || "Complete the requested task"}
+${task}
 
 Target audience:
 ${audience || "General audience"}
 
 Tone:
-${tone || "Clear and helpful"}
+${tone || "Clear, friendly and helpful"}
 
 Requirements:
 - Give a clear and useful answer.
 - Organize the response with headings where helpful.
 - Include practical examples when appropriate.
 - Avoid unnecessary information.
-- Make the final response easy to use.
-${requirements ? "- " + requirements : ""}`;
+- Make the final answer easy to use.
+${requirements ? "- " + requirements : ""}
+
+Output:
+Provide the final answer directly and keep it relevant to the requested task.`;
 
 
-        setResult(result);
+            setResult(result);
 
-    });
+        }
+    );
 
 }
+
+
 /* =========================================
    2. ADVANCED YOUTUBE TITLE GENERATOR
    ========================================= */
 
-function activateYoutubeTitle() {
-    const input = document.getElementById("titleTopic");
-    const audienceSelect = document.getElementById("titleAudience");
-    const styleSelect = document.getElementById("titleStyle");
+function youtubeTitleTool() {
 
-    if (!input) return;
+    return standardForm(`
 
-    const userInput = input.value.trim();
+        <div class="form-group">
 
-    if (!userInput) {
-        setResult("youtube-title", "Please enter a video idea or topic first.");
-        return;
-    }
+            <label>Video idea or topic</label>
 
-    // -----------------------------------------
-    // CLEAN USER INPUT
-    // -----------------------------------------
+            <textarea
+                id="titleTopic"
+                placeholder="Create a fun educational video about space, explaining the planets in a simple way for kids."></textarea>
 
-    let topic = userInput
-        .replace(/\s+/g, " ")
-        .replace(/[.!?]+$/, "")
-        .trim();
+        </div>
 
-    // Remove common video-request phrases
-    topic = topic
-        .replace(/^(please\s+)?(make|create|write|generate|give|produce)\s+(me\s+)?/i, "")
-        .replace(/^(a|an|the)\s+/i, "")
-        .replace(/^youtube\s+video\s+(about|on)\s+/i, "")
-        .replace(/^video\s+(about|on)\s+/i, "")
-        .replace(/^(a|an)\s+(fun|educational|informative|interesting)\s+/i, "")
-        .replace(/^(fun|educational|informative|interesting)\s+(youtube\s+)?video\s+(about|on)\s+/i, "")
-        .replace(/\s+(in|with)\s+(a\s+)?simple\s+way$/i, "")
-        .replace(/,\s*(explaining|teaching|covering)\s+.+$/i, "")
-        .replace(/\s+(for\s+kids|for\s+children)$/i, "")
-        .trim();
+        <div class="form-row">
 
-    // -----------------------------------------
-    // BETTER TOPIC EXTRACTION
-    // -----------------------------------------
+            <div class="form-group">
 
-    const aboutMatch = userInput.match(
-        /(?:video|content|lesson|guide)\s+(?:about|on)\s+(.+?)(?:\s+(?:for|with|in)\s+.+)?$/i
+                <label>Audience</label>
+
+                <select id="titleAudience">
+
+                    <option value="auto">
+                        Auto Detect
+                    </option>
+
+                    <option value="Kids">
+                        Kids
+                    </option>
+
+                    <option value="Students">
+                        Students
+                    </option>
+
+                    <option value="Beginners">
+                        Beginners
+                    </option>
+
+                    <option value="General Audience">
+                        General Audience
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Style</label>
+
+                <select id="titleStyle">
+
+                    <option value="auto">
+                        Auto Detect
+                    </option>
+
+                    <option value="Fun">
+                        Fun
+                    </option>
+
+                    <option value="Educational">
+                        Educational
+                    </option>
+
+                    <option value="Curiosity">
+                        Curiosity
+                    </option>
+
+                    <option value="How-To">
+                        How-To
+                    </option>
+
+                    <option value="Short & Punchy">
+                        Short & Punchy
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+    `, "Generate Smart Titles");
+
+}
+
+
+function extractYoutubeTopic(input) {
+
+    let text =
+        cleanSpaces(input)
+            .replace(/[.!?]+$/, "");
+
+    let topic = text;
+
+
+    /* Remove opening commands */
+
+    topic = topic.replace(
+        /^(please\s+)?(make|create|write|generate|give|produce|build)\s+(me\s+)?/i,
+        ""
     );
 
-    if (aboutMatch && aboutMatch[1]) {
-        const extracted = aboutMatch[1]
-            .replace(/,\s*(explaining|teaching|covering)\s+.+$/i, "")
-            .replace(/\s+(in|with)\s+(a\s+)?simple\s+way.*$/i, "")
-            .replace(/\s+for\s+(kids|children).*$/i, "")
-            .trim();
 
-        if (extracted.length > 2) {
-            topic = extracted;
-        }
-    }
+    /* Remove common article */
 
-    // Special handling for phrases like:
-    // "space, explaining the planets"
-    const explainingMatch = userInput.match(
-        /(?:about|on)\s+(.+?),?\s+(?:and\s+)?explaining\s+(.+?)(?:\s+in\s+(?:a\s+)?simple\s+way)?$/i
+    topic = topic.replace(
+        /^(a|an|the)\s+/i,
+        ""
     );
 
-    if (explainingMatch) {
-        const mainTopic = explainingMatch[1].trim();
-        const explanationTopic = explainingMatch[2].trim();
 
-        topic = `${mainTopic} & ${explanationTopic}`;
+    /* Find "about/on" */
+
+    const about =
+        topic.match(
+            /(?:video|lesson|guide|content|short|episode)?\s*(?:about|on)\s+(.+)/i
+        );
+
+    if (about && about[1]) {
+        topic = about[1];
     }
 
-    // Remove unnecessary words
+
+    /* Special "space, explaining the planets" pattern */
+
+    const explaining =
+        topic.match(
+            /^(.+?),\s*(?:and\s+)?explaining\s+(.+?)(?:\s+in\s+(?:a\s+)?simple\s+way)?$/i
+        );
+
+    if (explaining) {
+
+        const first =
+            cleanSpaces(explaining[1]);
+
+        const second =
+            cleanSpaces(explaining[2]);
+
+        topic =
+            `${first} & ${second}`;
+
+    }
+
+
+    /* Other explaining pattern */
+
+    const explaining2 =
+        topic.match(
+            /^(.+?)\s+(?:explaining|teaching|covering)\s+(.+)$/i
+        );
+
+    if (
+        explaining2 &&
+        !explaining
+    ) {
+
+        topic =
+            `${cleanSpaces(explaining2[1])} & ${cleanSpaces(explaining2[2])}`;
+
+    }
+
+
+    /* Remove trailing audience phrases */
+
+    topic = topic.replace(
+        /\s+(?:for|made for)\s+(?:kids|children|students|beginners).*$/i,
+        ""
+    );
+
+
+    /* Remove simple-way phrases */
+
+    topic = topic.replace(
+        /,?\s*(?:in|with)\s+(?:a\s+)?simple\s+(?:way|explanation).*$/i,
+        ""
+    );
+
+
+    /* Remove descriptive filler */
+
+    topic = topic.replace(
+        /\b(fun|educational|informative|interesting)\s+(?:video|content)\b/gi,
+        ""
+    );
+
+
     topic = topic
-        .replace(/\b(fun|educational|informative|interesting)\s+(video|content)\b/gi, "")
         .replace(/\s+/g, " ")
         .replace(/^[,\s]+|[,\s]+$/g, "")
         .trim();
 
-    if (!topic) {
-        topic = "Your Topic";
+
+    return capitalize(topic || "Your Topic");
+
+}
+
+
+function detectYoutubeAudience(text) {
+
+    if (
+        /\b(kids|kid|children|child|nursery|cartoon|preschool|toddlers?)\b/i
+        .test(text)
+    ) {
+        return "Kids";
     }
 
-    // -----------------------------------------
-    // AUDIENCE DETECTION
-    // -----------------------------------------
-
-    let audience = audienceSelect ? audienceSelect.value : "auto";
-
-    if (audience === "auto") {
-        if (/\b(kids|children|child|nursery|cartoon)\b/i.test(userInput)) {
-            audience = "Kids";
-        } else if (/\b(student|students|school|class|exam|study|education)\b/i.test(userInput)) {
-            audience = "Students";
-        } else if (/\b(beginner|beginners|basic|basics|learn)\b/i.test(userInput)) {
-            audience = "Beginners";
-        } else {
-            audience = "General Audience";
-        }
+    if (
+        /\b(student|students|school|class|exam|homework|study|learner)\b/i
+        .test(text)
+    ) {
+        return "Students";
     }
 
-    // -----------------------------------------
-    // CONTENT TYPE DETECTION
-    // -----------------------------------------
-
-    let contentType = "Video";
-
-    if (/\b(explain|explaining|explained|understand)\b/i.test(userInput)) {
-        contentType = "Explainer";
-    } else if (/\b(how to|tutorial|step by step|guide)\b/i.test(userInput)) {
-        contentType = "How-To";
-    } else if (/\b(fact|facts|amazing facts)\b/i.test(userInput)) {
-        contentType = "Facts";
-    } else if (/\b(review|reviews)\b/i.test(userInput)) {
-        contentType = "Review";
-    } else if (/\b(story|stories)\b/i.test(userInput)) {
-        contentType = "Story";
+    if (
+        /\b(beginner|beginners|basic|basics|learn from scratch)\b/i
+        .test(text)
+    ) {
+        return "Beginners";
     }
 
-    // -----------------------------------------
-    // STYLE DETECTION
-    // -----------------------------------------
+    return "General Audience";
 
-    let style = styleSelect ? styleSelect.value : "auto";
+}
 
-    if (style === "auto") {
-        if (audience === "Kids") {
-            style = "Fun";
-        } else if (contentType === "How-To") {
-            style = "How-To";
-        } else if (contentType === "Explainer" || contentType === "Facts") {
-            style = "Educational";
-        } else {
-            style = "Curiosity";
-        }
+
+function detectYoutubeContentType(text) {
+
+    if (
+        /\b(explain|explaining|explained|understand|simple explanation)\b/i
+        .test(text)
+    ) {
+        return "Explainer";
     }
 
-    // -----------------------------------------
-    // GENERATE TITLES
-    // -----------------------------------------
-
-    let titles = [];
-
-    if (style === "Curiosity") {
-        titles = [
-            `You Won't Believe These Amazing ${topic} Facts!`,
-            `What You Didn't Know About ${topic}`,
-            `The Amazing Truth About ${topic}`,
-            `How Much Do You Really Know About ${topic}?`,
-            `These ${topic} Facts Will Surprise You!`
-        ];
+    if (
+        /\b(how to|tutorial|step by step|guide)\b/i
+        .test(text)
+    ) {
+        return "How-To";
     }
 
-    else if (style === "Educational") {
-        titles = [
-            `${topic} Explained Simply`,
-            `Learn About ${topic} in a Simple Way`,
-            `${topic}: Everything You Need to Know`,
-            `Understanding ${topic} Made Easy`,
-            `Amazing Facts About ${topic}`
-        ];
+    if (
+        /\b(fact|facts|trivia|did you know)\b/i
+        .test(text)
+    ) {
+        return "Facts";
     }
 
-    else if (style === "Fun") {
-        titles = [
-            `Let's Explore ${topic}! 🚀`,
-            `The Fun Side of ${topic}! 🌟`,
-            `Discover the Amazing World of ${topic}! 🎉`,
-            `Amazing ${topic} for Curious Kids! 🪐`,
-            `Fun Facts About ${topic}! 🤩`
-        ];
-
-        if (audience === "Kids") {
-            titles.push(
-                `Let's Learn About ${topic} Together! 🚀`,
-                `The Amazing ${topic} Adventure! 🌈`
-            );
-        }
+    if (
+        /\b(review|reviews|unboxing)\b/i
+        .test(text)
+    ) {
+        return "Review";
     }
 
-    else if (style === "Short & Punchy") {
-        titles = [
-            `${topic} Made Easy`,
-            `${topic} Explained!`,
-            `${topic} — WOW!`,
-            `Quick ${topic} Facts`,
-            `${topic} in Minutes`
-        ];
+    if (
+        /\b(story|stories|adventure|tale)\b/i
+        .test(text)
+    ) {
+        return "Story";
     }
 
-    else if (style === "How-To") {
-        titles = [
-            `How to Understand ${topic} Easily`,
-            `How ${topic} Works — Simple Explanation`,
-            `How to Learn ${topic} Step by Step`,
-            `How to Get Started With ${topic}`,
-            `${topic}: Easy Step-by-Step Guide`
-        ];
+    if (
+        /\b(list|top \d+|best \d+|ideas)\b/i
+        .test(text)
+    ) {
+        return "List";
     }
 
-    // -----------------------------------------
-    // REMOVE DUPLICATES
-    // -----------------------------------------
+    return "Video";
 
-    titles = [...new Set(titles)].slice(0, 8);
+}
 
-    // -----------------------------------------
-    // SHOW RESULT
-    // -----------------------------------------
 
-    const result = `
-SMART YOUTUBE TITLES
+function detectYoutubeStyle(
+    text,
+    audience,
+    contentType
+) {
+
+    if (
+        /\b(fun|funny|exciting|playful|adventure)\b/i
+        .test(text)
+    ) {
+        return "Fun";
+    }
+
+    if (audience === "Kids") {
+        return "Fun";
+    }
+
+    if (
+        contentType === "Explainer" ||
+        contentType === "Facts"
+    ) {
+        return "Educational";
+    }
+
+    if (contentType === "How-To") {
+        return "How-To";
+    }
+
+    return "Curiosity";
+
+}
+
+
+function activateYoutubeTitle() {
+
+    const button =
+        document.getElementById("runTool");
+
+    if (!button) return;
+
+
+    button.addEventListener(
+        "click",
+        () => {
+
+            const userInput =
+                getValue("titleTopic");
+
+            if (!userInput) {
+
+                setResult(
+                    "Please enter a video idea or topic first."
+                );
+
+                return;
+
+            }
+
+
+            const topic =
+                extractYoutubeTopic(userInput);
+
+
+            let audience =
+                getValue("titleAudience") ||
+                "auto";
+
+
+            if (audience === "auto") {
+
+                audience =
+                    detectYoutubeAudience(
+                        userInput
+                    );
+
+            }
+
+
+            const contentType =
+                detectYoutubeContentType(
+                    userInput
+                );
+
+
+            let style =
+                getValue("titleStyle") ||
+                "auto";
+
+
+            if (style === "auto") {
+
+                style =
+                    detectYoutubeStyle(
+                        userInput,
+                        audience,
+                        contentType
+                    );
+
+            }
+
+
+            let titles = [];
+
+
+            /* KIDS + FUN */
+
+            if (
+                audience === "Kids" &&
+                style === "Fun"
+            ) {
+
+                titles = [
+
+                    `Let's Explore ${topic}! 🚀`,
+
+                    `Amazing ${topic} Facts for Kids! 🪐`,
+
+                    `${topic} Explained for Kids 🌟`,
+
+                    `Discover the Amazing World of ${topic}! 🎉`,
+
+                    `Fun Facts About ${topic}! 🤩`,
+
+                    `Let's Learn About ${topic} Together! 🚀`,
+
+                    `The Amazing ${topic} Adventure! 🌈`,
+
+                    `Wow! Amazing Things About ${topic}! ✨`
+
+                ];
+
+            }
+
+
+            else if (style === "Educational") {
+
+                titles = [
+
+                    `${topic} Explained Simply`,
+
+                    `${topic} Explained for Beginners`,
+
+                    `Learn About ${topic} in a Simple Way`,
+
+                    `${topic}: Everything You Need to Know`,
+
+                    `Understanding ${topic} Made Easy`,
+
+                    `Amazing Facts About ${topic}`,
+
+                    `What Is ${topic}? Simple Explanation`,
+
+                    `${topic} Made Easy to Understand`
+
+                ];
+
+            }
+
+
+            else if (style === "How-To") {
+
+                titles = [
+
+                    `How to Understand ${topic} Easily`,
+
+                    `How ${topic} Works — Simple Explanation`,
+
+                    `How to Learn ${topic} Step by Step`,
+
+                    `How to Get Started With ${topic}`,
+
+                    `${topic}: Easy Step-by-Step Guide`,
+
+                    `Learn ${topic} From Scratch`,
+
+                    `The Beginner's Guide to ${topic}`,
+
+                    `How Does ${topic} Work?`
+
+                ];
+
+            }
+
+
+            else if (style === "Short & Punchy") {
+
+                titles = [
+
+                    `${topic} Made Easy`,
+
+                    `${topic} Explained!`,
+
+                    `${topic} — WOW!`,
+
+                    `Quick ${topic} Facts`,
+
+                    `${topic} in Minutes`,
+
+                    `Everything About ${topic}`,
+
+                    `The ${topic} Explained`,
+
+                    `${topic}: Simple & Fast`
+
+                ];
+
+            }
+
+
+            else {
+
+                titles = [
+
+                    `You Won't Believe These Amazing ${topic} Facts!`,
+
+                    `What You Didn't Know About ${topic}`,
+
+                    `The Amazing Truth About ${topic}`,
+
+                    `How Much Do You Really Know About ${topic}?`,
+
+                    `These ${topic} Facts Will Surprise You!`,
+
+                    `The Secret World of ${topic}`,
+
+                    `Why Is ${topic} So Interesting?`,
+
+                    `Before You Learn About ${topic}, Watch This!`
+
+                ];
+
+            }
+
+
+            titles =
+                unique(titles)
+                    .slice(0, 8);
+
+
+            const result =
+`SMART YOUTUBE TITLES
 
 Topic:
 ${topic}
@@ -979,15 +1326,25 @@ ${style}
 
 Generated Titles:
 
-${titles.map((title, index) => `${index + 1}. ${title}`).join("\n\n")}
+${titles
+    .map(
+        (title, index) =>
+            `${index + 1}. ${title}`
+    )
+    .join("\n\n")}
 
 
 TIP:
-Choose the title that best matches the actual content of your video. Avoid misleading clickbait.
-`;
+Choose a title that accurately represents your video. Avoid misleading clickbait.`;
 
-    setResult("youtube-title", result);
+
+            setResult(result);
+
+        }
+    );
+
 }
+
 
 /* =========================================
    3. CONTENT IDEAS
@@ -1006,7 +1363,6 @@ function contentIdeasTool() {
                 placeholder="Technology">
 
         </div>
-
 
         <div class="form-group">
 
@@ -1030,54 +1386,74 @@ function contentIdeasTool() {
 
 function activateContentIdeas() {
 
-    document.getElementById(
-        "runTool"
-    ).addEventListener("click", () => {
+    const button =
+        document.getElementById("runTool");
 
-        const topic =
-            getValue("ideaTopic") ||
-            "Technology";
-
-        const platform =
-            getValue("ideaPlatform");
+    if (!button) return;
 
 
-        const ideas = [
+    button.addEventListener(
+        "click",
+        () => {
 
-            `10 things beginners should know about ${topic}`,
+            const topic =
+                getValue("ideaTopic") ||
+                "Technology";
 
-            `The biggest mistakes people make with ${topic}`,
-
-            `A beginner's guide to ${topic}`,
-
-            `5 surprising facts about ${topic}`,
-
-            `Myths vs facts: ${topic}`,
-
-            `How to get better at ${topic}`,
-
-            `Common questions about ${topic}`,
-
-            `Beginner vs expert: ${topic}`,
-
-            `The future of ${topic}`,
-
-            `A simple challenge involving ${topic}`
-
-        ];
+            const platform =
+                getValue("ideaPlatform");
 
 
-        setResult(
-            `Platform: ${platform}\n\n` +
-            ideas
-                .map(
-                    (idea, index) =>
-                        `${index + 1}. ${idea}`
-                )
-                .join("\n")
-        );
+            const ideas = [
 
-    });
+                `10 Things Beginners Should Know About ${topic}`,
+
+                `5 Surprising Facts About ${topic}`,
+
+                `The Biggest Mistakes People Make With ${topic}`,
+
+                `Beginner's Guide to ${topic}`,
+
+                `Myths vs Facts: ${topic}`,
+
+                `How Does ${topic} Actually Work?`,
+
+                `Common Questions About ${topic}`,
+
+                `${topic}: Beginner vs Expert`,
+
+                `The Future of ${topic}`,
+
+                `Things I Wish I Knew Before Learning ${topic}`,
+
+                `Top 10 ${topic} Tips for Beginners`,
+
+                `A Simple Challenge Based on ${topic}`
+
+            ];
+
+
+            setResult(
+`CONTENT IDEAS
+
+Platform:
+${platform}
+
+Topic:
+${topic}
+
+Ideas:
+
+${ideas
+    .map(
+        (idea, index) =>
+            `${index + 1}. ${idea}`
+    )
+    .join("\n\n")}`
+            );
+
+        }
+    );
 
 }
 
@@ -1100,14 +1476,13 @@ function youtubeDescriptionTool() {
 
         </div>
 
-
         <div class="form-group">
 
             <label>Main video topic</label>
 
             <textarea
                 id="descriptionTopic"
-                placeholder="Explain what the video is about..."></textarea>
+                placeholder="Explain what your video is about..."></textarea>
 
         </div>
 
@@ -1118,37 +1493,54 @@ function youtubeDescriptionTool() {
 
 function activateYoutubeDescription() {
 
-    document.getElementById(
-        "runTool"
-    ).addEventListener("click", () => {
+    const button =
+        document.getElementById("runTool");
 
-        const title =
-            getValue("descriptionTitle") ||
-            "My New Video";
-
-        const topic =
-            getValue("descriptionTopic") ||
-            "In this video we explore an interesting topic.";
+    if (!button) return;
 
 
-        const description = `${topic}
+    button.addEventListener(
+        "click",
+        () => {
 
-In this video:
-• Easy-to-understand explanations
-• Interesting facts
-• Helpful examples
-• Simple and engaging information
+            const title =
+                getValue("descriptionTitle") ||
+                "My New Video";
 
-If you enjoyed the video, consider subscribing for more useful content.
-
-#YouTube #Content #Education`;
+            const topic =
+                getValue("descriptionTopic") ||
+                "In this video we explore an interesting topic.";
 
 
-        setResult(
-            `TITLE:\n${title}\n\n${description}`
-        );
+            const description =
+`${topic}
 
-    });
+Welcome to AIHub! In this video, we explore ${topic.toLowerCase()} in a simple, clear and engaging way.
+
+What you'll learn:
+• Key ideas explained simply
+• Useful facts and examples
+• Important points to remember
+• Beginner-friendly information
+
+If you found this video useful, consider liking the video and subscribing for more helpful content.
+
+Thanks for watching!
+
+#YouTube #Education #Learning`;
+
+
+            setResult(
+`TITLE:
+${title}
+
+DESCRIPTION:
+
+${description}`
+            );
+
+        }
+    );
 
 }
 
@@ -1170,7 +1562,6 @@ function thumbnailTool() {
                 placeholder="Space adventure for kids">
 
         </div>
-
 
         <div class="form-group">
 
@@ -1194,38 +1585,68 @@ function thumbnailTool() {
 
 function activateThumbnail() {
 
-    document.getElementById(
-        "runTool"
-    ).addEventListener("click", () => {
+    const button =
+        document.getElementById("runTool");
 
-        const topic =
-            getValue("thumbnailTopic") ||
-            "Amazing Topic";
-
-        const style =
-            getValue("thumbnailStyle");
+    if (!button) return;
 
 
-        setResult(
-`Create a high-quality YouTube thumbnail about "${topic}".
+    button.addEventListener(
+        "click",
+        () => {
 
-Style:
+            const topic =
+                getValue("thumbnailTopic") ||
+                "Amazing Topic";
+
+            const style =
+                getValue("thumbnailStyle");
+
+
+            const result =
+`Create a high-quality YouTube thumbnail for:
+
+"${topic}"
+
+VISUAL STYLE:
 ${style}
 
-Requirements:
-- Strong central subject
-- Bright visual contrast
-- Clear focal point
-- Exciting composition
-- Professional YouTube thumbnail layout
-- Leave clean space for large readable text
-- High detail
-- 16:9 composition
-- Eye-catching but not cluttered
-- Suitable for a broad audience`
-        );
+PROMPT:
 
-    });
+Create an eye-catching YouTube thumbnail about "${topic}".
+
+Use a strong central subject with an instantly understandable visual story.
+
+Requirements:
+- ${style} visual style
+- Bright and attractive composition
+- Strong focal point
+- Clear foreground and background separation
+- Expressive subject
+- Dynamic composition
+- High visual contrast
+- Clean background
+- Large readable text area
+- Professional YouTube thumbnail design
+- No unnecessary clutter
+- High detail
+- Sharp image quality
+- 16:9 aspect ratio
+- Suitable for the target audience
+- Attention-grabbing without being misleading
+
+Avoid:
+- Blurry elements
+- Tiny unreadable text
+- Overcrowded composition
+- Excessive background details
+- Random objects`;
+
+
+            setResult(result);
+
+        }
+    );
 
 }
 
@@ -1248,7 +1669,6 @@ function quizTool() {
 
         </div>
 
-
         <div class="form-group">
 
             <label>Number of questions</label>
@@ -1269,28 +1689,64 @@ function quizTool() {
 
 function activateQuiz() {
 
-    document.getElementById(
-        "runTool"
-    ).addEventListener("click", () => {
+    const button =
+        document.getElementById("runTool");
 
-        const topic =
-            getValue("quizTopic") ||
-            "General Knowledge";
-
-        const number =
-            getValue("quizNumber");
+    if (!button) return;
 
 
-        const questions = [];
+    button.addEventListener(
+        "click",
+        () => {
 
-        for (
-            let i = 1;
-            i <= Number(number);
-            i++
-        ) {
+            const topic =
+                getValue("quizTopic") ||
+                "General Knowledge";
 
-            questions.push(
-`${i}. What is one important fact about ${topic}?
+            const number =
+                Number(
+                    getValue("quizNumber")
+                ) || 5;
+
+
+            const templates = [
+
+                `What is one important fact about ${topic}?`,
+
+                `Which statement about ${topic} is correct?`,
+
+                `Why is ${topic} important?`,
+
+                `What is a key feature of ${topic}?`,
+
+                `Which option best describes ${topic}?`,
+
+                `What should a beginner know about ${topic}?`,
+
+                `Which of these is related to ${topic}?`,
+
+                `What is the main idea behind ${topic}?`
+
+            ];
+
+
+            const questions = [];
+
+
+            for (
+                let i = 0;
+                i < number;
+                i++
+            ) {
+
+                const question =
+                    templates[
+                        i % templates.length
+                    ];
+
+
+                questions.push(
+`${i + 1}. ${question}
 
 A) Option A
 B) Option B
@@ -1298,17 +1754,19 @@ C) Option C
 D) Option D
 
 Answer: ______`
+                );
+
+            }
+
+
+            setResult(
+`QUIZ: ${topic}
+
+${questions.join("\n\n")}`
             );
 
         }
-
-
-        setResult(
-            `QUIZ: ${topic}\n\n` +
-            questions.join("\n\n")
-        );
-
-    });
+    );
 
 }
 
@@ -1332,7 +1790,6 @@ function wordTool() {
                     placeholder="Type or paste your text here..."></textarea>
 
             </div>
-
 
             <div class="live-stats">
 
@@ -1368,69 +1825,71 @@ function wordTool() {
 function activateWord() {
 
     const textarea =
+        document.getElementById("wordText");
+
+    if (!textarea) return;
+
+
+    function update() {
+
+        const text =
+            textarea.value.trim();
+
+        const words =
+            text
+                ? text.split(/\s+/).length
+                : 0;
+
+        const chars =
+            textarea.value.length;
+
+        const sentences =
+            text
+                ? (
+                    text.match(
+                        /[^.!?]+[.!?]+/g
+                    ) || []
+                ).length
+                : 0;
+
+        const minutes =
+            words
+                ? Math.ceil(words / 200)
+                : 0;
+
+
         document.getElementById(
-            "wordText"
-        );
+            "wordCount"
+        ).textContent = words;
+
+        document.getElementById(
+            "charCount"
+        ).textContent = chars;
+
+        document.getElementById(
+            "sentenceCount"
+        ).textContent = sentences;
+
+        document.getElementById(
+            "readingCount"
+        ).textContent =
+            text
+                ? `${minutes} min`
+                : "0 min";
+
+    }
 
 
     textarea.addEventListener(
         "input",
-        () => {
-
-            const text =
-                textarea.value.trim();
-
-            const words =
-                text
-                    ? text.split(/\s+/).length
-                    : 0;
-
-            const chars =
-                textarea.value.length;
-
-            const sentences =
-                text
-                    ? (
-                        text.match(
-                            /[.!?]+/g
-                        ) || []
-                    ).length
-                    : 0;
-
-            const minutes =
-                Math.max(
-                    1,
-                    Math.ceil(
-                        words / 200
-                    )
-                );
-
-
-            document.getElementById(
-                "wordCount"
-            ).textContent = words;
-
-            document.getElementById(
-                "charCount"
-            ).textContent = chars;
-
-            document.getElementById(
-                "sentenceCount"
-            ).textContent = sentences;
-
-            document.getElementById(
-                "readingCount"
-            ).textContent =
-                text ? `${minutes} min` : "0 min";
-
-        }
+        update
     );
 
 }
 
 
 /* =========================================
-   8. FORMATTER
+   8. TEXT FORMATTER
    ========================================= */
 
 function formatterTool() {
@@ -1449,7 +1908,6 @@ function formatterTool() {
 
             </div>
 
-
             <div class="form-row">
 
                 <button
@@ -1465,7 +1923,6 @@ function formatterTool() {
                 </button>
 
             </div>
-
 
             <div class="output-box">
 
@@ -1503,27 +1960,42 @@ function activateFormatter() {
             "formatterText"
         );
 
-
-    document.getElementById(
-        "upperBtn"
-    ).addEventListener("click", () => {
-
-        setResult(
-            text.value.toUpperCase()
+    const upper =
+        document.getElementById(
+            "upperBtn"
         );
 
-    });
-
-
-    document.getElementById(
-        "lowerBtn"
-    ).addEventListener("click", () => {
-
-        setResult(
-            text.value.toLowerCase()
+    const lower =
+        document.getElementById(
+            "lowerBtn"
         );
 
-    });
+
+    if (!text || !upper || !lower) return;
+
+
+    upper.addEventListener(
+        "click",
+        () => {
+
+            setResult(
+                text.value.toUpperCase()
+            );
+
+        }
+    );
+
+
+    lower.addEventListener(
+        "click",
+        () => {
+
+            setResult(
+                text.value.toLowerCase()
+            );
+
+        }
+    );
 
 }
 
@@ -1547,7 +2019,6 @@ function characterTool() {
                     placeholder="Type or paste text..."></textarea>
 
             </div>
-
 
             <div class="live-stats">
 
@@ -1576,6 +2047,8 @@ function activateCharacter() {
         document.getElementById(
             "characterText"
         );
+
+    if (!input) return;
 
 
     input.addEventListener(
@@ -1619,7 +2092,6 @@ function caseTool() {
 
         </div>
 
-
         <div class="form-group">
 
             <label>Case</label>
@@ -1653,66 +2125,74 @@ function caseTool() {
 
 function activateCase() {
 
-    document.getElementById(
-        "runTool"
-    ).addEventListener("click", () => {
+    const button =
+        document.getElementById("runTool");
 
-        const text =
-            getValue("caseText");
-
-        const type =
-            getValue("caseType");
+    if (!button) return;
 
 
-        let result = text;
+    button.addEventListener(
+        "click",
+        () => {
+
+            const text =
+                getValue("caseText");
+
+            const type =
+                getValue("caseType");
 
 
-        if (type === "upper") {
+            let result = text;
 
-            result =
-                text.toUpperCase();
+
+            if (type === "upper") {
+
+                result =
+                    text.toUpperCase();
+
+            }
+
+
+            if (type === "lower") {
+
+                result =
+                    text.toLowerCase();
+
+            }
+
+
+            if (type === "title") {
+
+                result =
+                    text
+                        .toLowerCase()
+                        .replace(
+                            /\b\w/g,
+                            char =>
+                                char.toUpperCase()
+                        );
+
+            }
+
+
+            if (type === "sentence") {
+
+                result =
+                    text
+                        .toLowerCase()
+                        .replace(
+                            /(^\s*\w|[.!?]\s+\w)/g,
+                            char =>
+                                char.toUpperCase()
+                        );
+
+            }
+
+
+            setResult(result);
 
         }
-
-
-        if (type === "lower") {
-
-            result =
-                text.toLowerCase();
-
-        }
-
-
-        if (type === "title") {
-
-            result =
-                text.toLowerCase()
-                    .replace(
-                        /\b\w/g,
-                        char =>
-                            char.toUpperCase()
-                    );
-
-        }
-
-
-        if (type === "sentence") {
-
-            result =
-                text
-                    .toLowerCase()
-                    .replace(
-                        /(^\s*\w|[.!?]\s+\w)/g,
-                        char =>
-                            char.toUpperCase()
-                    );
-
-        }
-
-
-        setResult(result);
-
-    });
+    );
 
 }
 
@@ -1737,13 +2217,11 @@ function sentenceTool() {
 
             </div>
 
-
             <div class="live-stats">
 
                 <div class="stat-box">
 
-                    <strong
-                        id="sentenceTotal">
+                    <strong id="sentenceTotal">
                         0
                     </strong>
 
@@ -1767,6 +2245,8 @@ function activateSentence() {
             "sentenceText"
         );
 
+    if (!input) return;
+
 
     input.addEventListener(
         "input",
@@ -1779,7 +2259,7 @@ function activateSentence() {
                 text
                     ? (
                         text.match(
-                            /[.!?]+/g
+                            /[^.!?]+[.!?]+/g
                         ) || []
                     ).length
                     : 0;
@@ -1816,13 +2296,11 @@ function readingTool() {
 
             </div>
 
-
             <div class="live-stats">
 
                 <div class="stat-box">
 
-                    <strong
-                        id="readingWords">
+                    <strong id="readingWords">
                         0
                     </strong>
 
@@ -1830,11 +2308,9 @@ function readingTool() {
 
                 </div>
 
-
                 <div class="stat-box">
 
-                    <strong
-                        id="readingMinutes">
+                    <strong id="readingMinutes">
                         0
                     </strong>
 
@@ -1858,6 +2334,8 @@ function activateReading() {
             "readingText"
         );
 
+    if (!input) return;
+
 
     input.addEventListener(
         "input",
@@ -1873,9 +2351,7 @@ function activateReading() {
 
             const minutes =
                 words
-                    ? Math.ceil(
-                        words / 200
-                    )
+                    ? Math.ceil(words / 200)
                     : 0;
 
 
@@ -1896,7 +2372,7 @@ function activateReading() {
 
 
 /* =========================================
-   13. YOUTUBE TAGS
+   13. YOUTUBE TAG GENERATOR
    ========================================= */
 
 function tagTool() {
@@ -1920,77 +2396,100 @@ function tagTool() {
 
 function activateTags() {
 
-    document.getElementById(
-        "runTool"
-    ).addEventListener("click", () => {
+    const button =
+        document.getElementById("runTool");
 
-        const topic =
-            getValue("tagTopic") ||
-            "space";
-
-        const clean =
-            topic.toLowerCase()
-                .replace(
-                    /[^a-z0-9\s]/g,
-                    ""
-                );
+    if (!button) return;
 
 
-        const words =
-            clean
-                .split(/\s+/)
-                .filter(Boolean);
+    button.addEventListener(
+        "click",
+        () => {
+
+            const topic =
+                getValue("tagTopic") ||
+                "space";
 
 
-        const tags = [
-
-            clean,
-
-            `${clean} video`,
-
-            `${clean} for beginners`,
-
-            `${clean} explained`,
-
-            `${clean} facts`,
-
-            `learn ${clean}`,
-
-            `${clean} tutorial`,
-
-            `${clean} guide`,
-
-            `${clean} tips`,
-
-            `interesting ${clean}`,
-
-            `best ${clean}`,
-
-            `${clean} education`
-
-        ];
+            const clean =
+                topic
+                    .toLowerCase()
+                    .replace(
+                        /[^a-z0-9\s&-]/g,
+                        ""
+                    )
+                    .replace(/\s+/g, " ")
+                    .trim();
 
 
-        words.forEach(word => {
+            const tags = [
 
-            if (!tags.includes(word)) {
-                tags.push(word);
-            }
+                clean,
 
-        });
+                `${clean} video`,
+
+                `${clean} explained`,
+
+                `${clean} facts`,
+
+                `${clean} for kids`,
+
+                `${clean} for beginners`,
+
+                `learn ${clean}`,
+
+                `${clean} tutorial`,
+
+                `${clean} guide`,
+
+                `${clean} tips`,
+
+                `${clean} education`,
+
+                `interesting ${clean}`,
+
+                `amazing ${clean}`,
+
+                `best ${clean}`,
+
+                `${clean} youtube`
+
+            ];
 
 
-        setResult(
-            tags.join(", ")
-        );
+            const words =
+                clean
+                    .replace(/[&-]/g, " ")
+                    .split(/\s+/)
+                    .filter(Boolean);
 
-    });
+
+            words.forEach(word => {
+
+                if (
+                    word.length > 2 &&
+                    !tags.includes(word)
+                ) {
+
+                    tags.push(word);
+
+                }
+
+            });
+
+
+            setResult(
+                unique(tags).join(", ")
+            );
+
+        }
+    );
 
 }
 
 
 /* =========================================
-   14. HASHTAGS
+   14. HASHTAG GENERATOR
    ========================================= */
 
 function hashtagTool() {
@@ -2006,7 +2505,6 @@ function hashtagTool() {
                 placeholder="Artificial Intelligence">
 
         </div>
-
 
         <div class="form-group">
 
@@ -2030,64 +2528,111 @@ function hashtagTool() {
 
 function activateHashtags() {
 
-    document.getElementById(
-        "runTool"
-    ).addEventListener("click", () => {
+    const button =
+        document.getElementById("runTool");
 
-        const topic =
-            getValue("hashtagTopic") ||
-            "technology";
+    if (!button) return;
 
 
-        const words =
-            topic
-                .toLowerCase()
-                .replace(
-                    /[^a-z0-9\s]/g,
-                    ""
-                )
-                .split(/\s+/)
-                .filter(Boolean);
+    button.addEventListener(
+        "click",
+        () => {
+
+            const topic =
+                getValue("hashtagTopic") ||
+                "technology";
+
+            const platform =
+                getValue("hashtagPlatform");
 
 
-        const base =
-            words.join("");
+            const words =
+                topic
+                    .toLowerCase()
+                    .replace(
+                        /[^a-z0-9\s]/g,
+                        ""
+                    )
+                    .split(/\s+/)
+                    .filter(Boolean);
 
 
-        const tags = [
+            const joined =
+                words.join("");
 
-            `#${base}`,
-
-            `#${base}tips`,
-
-            `#${base}ideas`,
-
-            `#${base}guide`,
-
-            `#${base}community`,
-
-            `#learn${base}`,
-
-            `#${base}content`,
-
-            `#${base}creator`,
-
-            "#trending",
-
-            "#contentcreator",
-
-            "#digitalcreator",
-
-            "#tips"
-
-        ];
+            const spaced =
+                words.join("");
 
 
-        setResult(
-            tags.join(" ")
-        );
+            let tags = [
 
-    });
+                `#${joined}`,
+
+                `#${joined}tips`,
+
+                `#${joined}ideas`,
+
+                `#${joined}guide`,
+
+                `#learn${joined}`,
+
+                `#${joined}content`,
+
+                `#${joined}creator`,
+
+                `#${joined}community`
+
+            ];
+
+
+            if (platform === "Instagram") {
+
+                tags.push(
+                    "#instagram",
+                    "#reels",
+                    "#instareels",
+                    "#contentcreator"
+                );
+
+            }
+
+
+            if (platform === "YouTube") {
+
+                tags.push(
+                    "#youtube",
+                    "#youtuber",
+                    "#youtubevideo",
+                    "#shorts"
+                );
+
+            }
+
+
+            if (platform === "TikTok") {
+
+                tags.push(
+                    "#tiktok",
+                    "#fyp",
+                    "#tiktokvideo",
+                    "#viral"
+                );
+
+            }
+
+
+            tags.push(
+                "#trending",
+                "#creator"
+            );
+
+
+            setResult(
+                unique(tags).join(" ")
+            );
+
+        }
+    );
 
 }
 
@@ -2117,30 +2662,43 @@ function cleanerTool() {
 
 function activateCleaner() {
 
-    document.getElementById(
-        "runTool"
-    ).addEventListener("click", () => {
+    const button =
+        document.getElementById("runTool");
 
-        const text =
-            getValue("cleanerText");
+    if (!button) return;
 
 
-        const cleaned =
-            text
-                .replace(
-                    /[ \t]+/g,
-                    " "
-                )
-                .replace(
-                    /\n\s*\n+/g,
-                    "\n\n"
-                )
-                .trim();
+    button.addEventListener(
+        "click",
+        () => {
+
+            const text =
+                document.getElementById(
+                    "cleanerText"
+                ).value;
 
 
-        setResult(cleaned);
+            const cleaned =
+                text
+                    .replace(
+                        /[ \t]+/g,
+                        " "
+                    )
+                    .replace(
+                        /\n[ \t]+/g,
+                        "\n"
+                    )
+                    .replace(
+                        /\n{3,}/g,
+                        "\n\n"
+                    )
+                    .trim();
 
-    });
+
+            setResult(cleaned);
+
+        }
+    );
 
 }
 
@@ -2165,7 +2723,6 @@ function bioTool() {
 
             </div>
 
-
             <div class="form-group">
 
                 <label>Role / niche</label>
@@ -2177,7 +2734,6 @@ function bioTool() {
             </div>
 
         </div>
-
 
         <div class="form-group">
 
@@ -2196,44 +2752,62 @@ function bioTool() {
 
 function activateBio() {
 
-    document.getElementById(
-        "runTool"
-    ).addEventListener("click", () => {
+    const button =
+        document.getElementById("runTool");
 
-        const name =
-            getValue("bioName") ||
-            "Creator";
-
-        const role =
-            getValue("bioRole") ||
-            "Content Creator";
-
-        const interests =
-            getValue("bioInterest") ||
-            "technology";
+    if (!button) return;
 
 
-        const result =
+    button.addEventListener(
+        "click",
+        () => {
 
-`Option 1:
+            const name =
+                getValue("bioName") ||
+                "Creator";
+
+            const role =
+                getValue("bioRole") ||
+                "Content Creator";
+
+            const interests =
+                getValue("bioInterest") ||
+                "technology";
+
+
+            const result =
+`BIO OPTION 1
+
 ${role} 🚀
 Exploring ${interests}
 Creating • Learning • Sharing
 
-Option 2:
+
+BIO OPTION 2
+
 Hey, I'm ${name} 👋
 ${role}
 Passionate about ${interests}
 
-Option 3:
+
+BIO OPTION 3
+
 ${role} | Creator
 ✨ ${interests}
-Building ideas and sharing the journey.`;
+Building ideas and sharing the journey.
 
 
-        setResult(result);
+BIO OPTION 4
 
-    });
+Creating content about ${interests} 💡
+${role}
+Learning. Creating. Growing. 🚀`;
+
+
+            setResult(result);
+
+        }
+    );
 
 }
 
@@ -2347,39 +2921,6 @@ function activateCurrentTool(name) {
 
 
 /* =========================================
-   HELPERS
-   ========================================= */
-
-function getValue(id) {
-
-    const element =
-        document.getElementById(id);
-
-    return element
-        ? element.value.trim()
-        : "";
-
-}
-
-
-function setResult(text) {
-
-    const result =
-        document.getElementById(
-            "result"
-        );
-
-    if (result) {
-
-        result.textContent =
-            text || "No result.";
-
-    }
-
-}
-
-
-/* =========================================
    GUIDE POPUPS
    ========================================= */
 
@@ -2394,6 +2935,7 @@ document.querySelectorAll(
             const guide =
                 button.dataset.guide;
 
+
             const messages = {
 
                 prompts:
@@ -2404,7 +2946,7 @@ document.querySelectorAll(
 3. The target audience
 4. The desired tone
 5. Specific requirements
-6. The format you want
+6. The output format
 
 Example:
 
@@ -2413,11 +2955,11 @@ Example:
                 "ai-tools":
 `Browser tools and AI-powered tools are different.
 
-Browser tools can perform many useful tasks locally with JavaScript.
+AIHub's browser tools can perform useful tasks locally with JavaScript.
 
-Advanced AI features usually need an AI model API.
+Advanced AI features usually require an AI model API.
 
-AIHub should keep those API keys on a secure backend instead of exposing them in frontend JavaScript.`,
+Never expose private API keys inside frontend JavaScript or a public GitHub repository.`,
 
                 security:
 `Never place a secret API key directly inside:
@@ -2426,21 +2968,22 @@ script.js
 index.html
 or any public GitHub repository.
 
-A safer architecture is:
+Safer architecture:
 
 User
 ↓
 AIHub frontend
 ↓
-Your secure backend
+Secure backend
 ↓
 AI provider
 ↓
-Your backend
+Secure backend
 ↓
 User
 
 The secret API key stays on the server.`
+
             };
 
 
