@@ -6,8 +6,7 @@
 
   <title>Login – AIHub</title>
 
-  <meta name="description"
-        content="Login to your AIHub account.">
+  <meta name="description" content="Login to your AIHub account.">
 
   <style>
     body {
@@ -19,11 +18,21 @@
 
     .login-container {
       max-width: 420px;
-      margin: 80px auto;
+      margin: 70px auto;
       padding: 30px;
       background: white;
       border-radius: 16px;
       box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+
+    .back-top {
+      margin-bottom: 25px;
+    }
+
+    .back-top a {
+      color: #4f46e5;
+      text-decoration: none;
+      font-weight: bold;
     }
 
     h1 {
@@ -53,6 +62,27 @@
       box-sizing: border-box;
     }
 
+    input:focus {
+      outline: none;
+      border-color: #4f46e5;
+    }
+
+    .forgot {
+      text-align: right;
+      margin-top: 10px;
+    }
+
+    .forgot a {
+      color: #4f46e5;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .forgot a:hover {
+      text-decoration: underline;
+    }
+
     button {
       width: 100%;
       margin-top: 22px;
@@ -66,29 +96,65 @@
       cursor: pointer;
     }
 
+    button:hover {
+      background: #4338ca;
+    }
+
+    button:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .message {
+      display: none;
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .success {
+      display: block;
+      background: #ecfdf5;
+      color: #047857;
+    }
+
+    .error {
+      display: block;
+      background: #fef2f2;
+      color: #b91c1c;
+    }
+
     .signup {
       text-align: center;
       margin-top: 20px;
     }
 
-    .signup a,
-    .back a {
+    .signup a {
       color: #4f46e5;
       text-decoration: none;
       font-weight: bold;
     }
 
-    .back {
-      text-align: center;
-      margin-top: 25px;
+    @media (max-width: 500px) {
+      .login-container {
+        margin: 30px 15px;
+        padding: 25px 20px;
+      }
     }
   </style>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
 
   <div class="login-container">
+
+    <div class="back-top">
+      <a href="index.html">← Back to AIHub</a>
+    </div>
 
     <h1>Welcome to AIHub</h1>
 
@@ -104,6 +170,7 @@
         type="email"
         id="email"
         placeholder="Enter your email"
+        autocomplete="email"
         required
       >
 
@@ -113,59 +180,122 @@
         type="password"
         id="password"
         placeholder="Enter your password"
+        autocomplete="current-password"
         required
       >
 
-      <button type="submit">
+      <div class="forgot">
+        <a href="forgot-password.html">
+          Forgot Password?
+        </a>
+      </div>
+
+      <button id="loginButton" type="submit">
         Login
       </button>
 
     </form>
+
+    <div id="message" class="message"></div>
 
     <div class="signup">
       Don't have an account?
       <a href="signup.html">Create account</a>
     </div>
 
-    <div class="back">
-      <a href="index.html">← Back to AIHub</a>
-    </div>
-
   </div>
+
+
 <script>
-  
-  const SUPABASE_URL = "https://stjkvlkeysyefhxocjzm.supabase.co";
-  const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_TGBEUnPnXQMw82y6X2hQiA_CLfc9ffB";
 
-  const supabaseClient = supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-  );
-</script>
- <script>
-  const loginForm = document.getElementById("loginForm");
+  const SUPABASE_URL =
+    "https://stjkvlkeysyefhxocjzm.supabase.co";
 
-  loginForm.addEventListener("submit", async function(event) {
-    event.preventDefault();
+  const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_TGBEUnPnXQMw82y6X2hQiA_CLfc9ffB";
 
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
+  const supabaseClient =
+    supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
 
-    const { data, error } = await supabaseClient.auth.signInWithPassword({
-      email: email,
-      password: password
+
+  const loginForm =
+    document.getElementById("loginForm");
+
+  const loginButton =
+    document.getElementById("loginButton");
+
+  const message =
+    document.getElementById("message");
+
+
+  function showMessage(text, type) {
+
+    message.textContent = text;
+
+    message.className =
+      "message " + type;
+
+  }
+
+
+  loginForm.addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+      const email =
+        document.getElementById("email").value.trim();
+
+      const password =
+        document.getElementById("password").value;
+
+
+      loginButton.disabled = true;
+      loginButton.textContent = "Logging in...";
+
+
+      const { error } =
+        await supabaseClient.auth.signInWithPassword({
+
+          email: email,
+          password: password
+
+        });
+
+
+      if (error) {
+
+        showMessage(
+          "Login failed: " + error.message,
+          "error"
+        );
+
+        loginButton.disabled = false;
+        loginButton.textContent = "Login";
+
+        return;
+      }
+
+
+      showMessage(
+        "Login successful! 🎉",
+        "success"
+      );
+
+
+      setTimeout(function() {
+
+        window.location.href = "index.html";
+
+      }, 700);
+
     });
 
-    if (error) {
-      alert("Login failed: " + error.message);
-      return;
-    }
-
-    alert("Login successful! 🎉");
-
-    window.location.href = "index.html";
-  });
 </script>
-  
+
 </body>
 </html>
