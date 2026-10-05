@@ -98,9 +98,9 @@
     </p>
 
     <div class="status">
-  ⭐ <strong>Free Plan</strong>
+  ⭐ <strong id="planName">Loading Plan...</strong>
   <br>
-  <span>You're currently using the AIHub Free Plan.</span>
+  <span id="planDescription">Checking your current plan...</span>
 
   <a href="pricing.html" class="upgrade-button">
     ⭐ View AIHub Pro
@@ -129,7 +129,44 @@
       SUPABASE_PUBLISHABLE_KEY
     );
 
-    async function loadAccount() {
+  async function loadAccount() {
+
+  const {
+    data: { session }
+  } = await supabaseClient.auth.getSession();
+
+  if (!session) {
+    window.location.href = "login.html";
+    return;
+  }
+
+  document.getElementById("userEmail").textContent =
+    session.user.email;
+
+  const { data: profile, error } = await supabaseClient
+    .from("profiles")
+    .select("plan")
+    .eq("user_id", session.user.id)
+    .single();
+
+  if (error) {
+    console.error("Profile error:", error);
+    document.getElementById("planName").textContent = "Free Plan";
+    document.getElementById("planDescription").textContent =
+      "You're currently using the AIHub Free Plan.";
+    return;
+  }
+
+  if (profile.plan === "pro") {
+    document.getElementById("planName").textContent = "Pro Plan ⭐";
+    document.getElementById("planDescription").textContent =
+      "You're currently using AIHub Pro.";
+  } else {
+    document.getElementById("planName").textContent = "Free Plan";
+    document.getElementById("planDescription").textContent =
+      "You're currently using the AIHub Free Plan.";
+  }
+}
 
       const {
         data: { session }
