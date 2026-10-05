@@ -8,10 +8,10 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>YouTube Tag Generator - Free AI YouTube Tags Tool | AIHub</title>
+    <title>YouTube Tag Generator - Free & Pro YouTube Tags Tool | AIHub</title>
 
     <meta name="description"
-          content="Generate relevant YouTube tags for your videos with AIHub's free YouTube Tag Generator. Create useful tags for videos, Shorts and content creators.">
+          content="Generate relevant YouTube tags with AIHub's free and Pro YouTube Tag Generator. Create topic-focused tags for videos, Shorts and creators.">
 
     <meta name="keywords"
           content="YouTube tag generator, YouTube tags, video tags generator, free YouTube tags, YouTube SEO tags">
@@ -20,6 +20,156 @@
           href="https://gargatharv88-glitch.github.io/aihub/youtube-tag-generator.html">
 
     <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        .back-aihub {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 10px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            background: #f1f5f9;
+            color: #111827;
+            border: 1px solid #e5e7eb;
+        }
+
+        .back-aihub:hover {
+            background: #e5e7eb;
+        }
+
+        .plan-box {
+            margin: 18px 0;
+            padding: 14px 18px;
+            border-radius: 10px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            font-weight: 600;
+        }
+
+        .plan-free {
+            color: #475569;
+        }
+
+        .plan-pro {
+            color: #15803d;
+        }
+
+        .pro-panel {
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #dbeafe;
+            background: #f8fbff;
+        }
+
+        .pro-panel h3 {
+            margin-top: 0;
+        }
+
+        .pro-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px;
+        }
+
+        .pro-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .pro-field.full {
+            grid-column: 1 / -1;
+        }
+
+        .pro-field label {
+            font-weight: 600;
+        }
+
+        .pro-field input,
+        .pro-field select,
+        .pro-field textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font: inherit;
+        }
+
+        .pro-field textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .pro-checks {
+            display: grid;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .pro-checks label {
+            font-weight: 500;
+        }
+
+        .pro-locked {
+            margin: 20px 0;
+            padding: 18px;
+            border-radius: 12px;
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+        }
+
+        .pro-result {
+            margin-top: 20px;
+            padding: 18px;
+            border-radius: 12px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
+
+        .tag-output {
+            margin-top: 15px;
+            padding: 16px;
+            border-radius: 10px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            line-height: 1.8;
+            word-break: break-word;
+        }
+
+        .copy-tags {
+            margin-top: 10px;
+            padding: 9px 14px;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .tag-chip {
+            display: inline-block;
+            margin: 4px;
+            padding: 5px 9px;
+            border-radius: 6px;
+            background: #eef2ff;
+            border: 1px solid #c7d2fe;
+        }
+
+        @media (max-width: 700px) {
+
+            .pro-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pro-field.full {
+                grid-column: auto;
+            }
+
+        }
+
+    </style>
 
 </head>
 
@@ -54,12 +204,20 @@
 
         <div class="container">
 
+            <a href="index.html" class="back-aihub">
+                ← Back to AIHub
+            </a>
+
             <h1>Free YouTube Tag Generator</h1>
 
             <p>
                 Generate relevant YouTube tags for your videos
                 quickly with AIHub's free online tool.
             </p>
+
+            <div id="planStatus" class="plan-box">
+                Checking your plan...
+            </div>
 
         </div>
 
@@ -92,7 +250,298 @@
 
                 </div>
 
+
+                <!-- ================= PRO CONTROLS ================= -->
+
+                <div
+                    id="proControls"
+                    class="pro-panel"
+                    style="display:none;"
+                >
+
+                    <h3>
+                        🚀 Pro Tag Settings
+                    </h3>
+
+                    <p>
+                        Create more targeted and organized YouTube tags
+                        with advanced Pro controls.
+                    </p>
+
+
+                    <div class="pro-grid">
+
+                        <div class="pro-field">
+
+                            <label for="tagCount">
+                                Number of Tags
+                            </label>
+
+                            <select id="tagCount">
+
+                                <option value="10">
+                                    10 Tags
+                                </option>
+
+                                <option value="20" selected>
+                                    20 Tags
+                                </option>
+
+                                <option value="30">
+                                    30 Tags
+                                </option>
+
+                                <option value="40">
+                                    40 Tags
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="pro-field">
+
+                            <label for="tagStyle">
+                                Tag Style
+                            </label>
+
+                            <select id="tagStyle">
+
+                                <option>Balanced</option>
+
+                                <option>SEO Focused</option>
+
+                                <option>Search Friendly</option>
+
+                                <option>Long Tail</option>
+
+                                <option>Beginner Friendly</option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="pro-field">
+
+                            <label for="contentType">
+                                Content Type
+                            </label>
+
+                            <select id="contentType">
+
+                                <option>General Video</option>
+
+                                <option>YouTube Shorts</option>
+
+                                <option>Educational</option>
+
+                                <option>Kids</option>
+
+                                <option>Gaming</option>
+
+                                <option>Vlog</option>
+
+                                <option>Tech</option>
+
+                                <option>Entertainment</option>
+
+                                <option>How To</option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="pro-field">
+
+                            <label for="targetAudience">
+                                Target Audience
+                            </label>
+
+                            <input
+                                type="text"
+                                id="targetAudience"
+                                placeholder="e.g. Kids, students, gamers"
+                            >
+
+                        </div>
+
+
+                        <div class="pro-field full">
+
+                            <label for="mainKeyword">
+                                Main Keyword
+                            </label>
+
+                            <input
+                                type="text"
+                                id="mainKeyword"
+                                placeholder="e.g. space for kids"
+                            >
+
+                        </div>
+
+
+                        <div class="pro-field full">
+
+                            <label for="relatedKeywords">
+                                Related Keywords
+                            </label>
+
+                            <textarea
+                                id="relatedKeywords"
+                                placeholder="planets, solar system, space facts, astronomy"
+                            ></textarea>
+
+                        </div>
+
+
+                        <div class="pro-field full">
+
+                            <label for="customTags">
+                                Custom Tags to Include
+                            </label>
+
+                            <input
+                                type="text"
+                                id="customTags"
+                                placeholder="my channel, my topic"
+                            >
+
+                        </div>
+
+
+                        <div class="pro-field full">
+
+                            <label for="avoidKeywords">
+                                Keywords to Avoid
+                            </label>
+
+                            <input
+                                type="text"
+                                id="avoidKeywords"
+                                placeholder="unrelated keywords"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="pro-checks">
+
+                        <label>
+                            <input
+                                type="checkbox"
+                                id="includeLongTail"
+                                checked
+                            >
+                            Include long-tail keyword variations
+                        </label>
+
+                        <label>
+                            <input
+                                type="checkbox"
+                                id="includeShortTags"
+                                checked
+                            >
+                            Include short keyword variations
+                        </label>
+
+                        <label>
+                            <input
+                                type="checkbox"
+                                id="includeRelated"
+                                checked
+                            >
+                            Include related topic variations
+                        </label>
+
+                        <label>
+                            <input
+                                type="checkbox"
+                                id="includeAudience"
+                                checked
+                            >
+                            Include audience-focused tags
+                        </label>
+
+                        <label>
+                            <input
+                                type="checkbox"
+                                id="includeHashtags"
+                            >
+                            Also create hashtag-style versions
+                        </label>
+
+                    </div>
+
+
+                    <button
+                        id="generateProTags"
+                        style="margin-top:18px;"
+                    >
+                        Generate Pro Tags
+                    </button>
+
+                </div>
+
+
+                <!-- ================= LOCKED PRO ================= -->
+
+                <div
+                    id="lockedPro"
+                    class="pro-locked"
+                    style="display:none;"
+                >
+
+                    <h3>
+                        🔒 AIHub Pro
+                    </h3>
+
+                    <p>
+                        Upgrade to Pro to unlock advanced tag generation,
+                        SEO-focused variations, long-tail tags, audience
+                        targeting and custom keyword controls.
+                    </p>
+
+                    <a href="pricing.html">
+                        Upgrade to Pro
+                    </a>
+
+                </div>
+
+
                 <div id="toolInterface"></div>
+
+
+                <!-- ================= PRO RESULT ================= -->
+
+                <div
+                    id="proResult"
+                    class="pro-result"
+                    style="display:none;"
+                >
+
+                    <h3>
+                        ✨ Pro Generated YouTube Tags
+                    </h3>
+
+                    <div
+                        id="tagOutput"
+                        class="tag-output"
+                    ></div>
+
+                    <button
+                        class="copy-tags"
+                        id="copyProTags"
+                    >
+                        Copy Tags
+                    </button>
+
+                </div>
 
             </div>
 
@@ -184,6 +633,7 @@
 
             <p>
                 Yes. AIHub's YouTube Tag Generator is free to use.
+                Pro users get additional advanced tag-generation controls.
             </p>
 
 
@@ -266,28 +716,713 @@
 </footer>
 
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script src="script.js"></script>
+
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function () {
+const SUPABASE_URL =
+    "https://stjkvlkeysyefhxocjzm.supabase.co";
 
-    if (typeof openTool === "function") {
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_TGBEUnPnXQMw82y6X2hQiA_CLfc9ffB";
 
-        openTool("tags");
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+let currentPlan = "guest";
+
+
+async function loadPlan() {
+
+    try {
+
+        const {
+            data: { session }
+        } = await supabaseClient.auth.getSession();
+
+
+        if (!session) {
+
+            currentPlan = "guest";
+
+            updatePlanUI();
+
+            return;
+
+        }
+
+
+        const user = session.user;
+
+
+        const {
+            data: profile,
+            error
+        } = await supabaseClient
+            .from("profiles")
+            .select("plan")
+            .eq("user_id", user.id)
+            .maybeSingle();
+
+
+        if (error) {
+
+            console.error(error);
+
+            currentPlan = "free";
+
+        } else {
+
+            currentPlan =
+                profile?.plan === "pro"
+                    ? "pro"
+                    : "free";
+
+        }
+
+
+        updatePlanUI();
+
+    } catch (error) {
+
+        console.error(error);
+
+        currentPlan = "free";
+
+        updatePlanUI();
 
     }
 
-});
+}
+
+
+function updatePlanUI() {
+
+    const planStatus =
+        document.getElementById("planStatus");
+
+    const proControls =
+        document.getElementById("proControls");
+
+    const lockedPro =
+        document.getElementById("lockedPro");
+
+
+    if (currentPlan === "pro") {
+
+        planStatus.innerHTML =
+            "⭐ Pro Plan — Advanced YouTube Tag features unlocked.";
+
+        planStatus.className =
+            "plan-box plan-pro";
+
+        proControls.style.display =
+            "block";
+
+        lockedPro.style.display =
+            "none";
+
+    } else if (currentPlan === "free") {
+
+        planStatus.innerHTML =
+            "🆓 Free Plan — Basic YouTube Tag Generator.";
+
+        planStatus.className =
+            "plan-box plan-free";
+
+        proControls.style.display =
+            "none";
+
+        lockedPro.style.display =
+            "block";
+
+    } else {
+
+        planStatus.innerHTML =
+            "👤 Guest — Login to access your account features.";
+
+        planStatus.className =
+            "plan-box plan-free";
+
+        proControls.style.display =
+            "none";
+
+        lockedPro.style.display =
+            "block";
+
+    }
+
+}
+
+
+/* ================= TOPIC DETECTION ================= */
+
+function getTopicFromTool() {
+
+    const interfaceBox =
+        document.getElementById("toolInterface");
+
+
+    if (!interfaceBox) {
+
+        return "your video";
+
+    }
+
+
+    const fields =
+        interfaceBox.querySelectorAll(
+            "input, textarea, select"
+        );
+
+
+    for (const field of fields) {
+
+        const value =
+            (field.value || "").trim();
+
+
+        if (value) {
+
+            return value;
+
+        }
+
+    }
+
+
+    return "your video";
+
+}
+
+
+/* ================= TAG HELPERS ================= */
+
+function cleanTag(tag) {
+
+    return tag
+        .replace(/^#+/, "")
+        .replace(/[<>]/g, "")
+        .trim();
+
+}
+
+
+function addTag(tags, tag) {
+
+    const cleaned =
+        cleanTag(tag);
+
+
+    if (!cleaned) {
+
+        return;
+
+    }
+
+
+    const exists =
+        tags.some(
+            item =>
+                item.toLowerCase() ===
+                cleaned.toLowerCase()
+        );
+
+
+    if (!exists) {
+
+        tags.push(cleaned);
+
+    }
+
+}
+
+
+/* ================= PRO TAG GENERATOR ================= */
+
+function generateProTags() {
+
+    if (currentPlan !== "pro") {
+
+        alert("Pro plan required.");
+
+        return;
+
+    }
+
+
+    let topic =
+        getTopicFromTool();
+
+
+    const mainKeyword =
+        document.getElementById(
+            "mainKeyword"
+        ).value.trim();
+
+
+    if (mainKeyword) {
+
+        topic = mainKeyword;
+
+    }
+
+
+    const count =
+        parseInt(
+            document.getElementById(
+                "tagCount"
+            ).value,
+            10
+        );
+
+
+    const style =
+        document.getElementById(
+            "tagStyle"
+        ).value;
+
+
+    const contentType =
+        document.getElementById(
+            "contentType"
+        ).value;
+
+
+    const audience =
+        document.getElementById(
+            "targetAudience"
+        ).value.trim();
+
+
+    const relatedKeywords =
+        document.getElementById(
+            "relatedKeywords"
+        ).value.trim();
+
+
+    const customTags =
+        document.getElementById(
+            "customTags"
+        ).value.trim();
+
+
+    const avoidKeywords =
+        document.getElementById(
+            "avoidKeywords"
+        ).value
+        .toLowerCase()
+        .split(",");
+
+
+    const includeLongTail =
+        document.getElementById(
+            "includeLongTail"
+        ).checked;
+
+
+    const includeShortTags =
+        document.getElementById(
+            "includeShortTags"
+        ).checked;
+
+
+    const includeRelated =
+        document.getElementById(
+            "includeRelated"
+        ).checked;
+
+
+    const includeAudience =
+        document.getElementById(
+            "includeAudience"
+        ).checked;
+
+
+    const includeHashtags =
+        document.getElementById(
+            "includeHashtags"
+        ).checked;
+
+
+    const tags = [];
+
+
+    /* Main keyword */
+
+    addTag(tags, topic);
+
+
+    addTag(
+        tags,
+        `${topic} video`
+    );
+
+
+    addTag(
+        tags,
+        `${topic} tutorial`
+    );
+
+
+    addTag(
+        tags,
+        `${topic} guide`
+    );
+
+
+    /* Short tags */
+
+    if (includeShortTags) {
+
+        const words =
+            topic
+                .split(/\s+/)
+                .filter(Boolean);
+
+
+        words.forEach(
+            word => addTag(tags, word)
+        );
+
+    }
+
+
+    /* Long-tail */
+
+    if (includeLongTail) {
+
+        addTag(
+            tags,
+            `${topic} for beginners`
+        );
+
+        addTag(
+            tags,
+            `how to ${topic}`
+        );
+
+        addTag(
+            tags,
+            `${topic} explained`
+        );
+
+        addTag(
+            tags,
+            `${topic} tips`
+        );
+
+        addTag(
+            tags,
+            `best ${topic}`
+        );
+
+    }
+
+
+    /* Related keywords */
+
+    if (
+        includeRelated &&
+        relatedKeywords
+    ) {
+
+        relatedKeywords
+            .split(",")
+            .forEach(
+                keyword =>
+                    addTag(
+                        tags,
+                        keyword
+                    )
+            );
+
+    }
+
+
+    /* Audience */
+
+    if (
+        includeAudience &&
+        audience
+    ) {
+
+        addTag(
+            tags,
+            `${topic} for ${audience}`
+        );
+
+        addTag(
+            tags,
+            `${audience} ${topic}`
+        );
+
+    }
+
+
+    /* Content type */
+
+    addTag(
+        tags,
+        `${topic} ${contentType.toLowerCase()}`
+    );
+
+
+    /* Custom tags */
+
+    if (customTags) {
+
+        customTags
+            .split(",")
+            .forEach(
+                tag =>
+                    addTag(
+                        tags,
+                        tag
+                    )
+            );
+
+    }
+
+
+    /* Style-based tags */
+
+    if (style === "SEO Focused") {
+
+        addTag(
+            tags,
+            `${topic} search`
+        );
+
+        addTag(
+            tags,
+            `${topic} keywords`
+        );
+
+    }
+
+
+    if (style === "Search Friendly") {
+
+        addTag(
+            tags,
+            `${topic} online`
+        );
+
+        addTag(
+            tags,
+            `${topic} information`
+        );
+
+    }
+
+
+    /* Remove avoided terms */
+
+    const filteredTags =
+        tags.filter(
+            tag => {
+
+                return !avoidKeywords.some(
+                    bad =>
+                        bad &&
+                        tag
+                            .toLowerCase()
+                            .includes(
+                                bad.trim()
+                            )
+                );
+
+            }
+        );
+
+
+    const finalTags =
+        filteredTags.slice(
+            0,
+            count
+        );
+
+
+    const output =
+        document.getElementById(
+            "tagOutput"
+        );
+
+
+    output.innerHTML =
+        "";
+
+
+    finalTags.forEach(
+        tag => {
+
+            const chip =
+                document.createElement(
+                    "span"
+                );
+
+            chip.className =
+                "tag-chip";
+
+            chip.textContent =
+                includeHashtags
+                    ? "#" + tag.replace(/\s+/g, "")
+                    : tag;
+
+            output.appendChild(
+                chip
+            );
+
+        }
+    );
+
+
+    if (!finalTags.length) {
+
+        output.textContent =
+            "No tags generated. Try adding a topic or keyword.";
+
+    }
+
+
+    document.getElementById(
+        "proResult"
+    ).style.display =
+        "block";
+
+}
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        loadPlan();
+
+
+        const generateButton =
+            document.getElementById(
+                "generateProTags"
+            );
+
+
+        if (generateButton) {
+
+            generateButton.addEventListener(
+                "click",
+                generateProTags
+            );
+
+        }
+
+
+        const copyButton =
+            document.getElementById(
+                "copyProTags"
+            );
+
+
+        if (copyButton) {
+
+            copyButton.addEventListener(
+                "click",
+                async function () {
+
+                    const chips =
+                        document.querySelectorAll(
+                            "#tagOutput .tag-chip"
+                        );
+
+
+                    const tags =
+                        Array.from(chips)
+                            .map(
+                                chip =>
+                                    chip.textContent
+                            )
+                            .join(", ");
+
+
+                    if (!tags) {
+
+                        alert(
+                            "No tags available to copy."
+                        );
+
+                        return;
+
+                    }
+
+
+                    try {
+
+                        await navigator.clipboard.writeText(
+                            tags
+                        );
+
+
+                        copyButton.textContent =
+                            "Copied!";
+
+
+                        setTimeout(
+                            function () {
+
+                                copyButton.textContent =
+                                    "Copy Tags";
+
+                            },
+                            1500
+                        );
+
+                    } catch (error) {
+
+                        alert(
+                            "Copy failed. Please copy the tags manually."
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        /*
+         * Automatically open the YouTube Tag Generator
+         */
+
+        if (
+            typeof openTool === "function"
+        ) {
+
+            openTool("tags");
+
+        }
+
+    }
+);
+
+
+supabaseClient.auth.onAuthStateChange(
+    async function () {
+
+        await loadPlan();
+
+    }
+);
 
 </script>
-    
-<!-- ================= HOMEPAGE INTERNAL LINK ================= -->
 
-<div class="back-home-link">
-  <a href="index.html">← Explore All AIHub Tools</a>
-</div>
-    
 </body>
 
 </html>
