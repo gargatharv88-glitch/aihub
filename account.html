@@ -128,8 +128,7 @@
       SUPABASE_URL,
       SUPABASE_PUBLISHABLE_KEY
     );
-
-  async function loadAccount() {
+    async function loadAccount() {
 
   const {
     data: { session }
@@ -140,9 +139,11 @@
     return;
   }
 
+  // Show logged-in user's email
   document.getElementById("userEmail").textContent =
     session.user.email;
 
+  // Get user's plan from Supabase profiles table
   const { data: profile, error } = await supabaseClient
     .from("profiles")
     .select("plan")
@@ -151,12 +152,15 @@
 
   if (error) {
     console.error("Profile error:", error);
+
     document.getElementById("planName").textContent = "Free Plan";
     document.getElementById("planDescription").textContent =
       "You're currently using the AIHub Free Plan.";
+
     return;
   }
 
+  // Show Pro or Free based on database value
   if (profile.plan === "pro") {
     document.getElementById("planName").textContent = "Pro Plan ⭐";
     document.getElementById("planDescription").textContent =
@@ -167,19 +171,6 @@
       "You're currently using the AIHub Free Plan.";
   }
 }
-
-      const {
-        data: { session }
-      } = await supabaseClient.auth.getSession();
-
-      if (!session) {
-        window.location.href = "login.html";
-        return;
-      }
-
-      document.getElementById("userEmail").textContent =
-        session.user.email;
-    }
 
     document.getElementById("logoutButton").addEventListener("click", async function() {
 
