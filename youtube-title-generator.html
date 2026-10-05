@@ -7,10 +7,10 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>YouTube Title Generator - Free AI Title Ideas | AIHub</title>
+    <title>YouTube Title Generator - Free & Pro AI Title Ideas | AIHub</title>
 
     <meta name="description"
-          content="Generate engaging YouTube title ideas with AIHub's free YouTube Title Generator. Create catchy, clear and audience-focused titles for your videos.">
+          content="Generate engaging YouTube title ideas with AIHub's free and Pro YouTube Title Generator. Create catchy, clear and audience-focused titles.">
 
     <meta name="robots"
           content="index, follow">
@@ -20,6 +20,154 @@
 
     <link rel="stylesheet"
           href="style.css">
+
+    <style>
+
+        .back-aihub {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 10px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            background: #f1f5f9;
+            color: #111827;
+            border: 1px solid #e5e7eb;
+        }
+
+        .back-aihub:hover {
+            background: #e5e7eb;
+        }
+
+        .plan-box {
+            margin: 18px 0;
+            padding: 14px 18px;
+            border-radius: 10px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            font-weight: 600;
+        }
+
+        .plan-free {
+            color: #475569;
+        }
+
+        .plan-pro {
+            color: #15803d;
+        }
+
+        .pro-panel {
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #dbeafe;
+            background: #f8fbff;
+        }
+
+        .pro-panel h3 {
+            margin-top: 0;
+        }
+
+        .pro-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px;
+        }
+
+        .pro-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .pro-field.full {
+            grid-column: 1 / -1;
+        }
+
+        .pro-field label {
+            font-weight: 600;
+        }
+
+        .pro-field input,
+        .pro-field select,
+        .pro-field textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font: inherit;
+        }
+
+        .pro-field textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .pro-checks {
+            display: grid;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .pro-checks label {
+            font-weight: 500;
+        }
+
+        .pro-locked {
+            margin: 20px 0;
+            padding: 18px;
+            border-radius: 12px;
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+        }
+
+        .pro-result {
+            margin-top: 20px;
+            padding: 18px;
+            border-radius: 12px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
+
+        .title-output {
+            margin-top: 15px;
+        }
+
+        .title-card {
+            margin: 10px 0;
+            padding: 14px;
+            border-radius: 9px;
+            background: white;
+            border: 1px solid #e2e8f0;
+        }
+
+        .title-number {
+            font-weight: 700;
+            margin-right: 6px;
+        }
+
+        .copy-title {
+            margin-top: 8px;
+            padding: 8px 13px;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 700px) {
+
+            .pro-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pro-field.full {
+                grid-column: auto;
+            }
+
+        }
+
+    </style>
 
 </head>
 
@@ -60,6 +208,10 @@
 
     <div class="container">
 
+        <a href="index.html" class="back-aihub">
+            ← Back to AIHub
+        </a>
+
         <h1>
             YouTube Title Generator
         </h1>
@@ -68,6 +220,10 @@
             Create engaging and audience-friendly YouTube title ideas
             for your videos with AIHub's free YouTube Title Generator.
         </p>
+
+        <div id="planStatus" class="plan-box">
+            Checking your plan...
+        </div>
 
     </div>
 
@@ -80,25 +236,324 @@
 
         <div id="workspace" class="workspace">
 
-    <div class="workspace-header">
+            <div class="workspace-header">
 
-        <div>
-            <span id="workspaceCategory"></span>
+                <div>
 
-            <h2 id="workspaceTitle">
-                YouTube Title Generator
-            </h2>
+                    <span id="workspaceCategory"></span>
 
-            <p id="workspaceDescription"></p>
+                    <h2 id="workspaceTitle">
+                        YouTube Title Generator
+                    </h2>
+
+                    <p id="workspaceDescription"></p>
+
+                </div>
+
+                <div id="workspaceIcon"></div>
+
+            </div>
+
+
+            <!-- ================= PRO CONTROLS ================= -->
+
+            <div
+                id="proControls"
+                class="pro-panel"
+                style="display:none;"
+            >
+
+                <h3>
+                    🚀 Pro Title Settings
+                </h3>
+
+                <p>
+                    Create more targeted YouTube titles with advanced
+                    style, audience, SEO and variation controls.
+                </p>
+
+
+                <div class="pro-grid">
+
+                    <div class="pro-field">
+
+                        <label for="titleCount">
+                            Number of Titles
+                        </label>
+
+                        <select id="titleCount">
+
+                            <option value="5">
+                                5 Titles
+                            </option>
+
+                            <option value="10" selected>
+                                10 Titles
+                            </option>
+
+                            <option value="15">
+                                15 Titles
+                            </option>
+
+                            <option value="20">
+                                20 Titles
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="pro-field">
+
+                        <label for="titleStyle">
+                            Title Style
+                        </label>
+
+                        <select id="titleStyle">
+
+                            <option>Balanced</option>
+
+                            <option>Curiosity</option>
+
+                            <option>Educational</option>
+
+                            <option>Storytelling</option>
+
+                            <option>How-To</option>
+
+                            <option>List Style</option>
+
+                            <option>Question Based</option>
+
+                            <option>Emotional</option>
+
+                            <option>Professional</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="pro-field">
+
+                        <label for="targetAudience">
+                            Target Audience
+                        </label>
+
+                        <input
+                            type="text"
+                            id="targetAudience"
+                            placeholder="e.g. Kids, students, gamers"
+                        >
+
+                    </div>
+
+
+                    <div class="pro-field">
+
+                        <label for="contentType">
+                            Content Type
+                        </label>
+
+                        <select id="contentType">
+
+                            <option>General Video</option>
+
+                            <option>YouTube Shorts</option>
+
+                            <option>Educational</option>
+
+                            <option>Kids</option>
+
+                            <option>Gaming</option>
+
+                            <option>Vlog</option>
+
+                            <option>Tech</option>
+
+                            <option>Entertainment</option>
+
+                            <option>How To</option>
+
+                            <option>Review</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="pro-field">
+
+                        <label for="titleLength">
+                            Title Length
+                        </label>
+
+                        <select id="titleLength">
+
+                            <option>Short</option>
+
+                            <option selected>Medium</option>
+
+                            <option>Long</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="pro-field">
+
+                        <label for="mainKeyword">
+                            Main Keyword
+                        </label>
+
+                        <input
+                            type="text"
+                            id="mainKeyword"
+                            placeholder="e.g. space for kids"
+                        >
+
+                    </div>
+
+
+                    <div class="pro-field full">
+
+                        <label for="relatedKeywords">
+                            Related Keywords
+                        </label>
+
+                        <textarea
+                            id="relatedKeywords"
+                            placeholder="planets, solar system, space facts"
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="pro-field full">
+
+                        <label for="extraInstructions">
+                            Additional Instructions
+                        </label>
+
+                        <textarea
+                            id="extraInstructions"
+                            placeholder="Mention a specific benefit, format, topic or phrase..."
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <div class="pro-checks">
+
+                    <label>
+                        <input
+                            type="checkbox"
+                            id="includeKeyword"
+                            checked
+                        >
+                        Naturally include the main keyword
+                    </label>
+
+                    <label>
+                        <input
+                            type="checkbox"
+                            id="includeNumbers"
+                            checked
+                        >
+                        Include numbered/list-style variations
+                    </label>
+
+                    <label>
+                        <input
+                            type="checkbox"
+                            id="includeEmoji"
+                        >
+                        Include suitable emojis
+                    </label>
+
+                    <label>
+                        <input
+                            type="checkbox"
+                            id="includeQuestion"
+                            checked
+                        >
+                        Include question-based variations
+                    </label>
+
+                    <label>
+                        <input
+                            type="checkbox"
+                            id="avoidClickbait"
+                            checked
+                        >
+                        Avoid misleading clickbait
+                    </label>
+
+                </div>
+
+
+                <button
+                    id="generateProTitles"
+                    style="margin-top:18px;"
+                >
+                    Generate Pro Titles
+                </button>
+
+            </div>
+
+
+            <!-- ================= LOCKED PRO ================= -->
+
+            <div
+                id="lockedPro"
+                class="pro-locked"
+                style="display:none;"
+            >
+
+                <h3>
+                    🔒 AIHub Pro
+                </h3>
+
+                <p>
+                    Upgrade to Pro to unlock advanced title styles,
+                    more title variations, keyword controls, audience
+                    targeting and custom instructions.
+                </p>
+
+                <a href="pricing.html">
+                    Upgrade to Pro
+                </a>
+
+            </div>
+
+
+            <div id="toolInterface"></div>
+
+
+            <!-- ================= PRO RESULT ================= -->
+
+            <div
+                id="proResult"
+                class="pro-result"
+                style="display:none;"
+            >
+
+                <h3>
+                    ✨ Pro Generated YouTube Titles
+                </h3>
+
+                <div
+                    id="titleOutput"
+                    class="title-output"
+                ></div>
+
+            </div>
+
         </div>
-
-        <div id="workspaceIcon"></div>
-
-    </div>
-
-    <div id="toolInterface"></div>
-
-</div>
 
     </div>
 
@@ -223,7 +678,8 @@
 
         <p>
             Yes. AIHub's YouTube Title Generator is available as a
-            free online tool.
+            free online tool. Pro users get additional advanced
+            title-generation options.
         </p>
 
 
@@ -263,8 +719,8 @@
         </h3>
 
         <p>
-            The tool currently provides multiple title suggestions
-            for each topic so you can compare different options.
+            The Pro version allows you to request more variations
+            and customize the title generation settings.
         </p>
 
 
@@ -315,33 +771,882 @@
 </footer>
 
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script src="script.js"></script>
 
 
 <script>
 
-    /*
-     * Automatically open the YouTube Title Generator
-     * when this SEO page loads.
-     */
+const SUPABASE_URL =
+    "https://stjkvlkeysyefhxocjzm.supabase.co";
 
-    document.addEventListener("DOMContentLoaded", function () {
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_TGBEUnPnXQMw82y6X2hQiA_CLfc9ffB";
 
-        if (typeof openTool === "function") {
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
 
-            openTool("youtube-title");
+
+let currentPlan = "guest";
+
+
+async function loadPlan() {
+
+    try {
+
+        const {
+            data: { session }
+        } = await supabaseClient.auth.getSession();
+
+
+        if (!session) {
+
+            currentPlan = "guest";
+
+            updatePlanUI();
+
+            return;
 
         }
 
-    });
+
+        const user = session.user;
+
+
+        const {
+            data: profile,
+            error
+        } = await supabaseClient
+            .from("profiles")
+            .select("plan")
+            .eq("user_id", user.id)
+            .maybeSingle();
+
+
+        if (error) {
+
+            console.error(error);
+
+            currentPlan = "free";
+
+        } else {
+
+            currentPlan =
+                profile?.plan === "pro"
+                    ? "pro"
+                    : "free";
+
+        }
+
+
+        updatePlanUI();
+
+    } catch (error) {
+
+        console.error(error);
+
+        currentPlan = "free";
+
+        updatePlanUI();
+
+    }
+
+}
+
+
+function updatePlanUI() {
+
+    const planStatus =
+        document.getElementById("planStatus");
+
+    const proControls =
+        document.getElementById("proControls");
+
+    const lockedPro =
+        document.getElementById("lockedPro");
+
+
+    if (currentPlan === "pro") {
+
+        planStatus.innerHTML =
+            "⭐ Pro Plan — Advanced YouTube Title features unlocked.";
+
+        planStatus.className =
+            "plan-box plan-pro";
+
+        proControls.style.display =
+            "block";
+
+        lockedPro.style.display =
+            "none";
+
+    } else if (currentPlan === "free") {
+
+        planStatus.innerHTML =
+            "🆓 Free Plan — Basic YouTube Title Generator.";
+
+        planStatus.className =
+            "plan-box plan-free";
+
+        proControls.style.display =
+            "none";
+
+        lockedPro.style.display =
+            "block";
+
+    } else {
+
+        planStatus.innerHTML =
+            "👤 Guest — Login to access your account features.";
+
+        planStatus.className =
+            "plan-box plan-free";
+
+        proControls.style.display =
+            "none";
+
+        lockedPro.style.display =
+            "block";
+
+    }
+
+}
+
+
+/* ================= TOPIC DETECTION ================= */
+
+function getTopicFromTool() {
+
+    const interfaceBox =
+        document.getElementById("toolInterface");
+
+
+    if (!interfaceBox) {
+
+        return "your video";
+
+    }
+
+
+    const fields =
+        interfaceBox.querySelectorAll(
+            "input, textarea, select"
+        );
+
+
+    for (const field of fields) {
+
+        const value =
+            (field.value || "").trim();
+
+
+        if (value) {
+
+            return value;
+
+        }
+
+    }
+
+
+    return "your video";
+
+}
+
+
+/* ================= TITLE HELPERS ================= */
+
+function addTitle(titles, title) {
+
+    title =
+        title
+            .replace(/\s+/g, " ")
+            .trim();
+
+
+    if (!title) {
+
+        return;
+
+    }
+
+
+    if (
+        !titles.some(
+            item =>
+                item.toLowerCase() ===
+                title.toLowerCase()
+        )
+    ) {
+
+        titles.push(title);
+
+    }
+
+}
+
+
+function makeEmoji(index) {
+
+    const emojis = [
+        "🚀",
+        "🔥",
+        "✨",
+        "🎯",
+        "💡",
+        "🌟",
+        "📚",
+        "🎮"
+    ];
+
+    return emojis[
+        index % emojis.length
+    ];
+
+}
+
+
+/* ================= PRO TITLE GENERATOR ================= */
+
+function generateProTitles() {
+
+    if (currentPlan !== "pro") {
+
+        alert("Pro plan required.");
+
+        return;
+
+    }
+
+
+    let topic =
+        getTopicFromTool();
+
+
+    const mainKeyword =
+        document.getElementById(
+            "mainKeyword"
+        ).value.trim();
+
+
+    if (mainKeyword) {
+
+        topic = mainKeyword;
+
+    }
+
+
+    const count =
+        parseInt(
+            document.getElementById(
+                "titleCount"
+            ).value,
+            10
+        );
+
+
+    const style =
+        document.getElementById(
+            "titleStyle"
+        ).value;
+
+
+    const audience =
+        document.getElementById(
+            "targetAudience"
+        ).value.trim()
+        || "viewers";
+
+
+    const contentType =
+        document.getElementById(
+            "contentType"
+        ).value;
+
+
+    const titleLength =
+        document.getElementById(
+            "titleLength"
+        ).value;
+
+
+    const relatedKeywords =
+        document.getElementById(
+            "relatedKeywords"
+        ).value.trim();
+
+
+    const extraInstructions =
+        document.getElementById(
+            "extraInstructions"
+        ).value.trim();
+
+
+    const includeKeyword =
+        document.getElementById(
+            "includeKeyword"
+        ).checked;
+
+
+    const includeNumbers =
+        document.getElementById(
+            "includeNumbers"
+        ).checked;
+
+
+    const includeEmoji =
+        document.getElementById(
+            "includeEmoji"
+        ).checked;
+
+
+    const includeQuestion =
+        document.getElementById(
+            "includeQuestion"
+        ).checked;
+
+
+    const avoidClickbait =
+        document.getElementById(
+            "avoidClickbait"
+        ).checked;
+
+
+    const titles = [];
+
+
+    /* Main keyword */
+
+    if (includeKeyword) {
+
+        addTitle(
+            titles,
+            `${topic}: Everything You Need to Know`
+        );
+
+    }
+
+
+    /* Style variations */
+
+    if (style === "Curiosity") {
+
+        addTitle(
+            titles,
+            `You Won't Believe What Happens With ${topic}`
+        );
+
+        addTitle(
+            titles,
+            `The Truth About ${topic}`
+        );
+
+        addTitle(
+            titles,
+            `What Nobody Tells You About ${topic}`
+        );
+
+    }
+
+
+    if (style === "Educational") {
+
+        addTitle(
+            titles,
+            `${topic} Explained Simply`
+        );
+
+        addTitle(
+            titles,
+            `Learn ${topic} Step by Step`
+        );
+
+        addTitle(
+            titles,
+            `${topic} Made Easy for Beginners`
+        );
+
+    }
+
+
+    if (style === "Storytelling") {
+
+        addTitle(
+            titles,
+            `The Story Behind ${topic}`
+        );
+
+        addTitle(
+            titles,
+            `Our Journey With ${topic}`
+        );
+
+        addTitle(
+            titles,
+            `What Happened When We Tried ${topic}`
+        );
+
+    }
+
+
+    if (style === "How-To") {
+
+        addTitle(
+            titles,
+            `How to ${topic} Step by Step`
+        );
+
+        addTitle(
+            titles,
+            `How to Get Better at ${topic}`
+        );
+
+        addTitle(
+            titles,
+            `How to Start With ${topic}`
+        );
+
+    }
+
+
+    if (style === "List Style") {
+
+        addTitle(
+            titles,
+            `10 Things You Should Know About ${topic}`
+        );
+
+        addTitle(
+            titles,
+            `7 Useful Tips for ${topic}`
+        );
+
+        addTitle(
+            titles,
+            `5 Best Ideas for ${topic}`
+        );
+
+    }
+
+
+    if (style === "Question Based") {
+
+        addTitle(
+            titles,
+            `What Is ${topic} and How Does It Work?`
+        );
+
+        addTitle(
+            titles,
+            `Can You Really Learn ${topic}?`
+        );
+
+        addTitle(
+            titles,
+            `Why Is ${topic} Important?`
+        );
+
+    }
+
+
+    if (style === "Emotional") {
+
+        addTitle(
+            titles,
+            `Why ${topic} Might Change the Way You Think`
+        );
+
+        addTitle(
+            titles,
+            `The Most Important Thing About ${topic}`
+        );
+
+        addTitle(
+            titles,
+            `This Made Me See ${topic} Differently`
+        );
+
+    }
+
+
+    if (style === "Professional") {
+
+        addTitle(
+            titles,
+            `${topic} | Complete Guide`
+        );
+
+        addTitle(
+            titles,
+            `${topic}: A Practical Guide`
+        );
+
+        addTitle(
+            titles,
+            `${topic}: Key Concepts Explained`
+        );
+
+    }
+
+
+    /* Balanced / default */
+
+    addTitle(
+        titles,
+        `Let's Explore ${topic}!`
+    );
+
+    addTitle(
+        titles,
+        `The Ultimate Guide to ${topic}`
+    );
+
+    addTitle(
+        titles,
+        `${topic} Tips You Should Know`
+    );
+
+
+    /* Question variations */
+
+    if (includeQuestion) {
+
+        addTitle(
+            titles,
+            `Have You Tried ${topic}?`
+        );
+
+        addTitle(
+            titles,
+            `Why Should You Learn ${topic}?`
+        );
+
+    }
+
+
+    /* Numbered variations */
+
+    if (includeNumbers) {
+
+        addTitle(
+            titles,
+            `5 Amazing Facts About ${topic}`
+        );
+
+        addTitle(
+            titles,
+            `7 Things to Know About ${topic}`
+        );
+
+        addTitle(
+            titles,
+            `10 Tips to Understand ${topic}`
+        );
+
+    }
+
+
+    /* Audience */
+
+    addTitle(
+        titles,
+        `${topic} for ${audience}`
+    );
+
+
+    /* Content type */
+
+    if (
+        contentType !== "General Video"
+    ) {
+
+        addTitle(
+            titles,
+            `${topic} | ${contentType} Guide`
+        );
+
+    }
+
+
+    /* Related keyword */
+
+    if (relatedKeywords) {
+
+        const firstKeyword =
+            relatedKeywords
+                .split(",")
+                .map(
+                    item => item.trim()
+                )
+                .filter(Boolean)[0];
+
+
+        if (firstKeyword) {
+
+            addTitle(
+                titles,
+                `${topic} and ${firstKeyword}: Complete Guide`
+            );
+
+        }
+
+    }
+
+
+    /* Extra instructions */
+
+    if (extraInstructions) {
+
+        addTitle(
+            titles,
+            `${topic} — ${extraInstructions}`
+        );
+
+    }
+
+
+    /* Length adjustment */
+
+    let finalTitles =
+        titles.map(
+            title => {
+
+                if (
+                    titleLength === "Short" &&
+                    title.length > 65
+                ) {
+
+                    return title.substring(
+                        0,
+                        62
+                    ).trim() + "...";
+
+                }
+
+
+                if (
+                    titleLength === "Long" &&
+                    title.length < 55
+                ) {
+
+                    return `${title} | Complete Guide & Tips`;
+
+                }
+
+
+                return title;
+
+            }
+        );
+
+
+    /* Avoid misleading clickbait */
+
+    if (avoidClickbait) {
+
+        finalTitles =
+            finalTitles.filter(
+                title =>
+                    !/you won't believe|shocking|secret/i.test(
+                        title
+                    )
+            );
+
+    }
+
+
+    /* Limit and add emojis */
+
+    finalTitles =
+        finalTitles.slice(
+            0,
+            count
+        );
+
+
+    if (includeEmoji) {
+
+        finalTitles =
+            finalTitles.map(
+                (title, index) =>
+                    `${title} ${makeEmoji(index)}`
+            );
+
+    }
+
+
+    const output =
+        document.getElementById(
+            "titleOutput"
+        );
+
+
+    output.innerHTML =
+        "";
+
+
+    finalTitles.forEach(
+        (title, index) => {
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+            card.className =
+                "title-card";
+
+
+            const titleText =
+                document.createElement(
+                    "span"
+                );
+
+            titleText.textContent =
+                `${index + 1}. ${title}`;
+
+
+            const copyButton =
+                document.createElement(
+                    "button"
+                );
+
+            copyButton.className =
+                "copy-title";
+
+            copyButton.textContent =
+                "Copy";
+
+
+            copyButton.addEventListener(
+                "click",
+                async function () {
+
+                    try {
+
+                        await navigator.clipboard.writeText(
+                            title
+                        );
+
+                        copyButton.textContent =
+                            "Copied!";
+
+
+                        setTimeout(
+                            function () {
+
+                                copyButton.textContent =
+                                    "Copy";
+
+                            },
+                            1200
+                        );
+
+                    } catch (error) {
+
+                        alert(
+                            "Copy failed. Please copy the title manually."
+                        );
+
+                    }
+
+                }
+            );
+
+
+            card.appendChild(
+                titleText
+            );
+
+            card.appendChild(
+                document.createElement(
+                    "br"
+                )
+            );
+
+            card.appendChild(
+                copyButton
+            );
+
+
+            output.appendChild(
+                card
+            );
+
+        }
+    );
+
+
+    if (!finalTitles.length) {
+
+        output.textContent =
+            "No titles generated. Try a different topic or settings.";
+
+    }
+
+
+    document.getElementById(
+        "proResult"
+    ).style.display =
+        "block";
+
+}
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        loadPlan();
+
+
+        const generateButton =
+            document.getElementById(
+                "generateProTitles"
+            );
+
+
+        if (generateButton) {
+
+            generateButton.addEventListener(
+                "click",
+                generateProTitles
+            );
+
+        }
+
+
+        /*
+         * Automatically open the YouTube Title Generator
+         */
+
+        if (
+            typeof openTool === "function"
+        ) {
+
+            openTool(
+                "youtube-title"
+            );
+
+        }
+
+    }
+);
+
+
+supabaseClient.auth.onAuthStateChange(
+    async function () {
+
+        await loadPlan();
+
+    }
+);
 
 </script>
-    
-<!-- ================= HOMEPAGE INTERNAL LINK ================= -->
 
-<div class="back-home-link">
-  <a href="index.html">← Explore All AIHub Tools</a>
-</div>
-    
 </body>
 </html>
