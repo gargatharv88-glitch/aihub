@@ -1,4 +1,3 @@
-```html id="q6w3sa"
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +10,7 @@
     <title>Word Counter - Free Online Word Count Tool | AIHub</title>
 
     <meta name="description"
-          content="Count words quickly with AIHub's free Word Counter. Check word count, character count and reading information directly in your browser.">
+          content="Count words quickly with AIHub's free Word Counter. Check word count, character count and detailed writing statistics directly in your browser.">
 
     <meta name="robots"
           content="index, follow">
@@ -22,6 +21,153 @@
     <link rel="stylesheet"
           href="style.css">
 
+    <style>
+
+        .back-aihub {
+            display: inline-block;
+            margin: 18px 0 10px;
+            padding: 9px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            background: #f1f5f9;
+            color: #1e293b;
+            border: 1px solid #cbd5e1;
+        }
+
+        .back-aihub:hover {
+            opacity: 0.85;
+        }
+
+        .plan-box {
+            margin: 15px 0;
+            padding: 14px 16px;
+            border-radius: 10px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
+
+        .plan-free {
+            color: #475569;
+        }
+
+        .plan-pro {
+            color: #166534;
+            font-weight: 700;
+        }
+
+        .pro-panel {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
+
+        .pro-panel h3 {
+            margin-top: 0;
+        }
+
+        .pro-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(190px, 1fr));
+            gap: 14px;
+            margin-top: 15px;
+        }
+
+        .pro-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .pro-field label {
+            font-weight: 600;
+        }
+
+        .pro-field select,
+        .pro-field input {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            font: inherit;
+        }
+
+        .pro-checks {
+            margin-top: 16px;
+            display: grid;
+            gap: 9px;
+        }
+
+        .pro-checks label {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .locked-pro {
+            margin-top: 18px;
+            padding: 16px;
+            border-radius: 10px;
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+        }
+
+        .pro-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+            background: #fef3c7;
+            color: #92400e;
+            margin-left: 6px;
+        }
+
+        .word-report {
+            margin-top: 20px;
+            padding: 18px;
+            border-radius: 10px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
+
+        .word-report ul {
+            padding-left: 20px;
+        }
+
+        .limit-ok {
+            color: #166534;
+            font-weight: 700;
+        }
+
+        .limit-warning {
+            color: #b45309;
+            font-weight: 700;
+        }
+
+        .limit-danger {
+            color: #b91c1c;
+            font-weight: 700;
+        }
+
+        .tool-note {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        @media (max-width: 600px) {
+
+            .pro-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
 </head>
 
 <body>
@@ -29,6 +175,12 @@
 <header class="site-header">
 
     <div class="container">
+
+        <!-- TOP BACK TO AIHUB -->
+
+        <a href="index.html" class="back-aihub">
+            ← Back to AIHub
+        </a>
 
         <a href="index.html" class="logo">
             AIHub
@@ -90,6 +242,10 @@
             Word Counter. Check your text directly in your browser.
         </p>
 
+        <div id="planStatus" class="plan-box">
+            Checking your plan...
+        </div>
+
     </div>
 
 </section>
@@ -120,6 +276,300 @@
             </div>
 
             <div id="toolInterface"></div>
+
+        </div>
+
+
+        <!-- ================= PRO FEATURES ================= -->
+
+        <div
+            id="proFeatures"
+            class="pro-panel"
+            style="display:none;"
+        >
+
+            <h3>
+                📊 Pro Word Analysis
+                <span class="pro-badge">PRO</span>
+            </h3>
+
+            <p>
+                Unlock detailed writing statistics, word-limit
+                tracking and advanced content analysis.
+            </p>
+
+
+            <div class="pro-grid">
+
+                <div class="pro-field">
+
+                    <label for="analysisMode">
+                        Analysis Mode
+                    </label>
+
+                    <select id="analysisMode">
+
+                        <option value="standard">
+                            Standard Analysis
+                        </option>
+
+                        <option value="detailed">
+                            Detailed Analysis
+                        </option>
+
+                        <option value="writing">
+                            Writing Analysis
+                        </option>
+
+                        <option value="academic">
+                            Academic Analysis
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="pro-field">
+
+                    <label for="contentType">
+                        Content Type
+                    </label>
+
+                    <select id="contentType">
+
+                        <option value="general">
+                            General Text
+                        </option>
+
+                        <option value="essay">
+                            Essay
+                        </option>
+
+                        <option value="assignment">
+                            Assignment
+                        </option>
+
+                        <option value="blog">
+                            Blog Post
+                        </option>
+
+                        <option value="article">
+                            Article
+                        </option>
+
+                        <option value="social">
+                            Social Media
+                        </option>
+
+                        <option value="description">
+                            Video Description
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="pro-field">
+
+                    <label for="targetWords">
+                        Target Word Count
+                    </label>
+
+                    <input
+                        type="number"
+                        id="targetWords"
+                        min="0"
+                        max="1000000"
+                        value="0"
+                        placeholder="0 = no target"
+                    >
+
+                </div>
+
+
+                <div class="pro-field">
+
+                    <label for="minimumWords">
+                        Minimum Word Count
+                    </label>
+
+                    <input
+                        type="number"
+                        id="minimumWords"
+                        min="0"
+                        max="1000000"
+                        value="0"
+                        placeholder="0 = no minimum"
+                    >
+
+                </div>
+
+
+                <div class="pro-field">
+
+                    <label for="maximumWords">
+                        Maximum Word Count
+                    </label>
+
+                    <input
+                        type="number"
+                        id="maximumWords"
+                        min="0"
+                        max="1000000"
+                        value="0"
+                        placeholder="0 = no maximum"
+                    >
+
+                </div>
+
+
+                <div class="pro-field">
+
+                    <label for="readingSpeed">
+                        Reading Speed
+                    </label>
+
+                    <select id="readingSpeed">
+
+                        <option value="150">
+                            Slow — 150 WPM
+                        </option>
+
+                        <option value="200" selected>
+                            Average — 200 WPM
+                        </option>
+
+                        <option value="250">
+                            Fast — 250 WPM
+                        </option>
+
+                        <option value="300">
+                            Very Fast — 300 WPM
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="pro-checks">
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="countCharacters"
+                        checked
+                    >
+                    Include character statistics
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="countSentences"
+                        checked
+                    >
+                    Include sentence statistics
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="countParagraphs"
+                        checked
+                    >
+                    Include paragraph statistics
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="countUniqueWords"
+                        checked
+                    >
+                    Calculate unique words
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="showReadingTime"
+                        checked
+                    >
+                    Calculate reading time
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="showWordLimit"
+                        checked
+                    >
+                    Show word-limit status
+                </label>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="analyzeProWords"
+                style="margin-top:18px;"
+            >
+                Analyze Text
+            </button>
+
+
+            <p class="tool-note">
+                Pro analysis runs directly in your browser.
+                No API key is required.
+            </p>
+
+        </div>
+
+
+        <!-- ================= LOCKED PRO ================= -->
+
+        <div
+            id="lockedPro"
+            class="locked-pro"
+            style="display:none;"
+        >
+
+            <strong>
+                🔒 Pro Word Analysis
+            </strong>
+
+            <p>
+                Upgrade to Pro to unlock detailed word statistics,
+                unique word analysis, reading time, custom word limits
+                and advanced writing analysis.
+            </p>
+
+            <a href="pricing.html">
+                Upgrade to Pro →
+            </a>
+
+        </div>
+
+
+        <!-- ================= REPORT ================= -->
+
+        <div
+            id="wordReport"
+            class="word-report"
+            style="display:none;"
+        >
+
+            <h3>
+                📈 Pro Word Count Report
+            </h3>
+
+            <div id="wordReportContent"></div>
 
         </div>
 
@@ -340,32 +790,717 @@
 
 <script src="script.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 
 <script>
 
-    /*
-     * Automatically open the Word Counter
-     * when this SEO page loads.
-     */
+const SUPABASE_URL =
+    "https://stjkvlkeysyefhxocjzm.supabase.co";
 
-    document.addEventListener("DOMContentLoaded", function () {
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_TGBEUnPnXQMw82y6X2hQiA_CLfc9ffB";
 
-        if (typeof openTool === "function") {
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
 
-            openTool("word");
+
+let currentPlan = "guest";
+
+
+/* ================= PLAN CHECK ================= */
+
+async function loadPlan() {
+
+    const {
+        data: { session }
+    } = await supabaseClient.auth.getSession();
+
+
+    const planStatus =
+        document.getElementById("planStatus");
+
+    const proFeatures =
+        document.getElementById("proFeatures");
+
+    const lockedPro =
+        document.getElementById("lockedPro");
+
+
+    if (!session) {
+
+        currentPlan = "guest";
+
+        planStatus.innerHTML =
+            '<span class="plan-free">👤 Guest Mode — Free features available. <a href="login.html">Login</a> for your account.</span>';
+
+        proFeatures.style.display = "none";
+        lockedPro.style.display = "block";
+
+        return;
+
+    }
+
+
+    const user = session.user;
+
+
+    const {
+        data: profile,
+        error
+    } = await supabaseClient
+        .from("profiles")
+        .select("plan")
+        .eq("user_id", user.id)
+        .maybeSingle();
+
+
+    if (error) {
+
+        console.error(error);
+
+        currentPlan = "free";
+
+    } else {
+
+        currentPlan =
+            profile?.plan === "pro"
+                ? "pro"
+                : "free";
+
+    }
+
+
+    if (currentPlan === "pro") {
+
+        planStatus.innerHTML =
+            '<span class="plan-pro">⭐ Pro Plan Active — Advanced word analysis unlocked.</span>';
+
+        proFeatures.style.display = "block";
+        lockedPro.style.display = "none";
+
+    } else {
+
+        planStatus.innerHTML =
+            '<span class="plan-free">🆓 Free Plan — Basic word counting available.</span>';
+
+        proFeatures.style.display = "none";
+        lockedPro.style.display = "block";
+
+    }
+
+}
+
+
+supabaseClient.auth.onAuthStateChange(
+    async function () {
+
+        await loadPlan();
+
+    }
+);
+
+
+/* ================= TEXT FINDER ================= */
+
+function getWordCounterTextarea() {
+
+    const toolInterface =
+        document.getElementById("toolInterface");
+
+    if (!toolInterface) {
+        return null;
+    }
+
+
+    return toolInterface.querySelector("textarea");
+
+}
+
+
+/* ================= WORD ANALYSIS ================= */
+
+function getWords(text) {
+
+    const cleaned =
+        text
+            .trim()
+            .replace(/\s+/g, " ");
+
+
+    if (!cleaned) {
+        return [];
+    }
+
+
+    return cleaned.split(" ");
+
+}
+
+
+function getUniqueWords(words) {
+
+    const unique =
+        new Set();
+
+
+    words.forEach(function (word) {
+
+        const normalized =
+            word
+                .toLowerCase()
+                .replace(
+                    /^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu,
+                    ""
+                );
+
+
+        if (normalized) {
+
+            unique.add(normalized);
 
         }
 
     });
 
-</script>
-    
-<!-- ================= HOMEPAGE INTERNAL LINK ================= -->
 
-<div class="back-home-link">
-  <a href="index.html">← Explore All AIHub Tools</a>
-</div>
-    
+    return unique.size;
+
+}
+
+
+function getSentences(text) {
+
+    const cleaned =
+        text.trim();
+
+
+    if (!cleaned) {
+        return [];
+    }
+
+
+    return cleaned
+        .split(/(?<=[.!?])\s+/)
+        .filter(function (sentence) {
+
+            return sentence.trim().length > 0;
+
+        });
+
+}
+
+
+function getParagraphs(text) {
+
+    if (!text.trim()) {
+        return [];
+    }
+
+
+    return text
+        .trim()
+        .split(/\n\s*\n/)
+        .filter(function (paragraph) {
+
+            return paragraph.trim().length > 0;
+
+        });
+
+}
+
+
+function formatReadingTime(minutes) {
+
+    if (minutes < 1) {
+
+        const seconds =
+            Math.max(
+                1,
+                Math.round(minutes * 60)
+            );
+
+        return seconds + " seconds";
+
+    }
+
+
+    if (minutes < 60) {
+
+        return minutes.toFixed(1) + " minutes";
+
+    }
+
+
+    const hours =
+        Math.floor(minutes / 60);
+
+    const remaining =
+        Math.round(minutes % 60);
+
+
+    return (
+        hours +
+        " hr " +
+        remaining +
+        " min"
+    );
+
+}
+
+
+/* ================= REPORT ================= */
+
+function generateWordReport(text) {
+
+    const words =
+        getWords(text);
+
+    const wordCount =
+        words.length;
+
+    const characters =
+        text.length;
+
+    const charactersNoSpaces =
+        text.replace(/\s/g, "").length;
+
+    const sentences =
+        getSentences(text);
+
+    const paragraphs =
+        getParagraphs(text);
+
+    const uniqueWords =
+        getUniqueWords(words);
+
+
+    const averageWordsSentence =
+        sentences.length
+            ? (
+                wordCount /
+                sentences.length
+              ).toFixed(1)
+            : "0";
+
+
+    const averageWordsParagraph =
+        paragraphs.length
+            ? (
+                wordCount /
+                paragraphs.length
+              ).toFixed(1)
+            : "0";
+
+
+    const readingSpeed =
+        Number(
+            document.getElementById(
+                "readingSpeed"
+            ).value
+        );
+
+
+    const readingMinutes =
+        wordCount /
+        readingSpeed;
+
+
+    const targetWords =
+        Number(
+            document.getElementById(
+                "targetWords"
+            ).value
+        ) || 0;
+
+
+    const minimumWords =
+        Number(
+            document.getElementById(
+                "minimumWords"
+            ).value
+        ) || 0;
+
+
+    const maximumWords =
+        Number(
+            document.getElementById(
+                "maximumWords"
+            ).value
+        ) || 0;
+
+
+    const showCharacters =
+        document.getElementById(
+            "countCharacters"
+        ).checked;
+
+
+    const showSentences =
+        document.getElementById(
+            "countSentences"
+        ).checked;
+
+
+    const showParagraphs =
+        document.getElementById(
+            "countParagraphs"
+        ).checked;
+
+
+    const showUnique =
+        document.getElementById(
+            "countUniqueWords"
+        ).checked;
+
+
+    const showReading =
+        document.getElementById(
+            "showReadingTime"
+        ).checked;
+
+
+    const showLimit =
+        document.getElementById(
+            "showWordLimit"
+        ).checked;
+
+
+    const contentType =
+        document.getElementById(
+            "contentType"
+        ).value;
+
+
+    const analysisMode =
+        document.getElementById(
+            "analysisMode"
+        ).value;
+
+
+    let limitHTML = "";
+
+
+    if (showLimit) {
+
+        if (maximumWords > 0) {
+
+            if (wordCount > maximumWords) {
+
+                limitHTML =
+                    `<li class="limit-danger">
+                        Maximum limit exceeded by
+                        ${wordCount - maximumWords} words.
+                    </li>`;
+
+            } else {
+
+                limitHTML =
+                    `<li class="limit-ok">
+                        ${maximumWords - wordCount}
+                        words remaining before the maximum limit.
+                    </li>`;
+
+            }
+
+        }
+
+
+        if (minimumWords > 0) {
+
+            if (wordCount < minimumWords) {
+
+                limitHTML +=
+                    `<li class="limit-warning">
+                        ${minimumWords - wordCount}
+                        more words needed to reach the minimum.
+                    </li>`;
+
+            } else {
+
+                limitHTML +=
+                    `<li class="limit-ok">
+                        Minimum word requirement reached.
+                    </li>`;
+
+            }
+
+        }
+
+
+        if (targetWords > 0) {
+
+            const difference =
+                wordCount - targetWords;
+
+
+            if (difference === 0) {
+
+                limitHTML +=
+                    `<li class="limit-ok">
+                        Exact target word count reached.
+                    </li>`;
+
+            } else if (difference > 0) {
+
+                limitHTML +=
+                    `<li>
+                        ${difference}
+                        words above the target.
+                    </li>`;
+
+            } else {
+
+                limitHTML +=
+                    `<li>
+                        ${Math.abs(difference)}
+                        words below the target.
+                    </li>`;
+
+            }
+
+        }
+
+    }
+
+
+    let html = `
+
+        <ul>
+
+            <li>
+                <strong>Analysis Mode:</strong>
+                ${analysisMode}
+            </li>
+
+            <li>
+                <strong>Content Type:</strong>
+                ${contentType}
+            </li>
+
+            <li>
+                <strong>Total Words:</strong>
+                ${wordCount}
+            </li>
+
+    `;
+
+
+    if (showCharacters) {
+
+        html += `
+
+            <li>
+                <strong>Characters:</strong>
+                ${characters}
+            </li>
+
+            <li>
+                <strong>Characters Without Spaces:</strong>
+                ${charactersNoSpaces}
+            </li>
+
+        `;
+
+    }
+
+
+    if (showSentences) {
+
+        html += `
+
+            <li>
+                <strong>Sentences:</strong>
+                ${sentences.length}
+            </li>
+
+            <li>
+                <strong>Average Words / Sentence:</strong>
+                ${averageWordsSentence}
+            </li>
+
+        `;
+
+    }
+
+
+    if (showParagraphs) {
+
+        html += `
+
+            <li>
+                <strong>Paragraphs:</strong>
+                ${paragraphs.length}
+            </li>
+
+            <li>
+                <strong>Average Words / Paragraph:</strong>
+                ${averageWordsParagraph}
+            </li>
+
+        `;
+
+    }
+
+
+    if (showUnique) {
+
+        html += `
+
+            <li>
+                <strong>Unique Words:</strong>
+                ${uniqueWords}
+            </li>
+
+        `;
+
+    }
+
+
+    if (showReading) {
+
+        html += `
+
+            <li>
+                <strong>Reading Speed:</strong>
+                ${readingSpeed} WPM
+            </li>
+
+            <li>
+                <strong>Estimated Reading Time:</strong>
+                ${formatReadingTime(readingMinutes)}
+            </li>
+
+        `;
+
+    }
+
+
+    if (showLimit) {
+
+        html += limitHTML;
+
+    }
+
+
+    html += `
+
+        </ul>
+
+    `;
+
+
+    const report =
+        document.getElementById(
+            "wordReport"
+        );
+
+    const content =
+        document.getElementById(
+            "wordReportContent"
+        );
+
+
+    content.innerHTML =
+        html;
+
+    report.style.display =
+        "block";
+
+}
+
+
+/* ================= ANALYZE BUTTON ================= */
+
+document.addEventListener(
+    "click",
+    function (event) {
+
+        if (
+            event.target.id !==
+            "analyzeProWords"
+        ) {
+            return;
+        }
+
+
+        if (currentPlan !== "pro") {
+
+            alert(
+                "This feature is available for Pro users. Please upgrade to Pro."
+            );
+
+            return;
+
+        }
+
+
+        const textarea =
+            getWordCounterTextarea();
+
+
+        if (!textarea) {
+
+            alert(
+                "Text input was not found. Please refresh the page."
+            );
+
+            return;
+
+        }
+
+
+        const text =
+            textarea.value;
+
+
+        if (!text.trim()) {
+
+            alert(
+                "Please enter or paste some text first."
+            );
+
+            return;
+
+        }
+
+
+        generateWordReport(text);
+
+    }
+);
+
+
+/* ================= AUTO OPEN ================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async function () {
+
+        await loadPlan();
+
+
+        /*
+         * Automatically open the Word Counter
+         * when this SEO page loads.
+         */
+
+        if (
+            typeof openTool ===
+            "function"
+        ) {
+
+            openTool("word");
+
+        }
+
+    }
+);
+
+</script>
+
 </body>
 </html>
-```
