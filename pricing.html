@@ -12,6 +12,7 @@
         content="Upgrade to AIHub Pro for higher limits, advanced AI tools and premium creator resources.">
 
   <style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     * {
       box-sizing: border-box;
     }
@@ -209,10 +210,9 @@
           <li>Priority access to new features</li>
         </ul>
 
-        <button class="button pro-button"
-                onclick="alert('AIHub Pro payments will be available soon.')">
-          Upgrade to Pro
-        </button>
+       <button id="upgradeButton" class="button pro-button">
+  Upgrade to Pro
+</button>
 
       </div>
 
@@ -264,7 +264,66 @@
     </div>
 
   </main>
+<script>
+  const SUPABASE_URL = "https://stjkvlkeysyefhxocjzm.supabase.co";
 
+  const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_TGBEUnPnXQMw82y6X2hQiA_CLfc9ffB";
+
+  const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+  async function checkPlan() {
+
+    const {
+      data: { session }
+    } = await supabaseClient.auth.getSession();
+
+    const upgradeButton =
+      document.getElementById("upgradeButton");
+
+    if (!session) {
+      upgradeButton.textContent = "Login to Upgrade";
+
+      upgradeButton.onclick = function () {
+        window.location.href = "login.html";
+      };
+
+      return;
+    }
+
+    const { data: profile, error } = await supabaseClient
+      .from("profiles")
+      .select("plan")
+      .eq("user_id", session.user.id)
+      .single();
+
+    if (error) {
+      console.error("Profile error:", error);
+      return;
+    }
+
+    if (profile.plan === "pro") {
+
+      upgradeButton.textContent = "✓ You're Already Pro";
+      upgradeButton.disabled = true;
+      upgradeButton.style.opacity = "0.7";
+
+    } else {
+
+      upgradeButton.textContent = "Upgrade to Pro";
+
+      upgradeButton.onclick = function () {
+        alert("Payment system will be connected here.");
+      };
+
+    }
+  }
+
+  checkPlan();
+</script>
 </body>
 </html>
 ```
