@@ -210,9 +210,33 @@
           <li>Priority access to new features</li>
         </ul>
 
-       <button id="upgradeButton" class="button pro-button">
-  Upgrade to Pro
-</button>
+       <div id="paymentBox" style="display:none; margin-top:20px;">
+
+  <h3>💳 Pay ₹99 for AIHub Pro</h3>
+
+  <p>Pay using UPI:</p>
+
+  <p>
+    <strong id="upiId">8979978542@fam</strong>
+  </p>
+
+  <button
+    class="button pro-button"
+    onclick="copyUPI()">
+    📋 Copy UPI ID
+  </button>
+
+  <p style="margin-top:15px;">
+    After payment, submit your payment reference/UTR for verification.
+  </p>
+
+  <button
+    class="button free-button"
+    onclick="alert('Payment proof form will be added next.')">
+    ✅ I Have Paid
+  </button>
+
+</div>
 
       </div>
 
@@ -315,14 +339,27 @@
 
       upgradeButton.textContent = "Upgrade to Pro";
 
-      upgradeButton.onclick = function () {
-        alert("Payment system will be connected here.");
-      };
+     upgradeButton.onclick = function () {
+
+  document.getElementById("paymentBox").style.display = "block";
+
+  document.getElementById("paymentBox").scrollIntoView({
+    behavior: "smooth"
+  });
+};
 
     }
   }
 
   checkPlan();
+  function copyUPI() {
+
+  const upi = document.getElementById("upiId").textContent;
+
+  navigator.clipboard.writeText(upi);
+
+  alert("UPI ID copied!");
+}
 </script>
 </body>
 </html>
