@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,10 +7,10 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>YouTube Description Generator - Free Description Ideas | AIHub</title>
+    <title>YouTube Description Generator - Free & Pro Description Ideas | AIHub</title>
 
     <meta name="description"
-          content="Generate clear and engaging YouTube video descriptions with AIHub's free YouTube Description Generator. Create audience-focused descriptions quickly.">
+          content="Generate clear, engaging and audience-focused YouTube descriptions with AIHub's free and Pro YouTube Description Generator.">
 
     <meta name="robots"
           content="index, follow">
@@ -21,6 +20,147 @@
 
     <link rel="stylesheet"
           href="style.css">
+
+    <style>
+
+        .back-aihub {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 10px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            background: #f1f5f9;
+            color: #111827;
+            border: 1px solid #e5e7eb;
+        }
+
+        .back-aihub:hover {
+            background: #e5e7eb;
+        }
+
+        .plan-box {
+            margin: 18px 0;
+            padding: 14px 18px;
+            border-radius: 10px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            font-weight: 600;
+        }
+
+        .plan-free {
+            color: #475569;
+        }
+
+        .plan-pro {
+            color: #15803d;
+        }
+
+        .pro-panel {
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #dbeafe;
+            background: #f8fbff;
+        }
+
+        .pro-panel h3 {
+            margin-top: 0;
+        }
+
+        .pro-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px;
+        }
+
+        .pro-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .pro-field.full {
+            grid-column: 1 / -1;
+        }
+
+        .pro-field label {
+            font-weight: 600;
+        }
+
+        .pro-field input,
+        .pro-field select,
+        .pro-field textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font: inherit;
+        }
+
+        .pro-field textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .pro-checks {
+            display: grid;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .pro-checks label {
+            font-weight: 500;
+        }
+
+        .pro-locked {
+            margin: 20px 0;
+            padding: 18px;
+            border-radius: 12px;
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+        }
+
+        .pro-result {
+            margin-top: 20px;
+            padding: 18px;
+            border-radius: 12px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
+
+        .description-output {
+            margin-top: 15px;
+            padding: 16px;
+            border-radius: 10px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+
+        .copy-description {
+            margin-top: 10px;
+            padding: 9px 14px;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 700px) {
+
+            .pro-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pro-field.full {
+                grid-column: auto;
+            }
+
+        }
+
+    </style>
 
 </head>
 
@@ -69,6 +209,10 @@
 
     <div class="container">
 
+        <a href="index.html" class="back-aihub">
+            ← Back to AIHub
+        </a>
+
         <h1>
             YouTube Description Generator
         </h1>
@@ -77,6 +221,10 @@
             Create clear, engaging and audience-friendly YouTube video
             descriptions with AIHub's free YouTube Description Generator.
         </p>
+
+        <div id="planStatus" class="plan-box">
+            Checking your plan...
+        </div>
 
     </div>
 
@@ -107,7 +255,264 @@
 
             </div>
 
+
+            <!-- ================= PRO CONTROLS ================= -->
+
+            <div id="proControls" class="pro-panel" style="display:none;">
+
+                <h3>
+                    🚀 Pro Description Settings
+                </h3>
+
+                <p>
+                    Customize your YouTube description for a more
+                    professional and audience-focused result.
+                </p>
+
+                <div class="pro-grid">
+
+                    <div class="pro-field">
+
+                        <label for="descriptionStyle">
+                            Description Style
+                        </label>
+
+                        <select id="descriptionStyle">
+
+                            <option>Professional</option>
+                            <option>Friendly</option>
+                            <option>Educational</option>
+                            <option>Storytelling</option>
+                            <option>Promotional</option>
+                            <option>Kids Friendly</option>
+                            <option>Gaming</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="pro-field">
+
+                        <label for="descriptionLength">
+                            Description Length
+                        </label>
+
+                        <select id="descriptionLength">
+
+                            <option>Short</option>
+                            <option selected>Medium</option>
+                            <option>Long</option>
+                            <option>Detailed</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="pro-field">
+
+                        <label for="targetAudience">
+                            Target Audience
+                        </label>
+
+                        <input
+                            type="text"
+                            id="targetAudience"
+                            placeholder="e.g. Kids, students, gamers, creators"
+                        >
+
+                    </div>
+
+
+                    <div class="pro-field">
+
+                        <label for="videoGoal">
+                            Main Video Goal
+                        </label>
+
+                        <select id="videoGoal">
+
+                            <option>Educate</option>
+                            <option>Entertain</option>
+                            <option>Inform</option>
+                            <option>Promote</option>
+                            <option>Get More Engagement</option>
+                            <option>Build Audience</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="pro-field">
+
+                        <label for="keywords">
+                            SEO Keywords
+                        </label>
+
+                        <input
+                            type="text"
+                            id="keywords"
+                            placeholder="planet, space, kids, science"
+                        >
+
+                    </div>
+
+
+                    <div class="pro-field">
+
+                        <label for="hashtags">
+                            Hashtags
+                        </label>
+
+                        <input
+                            type="text"
+                            id="hashtags"
+                            placeholder="#YouTube #Education"
+                        >
+
+                    </div>
+
+
+                    <div class="pro-field full">
+
+                        <label for="callToAction">
+                            Call To Action
+                        </label>
+
+                        <input
+                            type="text"
+                            id="callToAction"
+                            placeholder="Subscribe for more videos!"
+                        >
+
+                    </div>
+
+
+                    <div class="pro-field full">
+
+                        <label for="extraDetails">
+                            Additional Instructions
+                        </label>
+
+                        <textarea
+                            id="extraDetails"
+                            placeholder="Add links, important information, sponsor details, chapter ideas, etc."
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <div class="pro-checks">
+
+                    <label>
+                        <input
+                            type="checkbox"
+                            id="includeHook"
+                            checked
+                        >
+                        Add an engaging opening hook
+                    </label>
+
+                    <label>
+                        <input
+                            type="checkbox"
+                            id="includeKeywords"
+                            checked
+                        >
+                        Naturally include SEO keywords
+                    </label>
+
+                    <label>
+                        <input
+                            type="checkbox"
+                            id="includeHashtags"
+                            checked
+                        >
+                        Add relevant hashtags
+                    </label>
+
+                    <label>
+                        <input
+                            type="checkbox"
+                            id="includeCTA"
+                            checked
+                        >
+                        Add a call-to-action
+                    </label>
+
+                    <label>
+                        <input
+                            type="checkbox"
+                            id="includeChapters"
+                        >
+                        Add suggested video chapter placeholders
+                    </label>
+
+                </div>
+
+                <button
+                    id="generateProDescription"
+                    style="margin-top:18px;"
+                >
+                    Generate Pro Description
+                </button>
+
+            </div>
+
+
+            <!-- ================= LOCKED PRO ================= -->
+
+            <div id="lockedPro" class="pro-locked" style="display:none;">
+
+                <h3>
+                    🔒 AIHub Pro
+                </h3>
+
+                <p>
+                    Upgrade to Pro to unlock advanced YouTube description
+                    controls, SEO settings, custom audience targeting,
+                    CTAs, hashtags and detailed description generation.
+                </p>
+
+                <a href="pricing.html">
+                    Upgrade to Pro
+                </a>
+
+            </div>
+
+
             <div id="toolInterface"></div>
+
+
+            <!-- ================= PRO RESULT ================= -->
+
+            <div
+                id="proResult"
+                class="pro-result"
+                style="display:none;"
+            >
+
+                <h3>
+                    ✨ Pro Generated Description
+                </h3>
+
+                <div
+                    id="descriptionOutput"
+                    class="description-output"
+                ></div>
+
+                <button
+                    class="copy-description"
+                    id="copyProDescription"
+                >
+                    Copy Description
+                </button>
+
+            </div>
 
         </div>
 
@@ -231,7 +636,8 @@
 
         <p>
             Yes. AIHub's YouTube Description Generator is available as
-            a free online tool.
+            a free online tool. Pro users get additional customization
+            and advanced description options.
         </p>
 
 
@@ -326,34 +732,493 @@
 </footer>
 
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script src="script.js"></script>
 
 
 <script>
 
-    /*
-     * Automatically open the YouTube Description Generator
-     * when this SEO page loads.
-     */
+const SUPABASE_URL =
+    "https://stjkvlkeysyefhxocjzm.supabase.co";
 
-    document.addEventListener("DOMContentLoaded", function () {
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_TGBEUnPnXQMw82y6X2hQiA_CLfc9ffB";
 
-        if (typeof openTool === "function") {
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
 
-            openTool("youtube-description");
+
+let currentPlan = "guest";
+
+
+async function loadPlan() {
+
+    try {
+
+        const {
+            data: { session }
+        } = await supabaseClient.auth.getSession();
+
+
+        if (!session) {
+
+            currentPlan = "guest";
+
+            updatePlanUI();
+
+            return;
 
         }
 
-    });
+
+        const user = session.user;
+
+
+        const {
+            data: profile,
+            error
+        } = await supabaseClient
+            .from("profiles")
+            .select("plan")
+            .eq("user_id", user.id)
+            .maybeSingle();
+
+
+        if (error) {
+
+            console.error(error);
+
+            currentPlan = "free";
+
+        } else {
+
+            currentPlan =
+                profile?.plan === "pro"
+                    ? "pro"
+                    : "free";
+
+        }
+
+
+        updatePlanUI();
+
+    } catch (error) {
+
+        console.error(error);
+
+        currentPlan = "free";
+
+        updatePlanUI();
+
+    }
+
+}
+
+
+function updatePlanUI() {
+
+    const planStatus =
+        document.getElementById("planStatus");
+
+    const proControls =
+        document.getElementById("proControls");
+
+    const lockedPro =
+        document.getElementById("lockedPro");
+
+
+    if (currentPlan === "pro") {
+
+        planStatus.innerHTML =
+            "⭐ Pro Plan — Advanced YouTube Description features unlocked.";
+
+        planStatus.className =
+            "plan-box plan-pro";
+
+        proControls.style.display =
+            "block";
+
+        lockedPro.style.display =
+            "none";
+
+    } else if (currentPlan === "free") {
+
+        planStatus.innerHTML =
+            "🆓 Free Plan — Basic YouTube Description Generator.";
+
+        planStatus.className =
+            "plan-box plan-free";
+
+        proControls.style.display =
+            "none";
+
+        lockedPro.style.display =
+            "block";
+
+    } else {
+
+        planStatus.innerHTML =
+            "👤 Guest — Login to save your Pro access.";
+
+        planStatus.className =
+            "plan-box plan-free";
+
+        proControls.style.display =
+            "none";
+
+        lockedPro.style.display =
+            "block";
+
+    }
+
+}
+
+
+/* ================= PRO DESCRIPTION GENERATOR ================= */
+
+function getTopicFromTool() {
+
+    const interfaceBox =
+        document.getElementById("toolInterface");
+
+    if (!interfaceBox) {
+        return "your YouTube video";
+    }
+
+
+    const fields =
+        interfaceBox.querySelectorAll(
+            "input, textarea, select"
+        );
+
+
+    for (const field of fields) {
+
+        const value =
+            (field.value || "").trim();
+
+        if (value) {
+
+            return value;
+
+        }
+
+    }
+
+
+    return "your YouTube video";
+
+}
+
+
+function generateProDescription() {
+
+    if (currentPlan !== "pro") {
+
+        alert("Pro plan required.");
+
+        return;
+
+    }
+
+
+    const topic =
+        getTopicFromTool();
+
+
+    const style =
+        document.getElementById(
+            "descriptionStyle"
+        ).value;
+
+
+    const length =
+        document.getElementById(
+            "descriptionLength"
+        ).value;
+
+
+    const audience =
+        document.getElementById(
+            "targetAudience"
+        ).value.trim()
+        || "general viewers";
+
+
+    const goal =
+        document.getElementById(
+            "videoGoal"
+        ).value;
+
+
+    const keywords =
+        document.getElementById(
+            "keywords"
+        ).value.trim();
+
+
+    const hashtags =
+        document.getElementById(
+            "hashtags"
+        ).value.trim();
+
+
+    const cta =
+        document.getElementById(
+            "callToAction"
+        ).value.trim();
+
+
+    const extra =
+        document.getElementById(
+            "extraDetails"
+        ).value.trim();
+
+
+    const includeHook =
+        document.getElementById(
+            "includeHook"
+        ).checked;
+
+
+    const includeKeywords =
+        document.getElementById(
+            "includeKeywords"
+        ).checked;
+
+
+    const includeHashtags =
+        document.getElementById(
+            "includeHashtags"
+        ).checked;
+
+
+    const includeCTA =
+        document.getElementById(
+            "includeCTA"
+        ).checked;
+
+
+    const includeChapters =
+        document.getElementById(
+            "includeChapters"
+        ).checked;
+
+
+    let description = "";
+
+
+    /* Opening hook */
+
+    if (includeHook) {
+
+        description +=
+            `Welcome to AIHub! In this video, we'll explore ${topic} in a simple and engaging way.\n\n`;
+
+    }
+
+
+    /* Main description */
+
+    description +=
+        `In this ${style.toLowerCase()} video, you'll learn more about ${topic}.\n\n`;
+
+    description +=
+        `This video is created for ${audience} and is designed to ${goal.toLowerCase()}.\n\n`;
+
+
+    /* Length */
+
+    if (
+        length === "Long" ||
+        length === "Detailed"
+    ) {
+
+        description +=
+            `We'll cover the important points, useful ideas and practical information related to ${topic}. Watch until the end so you don't miss the key details.\n\n`;
+
+    }
+
+
+    /* SEO keywords */
+
+    if (
+        includeKeywords &&
+        keywords
+    ) {
+
+        description +=
+            `Topics covered: ${keywords}.\n\n`;
+
+    }
+
+
+    /* Chapters */
+
+    if (includeChapters) {
+
+        description +=
+            `⏱️ Chapters:\n00:00 Introduction\n00:30 Main Topic\n01:30 Important Points\n03:00 Conclusion\n\n`;
+
+    }
+
+
+    /* Extra details */
+
+    if (extra) {
+
+        description +=
+            `${extra}\n\n`;
+
+    }
+
+
+    /* CTA */
+
+    if (includeCTA) {
+
+        description +=
+            `${cta || "If you found this video useful, don't forget to like, share and subscribe for more content!"}\n\n`;
+
+    }
+
+
+    /* Hashtags */
+
+    if (
+        includeHashtags &&
+        hashtags
+    ) {
+
+        description +=
+            `\n${hashtags}`;
+
+    }
+
+
+    const output =
+        document.getElementById(
+            "descriptionOutput"
+        );
+
+
+    output.textContent =
+        description.trim();
+
+
+    document.getElementById(
+        "proResult"
+    ).style.display =
+        "block";
+
+}
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        loadPlan();
+
+
+        const proButton =
+            document.getElementById(
+                "generateProDescription"
+            );
+
+
+        if (proButton) {
+
+            proButton.addEventListener(
+                "click",
+                generateProDescription
+            );
+
+        }
+
+
+        const copyButton =
+            document.getElementById(
+                "copyProDescription"
+            );
+
+
+        if (copyButton) {
+
+            copyButton.addEventListener(
+                "click",
+                async function () {
+
+                    const text =
+                        document.getElementById(
+                            "descriptionOutput"
+                        ).textContent;
+
+
+                    try {
+
+                        await navigator.clipboard.writeText(
+                            text
+                        );
+
+                        copyButton.textContent =
+                            "Copied!";
+
+                        setTimeout(
+                            function () {
+
+                                copyButton.textContent =
+                                    "Copy Description";
+
+                            },
+                            1500
+                        );
+
+                    } catch (error) {
+
+                        alert(
+                            "Copy failed. Please select and copy the text manually."
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        /*
+         * Automatically open the YouTube Description Generator
+         */
+
+        if (
+            typeof openTool === "function"
+        ) {
+
+            openTool(
+                "youtube-description"
+            );
+
+        }
+
+    }
+);
+
+
+supabaseClient.auth.onAuthStateChange(
+    async function () {
+
+        await loadPlan();
+
+    }
+);
 
 </script>
-    
-<!-- ================= HOMEPAGE INTERNAL LINK ================= -->
 
-<div class="back-home-link">
-  <a href="index.html">← Explore All AIHub Tools</a>
-</div>
-    
 </body>
 </html>
-```
