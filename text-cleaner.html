@@ -21,6 +21,156 @@
 
     <link rel="stylesheet" href="style.css">
 
+    <style>
+
+        .back-aihub {
+            display: block;
+            max-width: 1100px;
+            margin: 18px auto 0;
+            padding: 0 20px;
+        }
+
+        .back-aihub a {
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .plan-box {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 12px;
+            background: #f5f7fb;
+            border: 1px solid #ddd;
+        }
+
+        .plan-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: #e8e8e8;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .pro-panel {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 14px;
+            border: 1px solid #ddd;
+            background: #fafafa;
+        }
+
+        .pro-panel h3 {
+            margin-top: 0;
+        }
+
+        .pro-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .pro-field {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .pro-field label {
+            font-weight: 600;
+        }
+
+        .pro-field input,
+        .pro-field select {
+            padding: 11px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .locked-pro {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 14px;
+            border: 1px dashed #bbb;
+            background: #f7f7f7;
+        }
+
+        .results-box {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 14px;
+            background: #f7f9fc;
+            border: 1px solid #ddd;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .result-card {
+            padding: 15px;
+            border-radius: 10px;
+            background: white;
+            border: 1px solid #ddd;
+        }
+
+        .result-card span {
+            font-size: 13px;
+            opacity: 0.75;
+        }
+
+        .result-card strong {
+            display: block;
+            margin-top: 5px;
+            font-size: 20px;
+        }
+
+        .small-note {
+            font-size: 13px;
+            opacity: 0.75;
+        }
+
+        .pro-report {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background: white;
+            border: 1px solid #ddd;
+        }
+
+        .pro-report ul {
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 700px) {
+
+            .pro-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .result-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+        }
+
+        @media (max-width: 450px) {
+
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
 </head>
 
 <body>
@@ -44,6 +194,13 @@
     </div>
 
 </header>
+
+
+<!-- BACK TO AIHUB -->
+
+<div class="back-aihub">
+    <a href="index.html">← Back to AIHub</a>
+</div>
 
 
 <main>
@@ -92,7 +249,237 @@
 
                 </div>
 
+
+                <!-- PLAN STATUS -->
+
+                <div class="plan-box">
+
+                    <span id="planBadge"
+                          class="plan-badge">
+                        Checking Plan...
+                    </span>
+
+                    <p id="planMessage"
+                       class="small-note">
+                        Checking your AIHub account...
+                    </p>
+
+                </div>
+
+
+                <!-- EXISTING TOOL -->
+
                 <div id="toolInterface"></div>
+
+
+                <!-- PRO SETTINGS -->
+
+                <div id="proPanel"
+                     class="pro-panel">
+
+                    <h3>⭐ Pro Cleaning Options</h3>
+
+                    <p>
+                        Unlock advanced text-cleaning controls
+                        for cleaner and more consistent output.
+                    </p>
+
+                    <div class="pro-grid">
+
+                        <div class="pro-field">
+
+                            <label for="cleanMode">
+                                Cleaning Mode
+                            </label>
+
+                            <select id="cleanMode">
+
+                                <option value="standard">
+                                    Standard Cleanup
+                                </option>
+
+                                <option value="strict">
+                                    Strict Cleanup
+                                </option>
+
+                                <option value="publishing">
+                                    Publishing Ready
+                                </option>
+
+                                <option value="copy">
+                                    Copy/Paste Cleanup
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="pro-field">
+
+                            <label for="spaceMode">
+                                Space Handling
+                            </label>
+
+                            <select id="spaceMode">
+
+                                <option value="normal">
+                                    Normalize Spaces
+                                </option>
+
+                                <option value="remove">
+                                    Remove Extra Spaces
+                                </option>
+
+                                <option value="preserve">
+                                    Preserve Spacing
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="pro-field">
+
+                            <label for="lineMode">
+                                Line Handling
+                            </label>
+
+                            <select id="lineMode">
+
+                                <option value="normal">
+                                    Keep Normal Lines
+                                </option>
+
+                                <option value="remove">
+                                    Remove Blank Lines
+                                </option>
+
+                                <option value="compact">
+                                    Compact Paragraphs
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="pro-field">
+
+                            <label for="trimMode">
+                                Text Trimming
+                            </label>
+
+                            <select id="trimMode">
+
+                                <option value="both">
+                                    Trim Start & End
+                                </option>
+
+                                <option value="start">
+                                    Trim Start Only
+                                </option>
+
+                                <option value="end">
+                                    Trim End Only
+                                </option>
+
+                                <option value="none">
+                                    Do Not Trim
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <div style="margin-top:18px;">
+
+                        <label>
+                            <input
+                                type="checkbox"
+                                id="removeTabs"
+                                checked
+                            >
+                            Convert tabs to spaces
+                        </label>
+
+                        <br><br>
+
+                        <label>
+                            <input
+                                type="checkbox"
+                                id="removeEmptyLines"
+                                checked
+                            >
+                            Remove unnecessary blank lines
+                        </label>
+
+                        <br><br>
+
+                        <label>
+                            <input
+                                type="checkbox"
+                                id="removeTrailingSpaces"
+                                checked
+                            >
+                            Remove trailing spaces from lines
+                        </label>
+
+                        <br><br>
+
+                        <label>
+                            <input
+                                type="checkbox"
+                                id="cleanPunctuation"
+                            >
+                            Normalize spaces around punctuation
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <!-- LOCKED PRO -->
+
+                <div id="lockedPro"
+                     class="locked-pro">
+
+                    <h3>🔒 AIHub Pro</h3>
+
+                    <p>
+                        Upgrade to Pro to unlock advanced text
+                        cleaning, publishing cleanup, copy/paste
+                        cleanup and detailed formatting controls.
+                    </p>
+
+                    <a href="pricing.html">
+                        Upgrade to Pro →
+                    </a>
+
+                </div>
+
+
+                <!-- RESULTS -->
+
+                <div id="cleanResults"
+                     class="results-box">
+
+                    <h3>✨ Cleaning Results</h3>
+
+                    <div id="resultGrid"
+                         class="result-grid">
+                    </div>
+
+                    <div id="proReport"
+                         class="pro-report">
+                    </div>
+
+                </div>
 
             </div>
 
@@ -263,11 +650,18 @@
 </footer>
 
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script src="script.js"></script>
+
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
+
+    /* ==========================================
+       EXISTING AIHUB TOOL
+    ========================================== */
 
     if (typeof openTool === "function") {
 
@@ -275,16 +669,740 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
+
+    /* ==========================================
+       SUPABASE
+    ========================================== */
+
+    const SUPABASE_URL =
+        "https://stjkvlkeysyefhxocjzm.supabase.co";
+
+    const SUPABASE_PUBLISHABLE_KEY =
+        "sb_publishable_TGBEUnPnXQMw82y6X2hQiA_CLfc9ffB";
+
+    const supabaseClient =
+        supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY
+        );
+
+
+    let currentPlan = "guest";
+
+
+    async function loadPlan() {
+
+        const planBadge =
+            document.getElementById("planBadge");
+
+        const planMessage =
+            document.getElementById("planMessage");
+
+        const proPanel =
+            document.getElementById("proPanel");
+
+        const lockedPro =
+            document.getElementById("lockedPro");
+
+
+        const {
+            data: { session }
+        } = await supabaseClient.auth.getSession();
+
+
+        if (!session) {
+
+            currentPlan = "guest";
+
+            planBadge.textContent =
+                "GUEST";
+
+            planMessage.textContent =
+                "Basic text cleaning is available. Sign in for your AIHub account.";
+
+            proPanel.style.display =
+                "none";
+
+            lockedPro.style.display =
+                "block";
+
+            return;
+
+        }
+
+
+        const user = session.user;
+
+
+        const {
+            data: profile,
+            error
+        } = await supabaseClient
+            .from("profiles")
+            .select("plan")
+            .eq("user_id", user.id)
+            .maybeSingle();
+
+
+        if (error) {
+
+            console.error(error);
+
+            currentPlan = "free";
+
+        } else {
+
+            currentPlan =
+                profile?.plan === "pro"
+                    ? "pro"
+                    : "free";
+
+        }
+
+
+        if (currentPlan === "pro") {
+
+            planBadge.textContent =
+                "⭐ PRO PLAN";
+
+            planMessage.textContent =
+                "Advanced text-cleaning options are unlocked.";
+
+            proPanel.style.display =
+                "block";
+
+            lockedPro.style.display =
+                "none";
+
+        } else {
+
+            planBadge.textContent =
+                "FREE PLAN";
+
+            planMessage.textContent =
+                "Basic text cleaning is available. Upgrade to Pro for advanced cleanup.";
+
+            proPanel.style.display =
+                "none";
+
+            lockedPro.style.display =
+                "block";
+
+        }
+
+    }
+
+
+    await loadPlan();
+
+
+    supabaseClient.auth.onAuthStateChange(
+        async function () {
+            await loadPlan();
+        }
+    );
+
+
+    /* ==========================================
+       FIND TEXTAREA
+    ========================================== */
+
+    function getTextarea() {
+
+        return document.querySelector(
+            "#toolInterface textarea"
+        );
+
+    }
+
+
+    /* ==========================================
+       TEXT CLEANING
+    ========================================== */
+
+    function cleanText() {
+
+        const textarea =
+            getTextarea();
+
+
+        if (!textarea) {
+
+            setTimeout(
+                cleanText,
+                300
+            );
+
+            return;
+
+        }
+
+
+        const original =
+            textarea.value;
+
+
+        if (!original.trim()) {
+
+            alert(
+                "Please enter or paste some text first."
+            );
+
+            return;
+
+        }
+
+
+        let cleaned =
+            original;
+
+
+        /* --------------------------------------
+           BASIC FREE CLEANUP
+        -------------------------------------- */
+
+        cleaned =
+            cleaned.replace(
+                /\r\n/g,
+                "\n"
+            );
+
+
+        cleaned =
+            cleaned.replace(
+                /[ \t]+/g,
+                " "
+            );
+
+
+        cleaned =
+            cleaned.replace(
+                /^[ \t]+|[ \t]+$/gm,
+                ""
+            );
+
+
+        cleaned =
+            cleaned.replace(
+                /\n[ \t]*\n[ \t]*\n+/g,
+                "\n\n"
+            );
+
+
+        /* --------------------------------------
+           PRO OPTIONS
+        -------------------------------------- */
+
+        if (currentPlan === "pro") {
+
+            const removeTabs =
+                document.getElementById(
+                    "removeTabs"
+                ).checked;
+
+
+            const removeEmptyLines =
+                document.getElementById(
+                    "removeEmptyLines"
+                ).checked;
+
+
+            const removeTrailingSpaces =
+                document.getElementById(
+                    "removeTrailingSpaces"
+                ).checked;
+
+
+            const cleanPunctuation =
+                document.getElementById(
+                    "cleanPunctuation"
+                ).checked;
+
+
+            const spaceMode =
+                document.getElementById(
+                    "spaceMode"
+                ).value;
+
+
+            const lineMode =
+                document.getElementById(
+                    "lineMode"
+                ).value;
+
+
+            const trimMode =
+                document.getElementById(
+                    "trimMode"
+                ).value;
+
+
+            if (removeTabs) {
+
+                cleaned =
+                    cleaned.replace(
+                        /\t/g,
+                        " "
+                    );
+
+            }
+
+
+            if (removeTrailingSpaces) {
+
+                cleaned =
+                    cleaned.replace(
+                        /[ \t]+$/gm,
+                        ""
+                    );
+
+            }
+
+
+            if (spaceMode === "remove") {
+
+                cleaned =
+                    cleaned.replace(
+                        / {2,}/g,
+                        " "
+                    );
+
+            }
+
+            else if (
+                spaceMode === "normal"
+            ) {
+
+                cleaned =
+                    cleaned.replace(
+                        /[ \t]+/g,
+                        " "
+                    );
+
+            }
+
+
+            if (
+                lineMode === "remove" ||
+                removeEmptyLines
+            ) {
+
+                cleaned =
+                    cleaned.replace(
+                        /^\s*$(?:\r\n?|\n)/gm,
+                        ""
+                    );
+
+            }
+
+
+            if (
+                lineMode === "compact"
+            ) {
+
+                cleaned =
+                    cleaned.replace(
+                        /\n{2,}/g,
+                        "\n"
+                    );
+
+            }
+
+
+            if (
+                cleanPunctuation
+            ) {
+
+                cleaned =
+                    cleaned.replace(
+                        /\s+([,.!?;:])/g,
+                        "$1"
+                    );
+
+                cleaned =
+                    cleaned.replace(
+                        /([.!?])([A-Za-z])/g,
+                        "$1 $2"
+                    );
+
+            }
+
+
+            if (trimMode === "both") {
+
+                cleaned =
+                    cleaned.trim();
+
+            }
+
+            else if (
+                trimMode === "start"
+            ) {
+
+                cleaned =
+                    cleaned.replace(
+                        /^\s+/,
+                        ""
+                    );
+
+            }
+
+            else if (
+                trimMode === "end"
+            ) {
+
+                cleaned =
+                    cleaned.replace(
+                        /\s+$/,
+                        ""
+                    );
+
+            }
+
+
+            const cleanMode =
+                document.getElementById(
+                    "cleanMode"
+                ).value;
+
+
+            if (
+                cleanMode === "strict"
+            ) {
+
+                cleaned =
+                    cleaned
+                        .split("\n")
+                        .map(
+                            line =>
+                                line.trim()
+                        )
+                        .filter(
+                            line =>
+                                line.length > 0
+                        )
+                        .join("\n");
+
+            }
+
+
+            if (
+                cleanMode === "publishing"
+            ) {
+
+                cleaned =
+                    cleaned
+                        .split("\n")
+                        .map(
+                            line =>
+                                line.trim()
+                        )
+                        .filter(
+                            line =>
+                                line.length > 0
+                        )
+                        .join("\n\n");
+
+            }
+
+        }
+
+
+        /* --------------------------------------
+           UPDATE TEXTAREA
+        -------------------------------------- */
+
+        textarea.value =
+            cleaned;
+
+
+        /* --------------------------------------
+           STATISTICS
+        -------------------------------------- */
+
+        showResults(
+            original,
+            cleaned
+        );
+
+    }
+
+
+    /* ==========================================
+       RESULTS
+    ========================================== */
+
+    function showResults(
+        original,
+        cleaned
+    ) {
+
+        const results =
+            document.getElementById(
+                "cleanResults"
+            );
+
+
+        const grid =
+            document.getElementById(
+                "resultGrid"
+            );
+
+
+        const report =
+            document.getElementById(
+                "proReport"
+            );
+
+
+        results.style.display =
+            "block";
+
+
+        grid.innerHTML = "";
+
+
+        const originalChars =
+            original.length;
+
+
+        const cleanedChars =
+            cleaned.length;
+
+
+        const originalWords =
+            original
+                .trim()
+                .split(/\s+/)
+                .filter(Boolean)
+                .length;
+
+
+        const cleanedWords =
+            cleaned
+                .trim()
+                .split(/\s+/)
+                .filter(Boolean)
+                .length;
+
+
+        const charactersRemoved =
+            Math.max(
+                0,
+                originalChars - cleanedChars
+            );
+
+
+        const linesRemoved =
+            Math.max(
+                0,
+                original.split("\n").length -
+                cleaned.split("\n").length
+            );
+
+
+        addResult(
+            "Original Characters",
+            originalChars
+        );
+
+
+        addResult(
+            "Cleaned Characters",
+            cleanedChars
+        );
+
+
+        addResult(
+            "Characters Removed",
+            charactersRemoved
+        );
+
+
+        addResult(
+            "Original Words",
+            originalWords
+        );
+
+
+        addResult(
+            "Cleaned Words",
+            cleanedWords
+        );
+
+
+        if (currentPlan === "pro") {
+
+            addResult(
+                "Lines Removed",
+                linesRemoved
+            );
+
+
+            const percentage =
+                originalChars > 0
+                    ? (
+                        charactersRemoved /
+                        originalChars *
+                        100
+                    ).toFixed(1)
+                    : 0;
+
+
+            report.innerHTML = `
+
+                <h4>⭐ Pro Cleaning Report</h4>
+
+                <ul>
+
+                    <li>
+                        <strong>Cleaning Mode:</strong>
+                        ${escapeHTML(
+                            document.getElementById(
+                                "cleanMode"
+                            ).value
+                        )}
+                    </li>
+
+                    <li>
+                        <strong>Space Mode:</strong>
+                        ${escapeHTML(
+                            document.getElementById(
+                                "spaceMode"
+                            ).value
+                        )}
+                    </li>
+
+                    <li>
+                        <strong>Character Reduction:</strong>
+                        ${percentage}%
+                    </li>
+
+                    <li>
+                        <strong>Original Lines:</strong>
+                        ${original.split("\n").length}
+                    </li>
+
+                    <li>
+                        <strong>Cleaned Lines:</strong>
+                        ${cleaned.split("\n").length}
+                    </li>
+
+                </ul>
+
+            `;
+
+        } else {
+
+            report.innerHTML = `
+
+                <p>
+                    🔒 Upgrade to AIHub Pro for advanced cleaning
+                    controls and detailed cleanup statistics.
+                </p>
+
+            `;
+
+        }
+
+    }
+
+
+    function addResult(
+        label,
+        value
+    ) {
+
+        const grid =
+            document.getElementById(
+                "resultGrid"
+            );
+
+
+        const card =
+            document.createElement(
+                "div"
+            );
+
+
+        card.className =
+            "result-card";
+
+
+        card.innerHTML = `
+
+            <span>
+                ${label}
+            </span>
+
+            <strong>
+                ${value}
+            </strong>
+
+        `;
+
+
+        grid.appendChild(card);
+
+    }
+
+
+    function escapeHTML(value) {
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* ==========================================
+       DETECT EXISTING TOOL BUTTON
+    ========================================== */
+
+    document.addEventListener(
+        "click",
+        function (event) {
+
+            const button =
+                event.target.closest(
+                    "button"
+                );
+
+
+            if (!button) return;
+
+
+            const text =
+                button.textContent
+                    .toLowerCase();
+
+
+            if (
+                text.includes("clean") ||
+                text.includes("format") ||
+                text.includes("remove") ||
+                text.includes("process")
+            ) {
+
+                setTimeout(
+                    cleanText,
+                    100
+                );
+
+            }
+
+        }
+    );
+
+
 });
 
 </script>
-    
-<!-- ================= HOMEPAGE INTERNAL LINK ================= -->
 
-<div class="back-home-link">
-  <a href="index.html">← Explore All AIHub Tools</a>
-</div>
-    
 </body>
 
 </html>
