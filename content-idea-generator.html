@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,6 +20,207 @@
 
     <link rel="stylesheet"
           href="style.css">
+
+    <style>
+
+        /* ================= BACK TO AIHUB ================= */
+
+        .top-back-link {
+            max-width: 1200px;
+            margin: 20px auto 0;
+            padding: 0 20px;
+        }
+
+        .top-back-link a {
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+
+        /* ================= PLAN BOX ================= */
+
+        .plan-box {
+            margin: 20px 0;
+            padding: 18px;
+            border-radius: 14px;
+            border: 1px solid #ddd;
+            background: #fff;
+        }
+
+        .plan-box.pro {
+            border-color: #7c3aed;
+            background: #faf7ff;
+        }
+
+        .plan-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .plan-description {
+            margin-bottom: 12px;
+            color: #555;
+        }
+
+        .plan-button {
+            display: inline-block;
+            padding: 10px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            background: #111;
+            color: #fff;
+        }
+
+
+        /* ================= GENERATOR ================= */
+
+        .generator-box {
+            margin-top: 20px;
+        }
+
+        .field-group {
+            margin-bottom: 18px;
+        }
+
+        .field-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 7px;
+        }
+
+        .field-group input,
+        .field-group select,
+        .field-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+
+        .field-group textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .pro-panel {
+            margin-top: 22px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 14px;
+            background: #fafafa;
+        }
+
+        .pro-panel h3 {
+            margin-top: 0;
+        }
+
+        .pro-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .checkbox-row input {
+            width: auto;
+        }
+
+        .locked-pro {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 14px;
+            border: 1px dashed #999;
+            background: #f7f7f7;
+        }
+
+        .locked-pro h3 {
+            margin-top: 0;
+        }
+
+        .tool-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .tool-buttons button {
+            padding: 11px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .primary-button {
+            background: #111;
+            color: #fff;
+        }
+
+        .secondary-button {
+            background: #e9e9e9;
+            color: #111;
+        }
+
+        .results-box {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 14px;
+            border: 1px solid #ddd;
+            background: #fff;
+        }
+
+        .idea-card {
+            padding: 16px;
+            margin-bottom: 12px;
+            border-radius: 10px;
+            background: #f6f6f6;
+            border: 1px solid #ddd;
+        }
+
+        .idea-card h4 {
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+
+        .idea-meta {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .status-message {
+            margin-top: 12px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 700px) {
+
+            .pro-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tool-buttons {
+                flex-direction: column;
+            }
+
+            .tool-buttons button {
+                width: 100%;
+            }
+
+        }
+
+    </style>
 
 </head>
 
@@ -57,6 +257,17 @@
     </div>
 
 </header>
+
+
+<!-- ================= TOP BACK LINK ================= -->
+
+<div class="top-back-link">
+
+    <a href="index.html">
+        ← Back to AIHub
+    </a>
+
+</div>
 
 
 <main>
@@ -104,7 +315,510 @@
 
             </div>
 
-            <div id="toolInterface"></div>
+            <div id="toolInterface">
+
+                <!-- ================= PLAN STATUS ================= -->
+
+                <div id="planBox" class="plan-box">
+
+                    <div id="planTitle" class="plan-title">
+                        Free Mode
+                    </div>
+
+                    <div id="planDescription"
+                         class="plan-description">
+                        Use the basic Content Idea Generator for free.
+                    </div>
+
+                    <a id="planButton"
+                       class="plan-button"
+                       href="login.html">
+                        Login
+                    </a>
+
+                </div>
+
+
+                <!-- ================= GENERATOR ================= -->
+
+                <div class="generator-box">
+
+                    <div class="field-group">
+
+                        <label for="topicInput">
+                            Topic / Subject
+                        </label>
+
+                        <textarea
+                            id="topicInput"
+                            placeholder="Example: Space for kids, fitness, technology, study tips..."
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="field-group">
+
+                        <label for="platformSelect">
+                            Platform
+                        </label>
+
+                        <select id="platformSelect">
+
+                            <option value="YouTube">
+                                YouTube
+                            </option>
+
+                            <option value="Instagram">
+                                Instagram
+                            </option>
+
+                            <option value="TikTok">
+                                TikTok
+                            </option>
+
+                            <option value="Blog">
+                                Blog
+                            </option>
+
+                            <option value="Facebook">
+                                Facebook
+                            </option>
+
+                            <option value="Social Media">
+                                Social Media
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="field-group">
+
+                        <label for="audienceSelect">
+                            Target Audience
+                        </label>
+
+                        <select id="audienceSelect">
+
+                            <option value="General Audience">
+                                General Audience
+                            </option>
+
+                            <option value="Kids">
+                                Kids
+                            </option>
+
+                            <option value="Teenagers">
+                                Teenagers
+                            </option>
+
+                            <option value="Students">
+                                Students
+                            </option>
+
+                            <option value="Creators">
+                                Creators
+                            </option>
+
+                            <option value="Beginners">
+                                Beginners
+                            </option>
+
+                            <option value="Professionals">
+                                Professionals
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="field-group">
+
+                        <label for="contentTypeSelect">
+                            Content Type
+                        </label>
+
+                        <select id="contentTypeSelect">
+
+                            <option value="Educational">
+                                Educational
+                            </option>
+
+                            <option value="Entertainment">
+                                Entertainment
+                            </option>
+
+                            <option value="Explainer">
+                                Explainer
+                            </option>
+
+                            <option value="Tutorial">
+                                Tutorial
+                            </option>
+
+                            <option value="List">
+                                List
+                            </option>
+
+                            <option value="Tips">
+                                Tips
+                            </option>
+
+                            <option value="Story">
+                                Story
+                            </option>
+
+                            <option value="Review">
+                                Review
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="field-group">
+
+                        <label for="styleSelect">
+                            Style
+                        </label>
+
+                        <select id="styleSelect">
+
+                            <option value="Fun">
+                                Fun
+                            </option>
+
+                            <option value="Professional">
+                                Professional
+                            </option>
+
+                            <option value="Simple">
+                                Simple
+                            </option>
+
+                            <option value="Creative">
+                                Creative
+                            </option>
+
+                            <option value="Trending">
+                                Trending
+                            </option>
+
+                            <option value="Engaging">
+                                Engaging
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- ================= PRO PANEL ================= -->
+
+                    <div id="proPanel"
+                         class="pro-panel"
+                         style="display:none;">
+
+                        <h3>
+                            🚀 Pro Content Idea Controls
+                        </h3>
+
+                        <p>
+                            Create more targeted and structured content
+                            ideas with advanced controls.
+                        </p>
+
+                        <div class="pro-grid">
+
+                            <div class="field-group">
+
+                                <label for="goalSelect">
+                                    Main Goal
+                                </label>
+
+                                <select id="goalSelect">
+
+                                    <option value="Grow Audience">
+                                        Grow Audience
+                                    </option>
+
+                                    <option value="Get Views">
+                                        Get Views
+                                    </option>
+
+                                    <option value="Get Engagement">
+                                        Get Engagement
+                                    </option>
+
+                                    <option value="Educate">
+                                        Educate
+                                    </option>
+
+                                    <option value="Build Authority">
+                                        Build Authority
+                                    </option>
+
+                                    <option value="Generate Leads">
+                                        Generate Leads
+                                    </option>
+
+                                    <option value="Increase Subscribers">
+                                        Increase Subscribers
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="field-group">
+
+                                <label for="toneSelect">
+                                    Tone
+                                </label>
+
+                                <select id="toneSelect">
+
+                                    <option value="Friendly">
+                                        Friendly
+                                    </option>
+
+                                    <option value="Energetic">
+                                        Energetic
+                                    </option>
+
+                                    <option value="Professional">
+                                        Professional
+                                    </option>
+
+                                    <option value="Educational">
+                                        Educational
+                                    </option>
+
+                                    <option value="Funny">
+                                        Funny
+                                    </option>
+
+                                    <option value="Inspirational">
+                                        Inspirational
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="field-group">
+
+                                <label for="ideaCount">
+                                    Number of Ideas
+                                </label>
+
+                                <select id="ideaCount">
+
+                                    <option value="5">
+                                        5 Ideas
+                                    </option>
+
+                                    <option value="10">
+                                        10 Ideas
+                                    </option>
+
+                                    <option value="15">
+                                        15 Ideas
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="field-group">
+
+                                <label for="difficultySelect">
+                                    Content Level
+                                </label>
+
+                                <select id="difficultySelect">
+
+                                    <option value="Beginner Friendly">
+                                        Beginner Friendly
+                                    </option>
+
+                                    <option value="Intermediate">
+                                        Intermediate
+                                    </option>
+
+                                    <option value="Advanced">
+                                        Advanced
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="field-group">
+
+                            <label for="keywordsInput">
+                                Keywords
+                            </label>
+
+                            <input
+                                id="keywordsInput"
+                                type="text"
+                                placeholder="Example: planets, space facts, kids learning"
+                            >
+
+                        </div>
+
+
+                        <div class="field-group">
+
+                            <label for="uniqueAngleInput">
+                                Unique Angle
+                            </label>
+
+                            <input
+                                id="uniqueAngleInput"
+                                type="text"
+                                placeholder="Example: Make it different from common videos"
+                            >
+
+                        </div>
+
+
+                        <div class="field-group">
+
+                            <label for="constraintsInput">
+                                Special Requirements
+                            </label>
+
+                            <textarea
+                                id="constraintsInput"
+                                placeholder="Example: Keep ideas simple, avoid difficult words..."
+                            ></textarea>
+
+                        </div>
+
+
+                        <label class="checkbox-row">
+
+                            <input
+                                type="checkbox"
+                                id="includeHook"
+                                checked
+                            >
+
+                            Include a hook for every idea
+
+                        </label>
+
+
+                        <label class="checkbox-row">
+
+                            <input
+                                type="checkbox"
+                                id="includeFormat"
+                                checked
+                            >
+
+                            Include recommended content format
+
+                        </label>
+
+
+                        <label class="checkbox-row">
+
+                            <input
+                                type="checkbox"
+                                id="includeReason"
+                                checked
+                            >
+
+                            Include why the idea may work
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- ================= LOCKED PRO ================= -->
+
+                    <div id="lockedPro"
+                         class="locked-pro">
+
+                        <h3>
+                            🔒 Unlock Pro Content Ideas
+                        </h3>
+
+                        <p>
+                            Pro users get advanced audience targeting,
+                            goals, keywords, unique angles, multiple
+                            ideas and detailed content recommendations.
+                        </p>
+
+                        <a href="pricing.html"
+                           class="plan-button">
+                            Upgrade to Pro
+                        </a>
+
+                    </div>
+
+
+                    <!-- ================= BUTTONS ================= -->
+
+                    <div class="tool-buttons">
+
+                        <button
+                            id="generateButton"
+                            class="primary-button">
+                            Generate Ideas
+                        </button>
+
+                        <button
+                            id="copyButton"
+                            class="secondary-button">
+                            Copy Ideas
+                        </button>
+
+                        <button
+                            id="clearButton"
+                            class="secondary-button">
+                            Clear
+                        </button>
+
+                    </div>
+
+
+                    <div id="statusMessage"
+                         class="status-message">
+                    </div>
+
+
+                    <!-- ================= RESULTS ================= -->
+
+                    <div id="resultsBox"
+                         class="results-box"
+                         style="display:none;">
+
+                        <h3>
+                            Generated Content Ideas
+                        </h3>
+
+                        <div id="resultsContent"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 
@@ -112,6 +826,8 @@
 
 </section>
 
+
+<!-- ================= SEO CONTENT ================= -->
 
 <section class="content-section">
 
@@ -325,15 +1041,16 @@
 </footer>
 
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script src="script.js"></script>
 
 
 <script>
 
-    /*
-     * Automatically open the Content Idea Generator
-     * when this SEO page loads.
-     */
+    /* =========================================================
+       EXISTING AIHUB TOOL SYSTEM
+       ========================================================= */
 
     document.addEventListener("DOMContentLoaded", function () {
 
@@ -345,14 +1062,686 @@
 
     });
 
-</script>
-    
-<!-- ================= HOMEPAGE INTERNAL LINK ================= -->
 
-<div class="back-home-link">
-  <a href="index.html">← Explore All AIHub Tools</a>
-</div>
-    
+    /* =========================================================
+       SUPABASE
+       ========================================================= */
+
+    const SUPABASE_URL =
+        "https://stjkvlkeysyefhxocjzm.supabase.co";
+
+    const SUPABASE_PUBLISHABLE_KEY =
+        "sb_publishable_TGBEUnPnXQMw82y6X2hQiA_CLfc9ffB";
+
+    const supabaseClient =
+        supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY
+        );
+
+
+    let currentPlan = "guest";
+
+
+    /* =========================================================
+       ELEMENTS
+       ========================================================= */
+
+    const planBox =
+        document.getElementById("planBox");
+
+    const planTitle =
+        document.getElementById("planTitle");
+
+    const planDescription =
+        document.getElementById("planDescription");
+
+    const planButton =
+        document.getElementById("planButton");
+
+    const proPanel =
+        document.getElementById("proPanel");
+
+    const lockedPro =
+        document.getElementById("lockedPro");
+
+    const resultsBox =
+        document.getElementById("resultsBox");
+
+    const resultsContent =
+        document.getElementById("resultsContent");
+
+    const statusMessage =
+        document.getElementById("statusMessage");
+
+    const topicInput =
+        document.getElementById("topicInput");
+
+    const platformSelect =
+        document.getElementById("platformSelect");
+
+    const audienceSelect =
+        document.getElementById("audienceSelect");
+
+    const contentTypeSelect =
+        document.getElementById("contentTypeSelect");
+
+    const styleSelect =
+        document.getElementById("styleSelect");
+
+
+    /* =========================================================
+       LOAD USER PLAN
+       ========================================================= */
+
+    async function loadPlan() {
+
+        const {
+            data: { session }
+        } = await supabaseClient.auth.getSession();
+
+
+        if (!session) {
+
+            currentPlan = "guest";
+
+            planBox.classList.remove("pro");
+
+            planTitle.textContent =
+                "Free Mode";
+
+            planDescription.textContent =
+                "Use the basic Content Idea Generator for free.";
+
+            planButton.textContent =
+                "Login";
+
+            planButton.href =
+                "login.html";
+
+            proPanel.style.display =
+                "none";
+
+            lockedPro.style.display =
+                "block";
+
+            return;
+        }
+
+
+        const user =
+            session.user;
+
+
+        const {
+            data: profile,
+            error
+        } = await supabaseClient
+            .from("profiles")
+            .select("plan")
+            .eq("user_id", user.id)
+            .maybeSingle();
+
+
+        if (error) {
+
+            console.error(
+                "Profile error:",
+                error
+            );
+
+            currentPlan = "free";
+
+        } else {
+
+            currentPlan =
+                profile?.plan === "pro"
+                    ? "pro"
+                    : "free";
+
+        }
+
+
+        if (currentPlan === "pro") {
+
+            planBox.classList.add("pro");
+
+            planTitle.textContent =
+                "⭐ Pro Mode";
+
+            planDescription.textContent =
+                "Advanced Content Idea Generator controls are unlocked.";
+
+            planButton.textContent =
+                "My Account";
+
+            planButton.href =
+                "account.html";
+
+            proPanel.style.display =
+                "block";
+
+            lockedPro.style.display =
+                "none";
+
+        } else {
+
+            planBox.classList.remove("pro");
+
+            planTitle.textContent =
+                "Free Mode";
+
+            planDescription.textContent =
+                "Upgrade to Pro to unlock advanced content idea controls.";
+
+            planButton.textContent =
+                "Upgrade to Pro";
+
+            planButton.href =
+                "pricing.html";
+
+            proPanel.style.display =
+                "none";
+
+            lockedPro.style.display =
+                "block";
+
+        }
+
+    }
+
+
+    /* =========================================================
+       GENERATE IDEAS
+       ========================================================= */
+
+    function generateIdeas() {
+
+        const topic =
+            topicInput.value.trim();
+
+
+        if (!topic) {
+
+            statusMessage.textContent =
+                "Please enter a topic first.";
+
+            return;
+
+        }
+
+
+        const platform =
+            platformSelect.value;
+
+        const audience =
+            audienceSelect.value;
+
+        const contentType =
+            contentTypeSelect.value;
+
+        const style =
+            styleSelect.value;
+
+
+        let count = 5;
+
+        let goal =
+            "Create useful content";
+
+        let tone =
+            "Friendly";
+
+        let difficulty =
+            "Beginner Friendly";
+
+        let keywords =
+            "";
+
+        let uniqueAngle =
+            "";
+
+        let constraints =
+            "";
+
+        let includeHook =
+            false;
+
+        let includeFormat =
+            false;
+
+        let includeReason =
+            false;
+
+
+        if (currentPlan === "pro") {
+
+            count =
+                Number(
+                    document.getElementById("ideaCount").value
+                );
+
+            goal =
+                document.getElementById("goalSelect").value;
+
+            tone =
+                document.getElementById("toneSelect").value;
+
+            difficulty =
+                document.getElementById("difficultySelect").value;
+
+            keywords =
+                document.getElementById("keywordsInput").value.trim();
+
+            uniqueAngle =
+                document.getElementById("uniqueAngleInput").value.trim();
+
+            constraints =
+                document.getElementById("constraintsInput").value.trim();
+
+            includeHook =
+                document.getElementById("includeHook").checked;
+
+            includeFormat =
+                document.getElementById("includeFormat").checked;
+
+            includeReason =
+                document.getElementById("includeReason").checked;
+
+        }
+
+
+        const ideaTemplates = [
+
+            "Beginner's Guide to " + topic,
+
+            "10 Things You Should Know About " + topic,
+
+            "Common Mistakes People Make With " + topic,
+
+            "The Ultimate " + topic + " Challenge",
+
+            "Simple Tips to Improve Your " + topic,
+
+            "What Nobody Tells You About " + topic,
+
+            topic + " Explained in a Simple Way",
+
+            "Interesting Facts About " + topic,
+
+            "Step-by-Step Guide to " + topic,
+
+            "The Future of " + topic,
+
+            "Beginner vs Advanced: " + topic,
+
+            "Myths vs Facts About " + topic,
+
+            "5 Creative Ways to Explore " + topic,
+
+            "Things I Wish I Knew About " + topic,
+
+            "Complete " + topic + " Roadmap"
+
+        ];
+
+
+        const ideas = [];
+
+
+        for (
+            let i = 0;
+            i < count;
+            i++
+        ) {
+
+            const title =
+                ideaTemplates[
+                    i % ideaTemplates.length
+                ];
+
+
+            let description =
+                "Create a " +
+                style.toLowerCase() +
+                " " +
+                contentType.toLowerCase() +
+                " piece about " +
+                topic +
+                " for " +
+                audience.toLowerCase() +
+                " on " +
+                platform +
+                ".";
+
+
+            if (currentPlan === "pro") {
+
+                description +=
+                    " Goal: " +
+                    goal +
+                    ". Tone: " +
+                    tone +
+                    ". Level: " +
+                    difficulty +
+                    ".";
+
+
+                if (keywords) {
+
+                    description +=
+                        " Keywords: " +
+                        keywords +
+                        ".";
+
+                }
+
+
+                if (uniqueAngle) {
+
+                    description +=
+                        " Unique angle: " +
+                        uniqueAngle +
+                        ".";
+
+                }
+
+
+                if (constraints) {
+
+                    description +=
+                        " Requirements: " +
+                        constraints +
+                        ".";
+
+                }
+
+            }
+
+
+            let hook = "";
+
+            let format = "";
+
+            let reason = "";
+
+
+            if (
+                currentPlan === "pro" &&
+                includeHook
+            ) {
+
+                hook =
+                    "Hook: What if you could learn the most important parts of " +
+                    topic +
+                    " without wasting time?";
+
+            }
+
+
+            if (
+                currentPlan === "pro" &&
+                includeFormat
+            ) {
+
+                format =
+                    "Recommended format: " +
+                    platform +
+                    " " +
+                    contentType +
+                    ".";
+
+            }
+
+
+            if (
+                currentPlan === "pro" &&
+                includeReason
+            ) {
+
+                reason =
+                    "Why it may work: The idea is focused on " +
+                    audience.toLowerCase() +
+                    " and gives them a clear reason to watch or read.";
+
+            }
+
+
+            ideas.push({
+
+                title:
+                    title,
+
+                description:
+                    description,
+
+                hook:
+                    hook,
+
+                format:
+                    format,
+
+                reason:
+                    reason
+
+            });
+
+        }
+
+
+        renderIdeas(ideas);
+
+
+        statusMessage.textContent =
+            currentPlan === "pro"
+                ? "Pro ideas generated successfully."
+                : "Free ideas generated successfully.";
+
+    }
+
+
+    /* =========================================================
+       RENDER RESULTS
+       ========================================================= */
+
+    function renderIdeas(ideas) {
+
+        resultsContent.innerHTML = "";
+
+
+        ideas.forEach(
+            function (idea, index) {
+
+                const card =
+                    document.createElement("div");
+
+                card.className =
+                    "idea-card";
+
+
+                const title =
+                    document.createElement("h4");
+
+                title.textContent =
+                    (index + 1) +
+                    ". " +
+                    idea.title;
+
+
+                const description =
+                    document.createElement("p");
+
+                description.textContent =
+                    idea.description;
+
+
+                card.appendChild(title);
+
+                card.appendChild(description);
+
+
+                if (idea.hook) {
+
+                    const hook =
+                        document.createElement("p");
+
+                    hook.textContent =
+                        idea.hook;
+
+                    card.appendChild(hook);
+
+                }
+
+
+                if (idea.format) {
+
+                    const format =
+                        document.createElement("p");
+
+                    format.textContent =
+                        idea.format;
+
+                    card.appendChild(format);
+
+                }
+
+
+                if (idea.reason) {
+
+                    const reason =
+                        document.createElement("p");
+
+                    reason.textContent =
+                        idea.reason;
+
+                    card.appendChild(reason);
+
+                }
+
+
+                resultsContent.appendChild(card);
+
+            }
+        );
+
+
+        resultsBox.style.display =
+            "block";
+
+    }
+
+
+    /* =========================================================
+       COPY
+       ========================================================= */
+
+    document.getElementById("copyButton")
+        .addEventListener(
+            "click",
+            async function () {
+
+                if (
+                    !resultsContent.innerText.trim()
+                ) {
+
+                    statusMessage.textContent =
+                        "Generate some ideas first.";
+
+                    return;
+
+                }
+
+
+                try {
+
+                    await navigator.clipboard.writeText(
+                        resultsContent.innerText
+                    );
+
+                    statusMessage.textContent =
+                        "Ideas copied successfully.";
+
+                } catch (error) {
+
+                    statusMessage.textContent =
+                        "Copy failed. Please select and copy the text manually.";
+
+                }
+
+            }
+        );
+
+
+    /* =========================================================
+       CLEAR
+       ========================================================= */
+
+    document.getElementById("clearButton")
+        .addEventListener(
+            "click",
+            function () {
+
+                topicInput.value = "";
+
+                resultsContent.innerHTML = "";
+
+                resultsBox.style.display =
+                    "none";
+
+                statusMessage.textContent =
+                    "";
+
+                if (currentPlan === "pro") {
+
+                    document.getElementById(
+                        "keywordsInput"
+                    ).value = "";
+
+                    document.getElementById(
+                        "uniqueAngleInput"
+                    ).value = "";
+
+                    document.getElementById(
+                        "constraintsInput"
+                    ).value = "";
+
+                }
+
+            }
+        );
+
+
+    /* =========================================================
+       GENERATE BUTTON
+       ========================================================= */
+
+    document.getElementById("generateButton")
+        .addEventListener(
+            "click",
+            generateIdeas
+        );
+
+
+    /* =========================================================
+       AUTH STATE
+       ========================================================= */
+
+    supabaseClient.auth.onAuthStateChange(
+        async function () {
+
+            await loadPlan();
+
+        }
+    );
+
+
+    /* =========================================================
+       INITIAL LOAD
+       ========================================================= */
+
+    loadPlan();
+
+</script>
+
 </body>
 </html>
-```
