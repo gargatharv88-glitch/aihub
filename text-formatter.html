@@ -1,4 +1,3 @@
-```html id="a7x2mv"
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +10,7 @@
     <title>Text Formatter - Free Online Text Formatting Tool | AIHub</title>
 
     <meta name="description"
-          content="Format and clean your text easily with AIHub's free Text Formatter. Quickly organize and transform text directly in your browser.">
+          content="Format and organize your text easily with AIHub's free Text Formatter. Use advanced Pro formatting options for cleaner, polished and professional text.">
 
     <meta name="robots"
           content="index, follow">
@@ -22,6 +21,142 @@
     <link rel="stylesheet"
           href="style.css">
 
+    <style>
+
+        .back-aihub {
+            display: inline-block;
+            margin: 18px 0 10px;
+            padding: 9px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            background: #f1f5f9;
+            color: #1e293b;
+            border: 1px solid #cbd5e1;
+        }
+
+        .back-aihub:hover {
+            opacity: 0.85;
+        }
+
+        .plan-box {
+            margin: 15px 0;
+            padding: 14px 16px;
+            border-radius: 10px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
+
+        .plan-free {
+            color: #475569;
+        }
+
+        .plan-pro {
+            color: #166534;
+            font-weight: 700;
+        }
+
+        .pro-panel {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
+
+        .pro-panel h3 {
+            margin-top: 0;
+        }
+
+        .pro-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 14px;
+            margin-top: 15px;
+        }
+
+        .pro-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .pro-field label {
+            font-weight: 600;
+        }
+
+        .pro-field select,
+        .pro-field input,
+        .pro-field textarea {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            font: inherit;
+        }
+
+        .pro-checks {
+            margin-top: 16px;
+            display: grid;
+            gap: 9px;
+        }
+
+        .pro-checks label {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .locked-pro {
+            margin-top: 18px;
+            padding: 16px;
+            border-radius: 10px;
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+        }
+
+        .format-report {
+            margin-top: 20px;
+            padding: 18px;
+            border-radius: 10px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
+
+        .format-report ul {
+            padding-left: 20px;
+        }
+
+        .pro-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+            background: #fef3c7;
+            color: #92400e;
+            margin-left: 6px;
+        }
+
+        .tool-note {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        @media (max-width: 600px) {
+
+            .pro-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .back-aihub {
+                width: fit-content;
+            }
+
+        }
+
+    </style>
+
 </head>
 
 <body>
@@ -29,6 +164,11 @@
 <header class="site-header">
 
     <div class="container">
+
+        <!-- TOP BACK TO AIHUB -->
+        <a href="index.html" class="back-aihub">
+            ← Back to AIHub
+        </a>
 
         <a href="index.html" class="logo">
             AIHub
@@ -94,6 +234,10 @@
             online Text Formatter.
         </p>
 
+        <div id="planStatus" class="plan-box">
+            Checking your plan...
+        </div>
+
     </div>
 
 </section>
@@ -124,6 +268,259 @@
             </div>
 
             <div id="toolInterface"></div>
+
+        </div>
+
+
+        <!-- PRO FEATURES -->
+
+        <div id="proFeatures" class="pro-panel" style="display:none;">
+
+            <h3>
+                ✨ Pro Formatting Controls
+                <span class="pro-badge">PRO</span>
+            </h3>
+
+            <p>
+                Unlock advanced formatting controls for cleaner,
+                structured and professional-looking text.
+            </p>
+
+            <div class="pro-grid">
+
+                <div class="pro-field">
+
+                    <label for="formatMode">
+                        Formatting Mode
+                    </label>
+
+                    <select id="formatMode">
+
+                        <option value="standard">
+                            Standard Formatting
+                        </option>
+
+                        <option value="professional">
+                            Professional Formatting
+                        </option>
+
+                        <option value="publishing">
+                            Publishing Ready
+                        </option>
+
+                        <option value="social">
+                            Social Media Ready
+                        </option>
+
+                        <option value="academic">
+                            Academic / Assignment
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="pro-field">
+
+                    <label for="paragraphMode">
+                        Paragraph Style
+                    </label>
+
+                    <select id="paragraphMode">
+
+                        <option value="normal">
+                            Normal Paragraphs
+                        </option>
+
+                        <option value="compact">
+                            Compact Paragraphs
+                        </option>
+
+                        <option value="spaced">
+                            Extra Spaced
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="pro-field">
+
+                    <label for="lineMode">
+                        Line Formatting
+                    </label>
+
+                    <select id="lineMode">
+
+                        <option value="normal">
+                            Keep Lines
+                        </option>
+
+                        <option value="clean">
+                            Clean Empty Lines
+                        </option>
+
+                        <option value="compact">
+                            Compact Lines
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="pro-field">
+
+                    <label for="punctuationMode">
+                        Punctuation
+                    </label>
+
+                    <select id="punctuationMode">
+
+                        <option value="keep">
+                            Keep As Entered
+                        </option>
+
+                        <option value="normalize">
+                            Normalize Spacing
+                        </option>
+
+                        <option value="strong">
+                            Strong Cleanup
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="pro-field">
+
+                    <label for="headingMode">
+                        Heading Formatting
+                    </label>
+
+                    <select id="headingMode">
+
+                        <option value="none">
+                            No Heading Changes
+                        </option>
+
+                        <option value="capitalize">
+                            Capitalize Lines
+                        </option>
+
+                        <option value="uppercase">
+                            Uppercase Headings
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="pro-field">
+
+                    <label for="maxLineLength">
+                        Maximum Line Length
+                    </label>
+
+                    <input
+                        type="number"
+                        id="maxLineLength"
+                        min="0"
+                        max="500"
+                        value="0"
+                        placeholder="0 = unlimited"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="pro-checks">
+
+                <label>
+                    <input type="checkbox" id="removeBlankLines">
+                    Remove unnecessary blank lines
+                </label>
+
+                <label>
+                    <input type="checkbox" id="trimWhitespace" checked>
+                    Remove extra spaces and surrounding whitespace
+                </label>
+
+                <label>
+                    <input type="checkbox" id="normalizeQuotes">
+                    Normalize quotation marks
+                </label>
+
+                <label>
+                    <input type="checkbox" id="normalizeDashes">
+                    Normalize dash formatting
+                </label>
+
+                <label>
+                    <input type="checkbox" id="smartCapitalization">
+                    Apply smart sentence capitalization
+                </label>
+
+                <label>
+                    <input type="checkbox" id="addFinalPunctuation">
+                    Add punctuation to unfinished sentences
+                </label>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="applyProFormatting"
+                style="margin-top:18px;"
+            >
+                Apply Pro Formatting
+            </button>
+
+
+            <p class="tool-note">
+                Pro formatting runs directly in your browser.
+                No API key is required.
+            </p>
+
+        </div>
+
+
+        <div id="lockedPro" class="locked-pro" style="display:none;">
+
+            <strong>🔒 Pro Formatting Features</strong>
+
+            <p>
+                Upgrade to Pro to unlock advanced formatting modes,
+                professional cleanup, paragraph controls, punctuation
+                normalization and detailed formatting analysis.
+            </p>
+
+            <a href="pricing.html">
+                Upgrade to Pro →
+            </a>
+
+        </div>
+
+
+        <div
+            id="formatReport"
+            class="format-report"
+            style="display:none;"
+        >
+
+            <h3>
+                📊 Formatting Analysis
+            </h3>
+
+            <div id="formatReportContent"></div>
 
         </div>
 
@@ -344,17 +741,122 @@
 </footer>
 
 
-<script src="script.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
-    /*
-     * Automatically open the Text Formatter
-     * when this SEO page loads.
-     */
+const SUPABASE_URL =
+    "https://stjkvlkeysyefhxocjzm.supabase.co";
 
-    document.addEventListener("DOMContentLoaded", function () {
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_TGBEUnPnXQMw82y6X2hQiA_CLfc9ffB";
+
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+let currentPlan = "guest";
+
+
+async function loadPlan() {
+
+    const {
+        data: { session }
+    } = await supabaseClient.auth.getSession();
+
+    const planStatus =
+        document.getElementById("planStatus");
+
+    const proFeatures =
+        document.getElementById("proFeatures");
+
+    const lockedPro =
+        document.getElementById("lockedPro");
+
+
+    if (!session) {
+
+        currentPlan = "guest";
+
+        planStatus.innerHTML =
+            '<span class="plan-free">👤 Guest Mode — Free features available. <a href="login.html">Login</a> for your account.</span>';
+
+        proFeatures.style.display = "none";
+        lockedPro.style.display = "block";
+
+        return;
+    }
+
+
+    const user = session.user;
+
+
+    const {
+        data: profile,
+        error
+    } = await supabaseClient
+        .from("profiles")
+        .select("plan")
+        .eq("user_id", user.id)
+        .maybeSingle();
+
+
+    if (error) {
+
+        console.error(error);
+
+        currentPlan = "free";
+
+    } else {
+
+        currentPlan =
+            profile?.plan === "pro"
+                ? "pro"
+                : "free";
+
+    }
+
+
+    if (currentPlan === "pro") {
+
+        planStatus.innerHTML =
+            '<span class="plan-pro">⭐ Pro Plan Active — Advanced formatting unlocked.</span>';
+
+        proFeatures.style.display = "block";
+        lockedPro.style.display = "none";
+
+    } else {
+
+        planStatus.innerHTML =
+            '<span class="plan-free">🆓 Free Plan — Basic formatting available.</span>';
+
+        proFeatures.style.display = "none";
+        lockedPro.style.display = "block";
+
+    }
+
+}
+
+
+supabaseClient.auth.onAuthStateChange(
+    async function () {
+        await loadPlan();
+    }
+);
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async function () {
+
+        await loadPlan();
+
+        /*
+         * Automatically open the Text Formatter
+         * when this SEO page loads.
+         */
 
         if (typeof openTool === "function") {
 
@@ -362,16 +864,561 @@
 
         }
 
-    });
+    }
+);
+
+
+/* ================= PRO FORMATTER ================= */
+
+function getFormatterTextarea() {
+
+    const toolInterface =
+        document.getElementById("toolInterface");
+
+    if (!toolInterface) return null;
+
+    return toolInterface.querySelector("textarea");
+
+}
+
+
+function escapeHTML(value) {
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+function smartCapitalize(text) {
+
+    return text.replace(
+        /(^|[.!?]\s+)([a-z])/g,
+        function (match, prefix, letter) {
+
+            return prefix + letter.toUpperCase();
+
+        }
+    );
+
+}
+
+
+function normalizeQuotes(text) {
+
+    return text
+        .replace(/[“”]/g, '"')
+        .replace(/[‘’]/g, "'");
+
+}
+
+
+function normalizeDashes(text) {
+
+    return text
+        .replace(/[–—]/g, "-")
+        .replace(/\s*-\s*/g, " - ");
+
+}
+
+
+function addSentencePunctuation(text) {
+
+    const lines =
+        text.split("\n");
+
+    return lines.map(function (line) {
+
+        const clean =
+            line.trim();
+
+        if (!clean) {
+            return line;
+        }
+
+        if (
+            /[.!?;:]$/.test(clean) ||
+            /^[-•*]/.test(clean)
+        ) {
+            return line;
+        }
+
+        return clean + ".";
+
+    }).join("\n");
+
+}
+
+
+function formatTextPro(text) {
+
+    let output = text;
+
+    const mode =
+        document.getElementById("formatMode").value;
+
+    const paragraphMode =
+        document.getElementById("paragraphMode").value;
+
+    const lineMode =
+        document.getElementById("lineMode").value;
+
+    const punctuationMode =
+        document.getElementById("punctuationMode").value;
+
+    const headingMode =
+        document.getElementById("headingMode").value;
+
+    const maxLineLength =
+        Number(
+            document.getElementById("maxLineLength").value
+        ) || 0;
+
+
+    const removeBlankLines =
+        document.getElementById("removeBlankLines").checked;
+
+    const trimWhitespace =
+        document.getElementById("trimWhitespace").checked;
+
+    const normalizeQuotesOption =
+        document.getElementById("normalizeQuotes").checked;
+
+    const normalizeDashesOption =
+        document.getElementById("normalizeDashes").checked;
+
+    const smartCapitalization =
+        document.getElementById("smartCapitalization").checked;
+
+    const addFinalPunctuation =
+        document.getElementById("addFinalPunctuation").checked;
+
+
+    if (trimWhitespace) {
+
+        output =
+            output
+                .split("\n")
+                .map(line => line.trim())
+                .join("\n");
+
+        output =
+            output.replace(/[ \t]{2,}/g, " ");
+
+    }
+
+
+    if (
+        paragraphMode === "compact" ||
+        lineMode === "compact"
+    ) {
+
+        output =
+            output.replace(/\n{3,}/g, "\n\n");
+
+    }
+
+
+    if (
+        paragraphMode === "spaced"
+    ) {
+
+        output =
+            output.replace(/\n{2,}/g, "\n\n\n");
+
+    }
+
+
+    if (
+        lineMode === "clean" ||
+        removeBlankLines
+    ) {
+
+        output =
+            output.replace(/^\s*[\r\n]+/gm, "");
+
+    }
+
+
+    if (punctuationMode === "normalize") {
+
+        output =
+            output
+                .replace(/\s+([,.!?;:])/g, "$1")
+                .replace(/([,.!?;:])([^\s\n])/g, "$1 $2");
+
+    }
+
+
+    if (punctuationMode === "strong") {
+
+        output =
+            output
+                .replace(/\s+([,.!?;:])/g, "$1")
+                .replace(/([,.!?;:])([^\s\n])/g, "$1 $2")
+                .replace(/!{2,}/g, "!")
+                .replace(/\?{2,}/g, "?")
+                .replace(/,{2,}/g, ",");
+
+    }
+
+
+    if (normalizeQuotesOption) {
+
+        output =
+            normalizeQuotes(output);
+
+    }
+
+
+    if (normalizeDashesOption) {
+
+        output =
+            normalizeDashes(output);
+
+    }
+
+
+    if (smartCapitalization) {
+
+        output =
+            smartCapitalize(output);
+
+    }
+
+
+    if (addFinalPunctuation) {
+
+        output =
+            addSentencePunctuation(output);
+
+    }
+
+
+    if (headingMode !== "none") {
+
+        output =
+            output
+                .split("\n")
+                .map(function (line) {
+
+                    const trimmed =
+                        line.trim();
+
+                    if (!trimmed) {
+                        return line;
+                    }
+
+                    if (
+                        headingMode === "uppercase"
+                    ) {
+                        return trimmed.toUpperCase();
+                    }
+
+                    if (
+                        headingMode === "capitalize"
+                    ) {
+                        return trimmed
+                            .replace(/\b\w/g, c => c.toUpperCase());
+                    }
+
+                    return line;
+
+                })
+                .join("\n");
+
+    }
+
+
+    if (maxLineLength > 0) {
+
+        const lines =
+            output.split("\n");
+
+        const wrapped = [];
+
+        lines.forEach(function (line) {
+
+            if (line.length <= maxLineLength) {
+
+                wrapped.push(line);
+                return;
+
+            }
+
+            let current = "";
+
+            line.split(/\s+/).forEach(function (word) {
+
+                if (
+                    current &&
+                    current.length + word.length + 1 >
+                    maxLineLength
+                ) {
+
+                    wrapped.push(current);
+
+                    current = word;
+
+                } else {
+
+                    current +=
+                        current
+                            ? " " + word
+                            : word;
+
+                }
+
+            });
+
+            if (current) {
+                wrapped.push(current);
+            }
+
+        });
+
+        output =
+            wrapped.join("\n");
+
+    }
+
+
+    if (mode === "professional") {
+
+        output =
+            output
+                .replace(/\n{3,}/g, "\n\n")
+                .trim();
+
+    }
+
+
+    if (mode === "publishing") {
+
+        output =
+            output
+                .replace(/[ \t]+/g, " ")
+                .replace(/\n{3,}/g, "\n\n")
+                .trim();
+
+    }
+
+
+    if (mode === "social") {
+
+        output =
+            output
+                .replace(/\n{3,}/g, "\n\n")
+                .trim();
+
+    }
+
+
+    if (mode === "academic") {
+
+        output =
+            output
+                .replace(/[ \t]+/g, " ")
+                .replace(/\n{3,}/g, "\n\n")
+                .trim();
+
+    }
+
+
+    return output;
+
+}
+
+
+function generateFormatReport(
+    original,
+    formatted
+) {
+
+    const originalLines =
+        original
+            ? original.split("\n").length
+            : 0;
+
+    const formattedLines =
+        formatted
+            ? formatted.split("\n").length
+            : 0;
+
+    const removedChars =
+        Math.max(
+            0,
+            original.length - formatted.length
+        );
+
+    const reduction =
+        original.length
+            ? (
+                (removedChars / original.length) * 100
+              ).toFixed(1)
+            : "0.0";
+
+
+    const mode =
+        document.getElementById("formatMode").value;
+
+    const paragraphMode =
+        document.getElementById("paragraphMode").value;
+
+    const lineMode =
+        document.getElementById("lineMode").value;
+
+
+    const report =
+        document.getElementById("formatReport");
+
+    const content =
+        document.getElementById("formatReportContent");
+
+
+    content.innerHTML = `
+
+        <ul>
+
+            <li>
+                <strong>Formatting Mode:</strong>
+                ${escapeHTML(mode)}
+            </li>
+
+            <li>
+                <strong>Paragraph Style:</strong>
+                ${escapeHTML(paragraphMode)}
+            </li>
+
+            <li>
+                <strong>Line Handling:</strong>
+                ${escapeHTML(lineMode)}
+            </li>
+
+            <li>
+                <strong>Original Characters:</strong>
+                ${original.length}
+            </li>
+
+            <li>
+                <strong>Formatted Characters:</strong>
+                ${formatted.length}
+            </li>
+
+            <li>
+                <strong>Characters Changed/Removed:</strong>
+                ${removedChars}
+            </li>
+
+            <li>
+                <strong>Original Lines:</strong>
+                ${originalLines}
+            </li>
+
+            <li>
+                <strong>Formatted Lines:</strong>
+                ${formattedLines}
+            </li>
+
+            <li>
+                <strong>Size Reduction:</strong>
+                ${reduction}%
+            </li>
+
+        </ul>
+
+    `;
+
+
+    report.style.display = "block";
+
+}
+
+
+document.addEventListener(
+    "click",
+    function (event) {
+
+        if (
+            event.target.id !==
+            "applyProFormatting"
+        ) {
+            return;
+        }
+
+
+        if (currentPlan !== "pro") {
+
+            alert(
+                "This feature is available for Pro users. Please upgrade to Pro."
+            );
+
+            return;
+
+        }
+
+
+        const textarea =
+            getFormatterTextarea();
+
+
+        if (!textarea) {
+
+            alert(
+                "Text input was not found. Please refresh the page."
+            );
+
+            return;
+
+        }
+
+
+        const original =
+            textarea.value;
+
+
+        if (!original.trim()) {
+
+            alert(
+                "Please enter or paste some text first."
+            );
+
+            return;
+
+        }
+
+
+        const formatted =
+            formatTextPro(original);
+
+
+        textarea.value =
+            formatted;
+
+
+        generateFormatReport(
+            original,
+            formatted
+        );
+
+
+        textarea.dispatchEvent(
+            new Event(
+                "input",
+                {
+                    bubbles: true
+                }
+            )
+        );
+
+    }
+);
 
 </script>
-    
-<!-- ================= HOMEPAGE INTERNAL LINK ================= -->
 
-<div class="back-home-link">
-  <a href="index.html">← Explore All AIHub Tools</a>
-</div>
-    
 </body>
 </html>
-```
