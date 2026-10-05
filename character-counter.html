@@ -8,22 +8,287 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Character Counter - Free Online Character Count Tool | AIHub</title>
+    <title>Character Counter - Free & Pro Character Count Tool | AIHub</title>
 
     <meta name="description"
-          content="Use AIHub's free online Character Counter to count characters in your text instantly. Check characters with or without spaces.">
+          content="Use AIHub's Free and Pro Character Counter to count characters, spaces, words and text statistics instantly.">
 
     <meta name="keywords"
-          content="character counter, character count, online character counter, free character counter, count characters">
+          content="character counter, character count, online character counter, free character counter, count characters, text counter">
 
     <link rel="canonical"
           href="https://gargatharv88-glitch.github.io/aihub/character-counter.html">
 
     <link rel="stylesheet" href="style.css">
 
+
+    <style>
+
+        /* =========================
+           BACK TO AIHUB
+        ========================= */
+
+        .back-aihub {
+            max-width: 1100px;
+            margin: 18px auto 0;
+            padding: 0 20px;
+        }
+
+        .back-aihub a {
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+
+        /* =========================
+           PLAN BOX
+        ========================= */
+
+        .plan-box {
+            margin: 20px 0;
+            padding: 18px;
+            border-radius: 14px;
+            background: #f5f7ff;
+            border: 1px solid #e0e4ff;
+        }
+
+        .plan-box h3 {
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+
+
+        /* =========================
+           INPUT
+        ========================= */
+
+        .counter-field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .counter-field label {
+            font-weight: 600;
+        }
+
+        .counter-input {
+            width: 100%;
+            min-height: 220px;
+            box-sizing: border-box;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            resize: vertical;
+            font: inherit;
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           STATS
+        ========================= */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .stat-card {
+            padding: 16px;
+            border-radius: 12px;
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .stat-card strong {
+            display: block;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .stat-card span {
+            font-size: 13px;
+        }
+
+
+        /* =========================
+           PRO PANEL
+        ========================= */
+
+        .pro-panel {
+            margin-top: 20px;
+            padding: 22px;
+            border-radius: 16px;
+            border: 1px solid #ddd;
+            background: #fff;
+        }
+
+        .pro-panel h3 {
+            margin-top: 0;
+        }
+
+        .pro-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .pro-field {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .pro-field.full {
+            grid-column: 1 / -1;
+        }
+
+        .pro-field label {
+            font-weight: 600;
+        }
+
+        .pro-field select,
+        .pro-field input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 11px;
+            border: 1px solid #ccc;
+            border-radius: 9px;
+            font: inherit;
+        }
+
+        .pro-checks {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .pro-checks label {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+
+        /* =========================
+           LOCKED PRO
+        ========================= */
+
+        .locked-pro {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            background: #fafafa;
+            border: 1px dashed #bbb;
+        }
+
+        .locked-pro a {
+            font-weight: 700;
+        }
+
+
+        /* =========================
+           BUTTONS
+        ========================= */
+
+        .counter-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .counter-button {
+            border: none;
+            padding: 12px 18px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .primary-button {
+            background: #111;
+            color: #fff;
+        }
+
+        .secondary-button {
+            background: #eee;
+            color: #111;
+        }
+
+
+        /* =========================
+           PRO REPORT
+        ========================= */
+
+        .pro-report {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 14px;
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+        }
+
+        .pro-report h3 {
+            margin-top: 0;
+        }
+
+        .report-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 9px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .report-row:last-child {
+            border-bottom: none;
+        }
+
+
+        @media (max-width: 800px) {
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .pro-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pro-field.full {
+                grid-column: auto;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .back-aihub {
+                padding: 0 15px;
+            }
+
+        }
+
+    </style>
+
 </head>
 
+
 <body>
+
 
 <header class="header">
 
@@ -46,7 +311,19 @@
 </header>
 
 
+<!-- ================= BACK TO AIHUB ================= -->
+
+<div class="back-aihub">
+
+    <a href="index.html">
+        ← Back to AIHub
+    </a>
+
+</div>
+
+
 <main>
+
 
     <!-- HERO -->
 
@@ -54,11 +331,11 @@
 
         <div class="container">
 
-            <h1>Free Character Counter</h1>
+            <h1>Free & Pro Character Counter</h1>
 
             <p>
-                Count characters in your text instantly with AIHub's
-                free online Character Counter.
+                Count characters, spaces, words and useful text
+                statistics instantly with AIHub.
             </p>
 
         </div>
@@ -73,6 +350,7 @@
         <div class="container">
 
             <div id="workspace" class="workspace">
+
 
                 <div class="workspace-header">
 
@@ -92,7 +370,323 @@
 
                 </div>
 
-                <div id="toolInterface"></div>
+
+                <!-- PLAN -->
+
+                <div class="plan-box">
+
+                    <h3 id="planTitle">
+                        Checking your plan...
+                    </h3>
+
+                    <p id="planDescription">
+                        Please wait while AIHub checks your account.
+                    </p>
+
+                    <a id="planButton"
+                       href="login.html"
+                       style="display:none;">
+                        Login
+                    </a>
+
+                </div>
+
+
+                <!-- INPUT -->
+
+                <div class="counter-field">
+
+                    <label for="counterInput">
+                        Enter or paste your text
+                    </label>
+
+                    <textarea
+                        id="counterInput"
+                        class="counter-input"
+                        maxlength="50000"
+                        placeholder="Type or paste your text here..."></textarea>
+
+                </div>
+
+
+                <!-- BASIC STATS -->
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+
+                        <strong id="totalCharacters">
+                            0
+                        </strong>
+
+                        <span>
+                            Characters
+                        </span>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <strong id="charactersNoSpaces">
+                            0
+                        </strong>
+
+                        <span>
+                            Without Spaces
+                        </span>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <strong id="wordCount">
+                            0
+                        </strong>
+
+                        <span>
+                            Words
+                        </span>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <strong id="lineCount">
+                            0
+                        </strong>
+
+                        <span>
+                            Lines
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PRO PANEL -->
+
+                <div id="proPanel"
+                     class="pro-panel"
+                     style="display:none;">
+
+                    <h3>
+                        ✨ Pro Character Analysis
+                    </h3>
+
+                    <p>
+                        Get additional text statistics and
+                        customizable counting options.
+                    </p>
+
+
+                    <div class="pro-grid">
+
+
+                        <div class="pro-field">
+
+                            <label for="proCountMode">
+                                Counting Mode
+                            </label>
+
+                            <select id="proCountMode">
+
+                                <option value="Standard">
+                                    Standard
+                                </option>
+
+                                <option value="Detailed">
+                                    Detailed
+                                </option>
+
+                                <option value="Content Analysis">
+                                    Content Analysis
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="pro-field">
+
+                            <label for="proLimit">
+                                Character Limit
+                            </label>
+
+                            <input
+                                id="proLimit"
+                                type="number"
+                                min="1"
+                                placeholder="Example: 280">
+
+                        </div>
+
+
+                        <div class="pro-field">
+
+                            <label for="proTarget">
+                                Target Type
+                            </label>
+
+                            <select id="proTarget">
+
+                                <option value="General Text">
+                                    General Text
+                                </option>
+
+                                <option value="Social Media">
+                                    Social Media
+                                </option>
+
+                                <option value="Title">
+                                    Title
+                                </option>
+
+                                <option value="Description">
+                                    Description
+                                </option>
+
+                                <option value="Assignment">
+                                    Assignment
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="pro-field">
+
+                            <label for="proMinWords">
+                                Minimum Words
+                            </label>
+
+                            <input
+                                id="proMinWords"
+                                type="number"
+                                min="0"
+                                placeholder="Optional">
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="pro-checks">
+
+                        <label>
+
+                            <input
+                                type="checkbox"
+                                id="countSpaces"
+                                checked>
+
+                            Count spaces
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="checkbox"
+                                id="countPunctuation"
+                                checked>
+
+                            Count punctuation
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="checkbox"
+                                id="showLimitStatus"
+                                checked>
+
+                            Show limit status
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <!-- LOCKED PRO -->
+
+                <div id="proLocked"
+                     class="locked-pro">
+
+                    <h3>
+                        🔒 Unlock Pro Character Analysis
+                    </h3>
+
+                    <p>
+                        Pro users get advanced text statistics,
+                        custom character limits, target-based
+                        analysis and detailed reports.
+                    </p>
+
+                    <a href="pricing.html">
+                        Upgrade to Pro →
+                    </a>
+
+                </div>
+
+
+                <!-- ACTIONS -->
+
+                <div class="counter-actions">
+
+                    <button
+                        id="analyzeButton"
+                        class="counter-button primary-button">
+
+                        ✨ Analyze Text
+
+                    </button>
+
+
+                    <button
+                        id="copyButton"
+                        class="counter-button secondary-button">
+
+                        📋 Copy Text
+
+                    </button>
+
+
+                    <button
+                        id="clearButton"
+                        class="counter-button secondary-button">
+
+                        Clear
+
+                    </button>
+
+                </div>
+
+
+                <!-- PRO REPORT -->
+
+                <div id="proReport"
+                     class="pro-report"
+                     style="display:none;">
+
+                    <h3>
+                        📊 Pro Analysis Report
+                    </h3>
+
+                    <div id="reportContent"></div>
+
+                </div>
+
 
             </div>
 
@@ -125,9 +719,11 @@
 
                 <li>Enter or paste your text.</li>
 
-                <li>Check the total number of characters.</li>
+                <li>Check the character and word statistics.</li>
 
-                <li>Use the result wherever you need it.</li>
+                <li>Pro users can use advanced analysis options.</li>
+
+                <li>Copy the result or text when finished.</li>
 
             </ol>
 
@@ -136,15 +732,17 @@
 
             <ul>
 
-                <li>Free to use.</li>
+                <li>Free basic character counting.</li>
 
                 <li>Simple and beginner-friendly.</li>
 
                 <li>Works directly in your browser.</li>
 
-                <li>No sign-up required.</li>
+                <li>No sign-up required for basic use.</li>
 
                 <li>Useful for students, creators and writers.</li>
+
+                <li>Advanced Pro text analysis.</li>
 
             </ul>
 
@@ -156,7 +754,7 @@
                 in your text, while character count tells you how
                 many individual characters are present. Character
                 counting can include letters, numbers, punctuation
-                and spaces depending on the tool's settings.
+                and spaces depending on the selected settings.
             </p>
 
 
@@ -166,15 +764,24 @@
             <h3>Is the Character Counter free?</h3>
 
             <p>
-                Yes. AIHub's Character Counter is free to use.
+                Yes. AIHub provides a free version for basic
+                character and word counting.
+            </p>
+
+
+            <h3>What does Pro add?</h3>
+
+            <p>
+                Pro adds detailed text analysis, custom character
+                limits, target types and additional statistics.
             </p>
 
 
             <h3>Does it work with long text?</h3>
 
             <p>
-                Yes. You can paste or type your text into the tool
-                and check the character count.
+                Yes. You can paste or type text into the tool
+                and check its statistics.
             </p>
 
 
@@ -194,7 +801,7 @@
             </p>
 
 
-            <h2>More Free AIHub Tools</h2>
+            <h2>More AIHub Tools</h2>
 
             <p>
 
@@ -248,11 +855,19 @@
 </footer>
 
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script src="script.js"></script>
+
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
+
+
+    /* ==========================================
+       EXISTING AIHUB TOOL
+    ========================================== */
 
     if (typeof openTool === "function") {
 
@@ -260,16 +875,641 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
+
+    /* ==========================================
+       SUPABASE
+    ========================================== */
+
+    const SUPABASE_URL =
+        "https://stjkvlkeysyefhxocjzm.supabase.co";
+
+    const SUPABASE_PUBLISHABLE_KEY =
+        "sb_publishable_TGBEUnPnXQMw82y6X2hQiA_CLfc9ffB";
+
+    const supabaseClient =
+        supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY
+        );
+
+
+    let currentPlan = "guest";
+
+
+    const planTitle =
+        document.getElementById("planTitle");
+
+    const planDescription =
+        document.getElementById("planDescription");
+
+    const planButton =
+        document.getElementById("planButton");
+
+    const proPanel =
+        document.getElementById("proPanel");
+
+    const proLocked =
+        document.getElementById("proLocked");
+
+    const analyzeButton =
+        document.getElementById("analyzeButton");
+
+
+    /* ==========================================
+       PLAN CHECK
+    ========================================== */
+
+    async function loadPlan() {
+
+        const {
+            data: {
+                session
+            }
+        } = await supabaseClient.auth.getSession();
+
+
+        if (!session) {
+
+            currentPlan = "guest";
+
+            planTitle.textContent =
+                "Free Mode";
+
+            planDescription.textContent =
+                "Basic character counting is available. Login to access your account.";
+
+            planButton.textContent =
+                "Login";
+
+            planButton.href =
+                "login.html";
+
+            planButton.style.display =
+                "inline-block";
+
+            proPanel.style.display =
+                "none";
+
+            proLocked.style.display =
+                "block";
+
+            analyzeButton.textContent =
+                "✨ Analyze Text";
+
+            return;
+
+        }
+
+
+        const user =
+            session.user;
+
+
+        const {
+            data: profile,
+            error
+        } = await supabaseClient
+            .from("profiles")
+            .select("plan")
+            .eq("user_id", user.id)
+            .maybeSingle();
+
+
+        if (error) {
+
+            console.error(error);
+
+            currentPlan = "free";
+
+        } else {
+
+            currentPlan =
+                profile?.plan === "pro"
+                    ? "pro"
+                    : "free";
+
+        }
+
+
+        if (currentPlan === "pro") {
+
+            planTitle.textContent =
+                "✨ Pro Plan";
+
+            planDescription.textContent =
+                "Advanced Character Counter features are unlocked.";
+
+            planButton.textContent =
+                "My Account";
+
+            planButton.href =
+                "account.html";
+
+            planButton.style.display =
+                "inline-block";
+
+            proPanel.style.display =
+                "block";
+
+            proLocked.style.display =
+                "none";
+
+            analyzeButton.textContent =
+                "✨ Analyze with Pro";
+
+        } else {
+
+            planTitle.textContent =
+                "Free Plan";
+
+            planDescription.textContent =
+                "Basic character counting is available. Upgrade to Pro for advanced analysis.";
+
+            planButton.textContent =
+                "Upgrade to Pro";
+
+            planButton.href =
+                "pricing.html";
+
+            planButton.style.display =
+                "inline-block";
+
+            proPanel.style.display =
+                "none";
+
+            proLocked.style.display =
+                "block";
+
+            analyzeButton.textContent =
+                "✨ Analyze Text";
+
+        }
+
+    }
+
+
+    await loadPlan();
+
+
+    /* ==========================================
+       LIVE BASIC COUNTER
+    ========================================== */
+
+    const input =
+        document.getElementById("counterInput");
+
+
+    function updateBasicStats() {
+
+        const text =
+            input.value;
+
+
+        document.getElementById(
+            "totalCharacters"
+        ).textContent =
+            text.length;
+
+
+        document.getElementById(
+            "charactersNoSpaces"
+        ).textContent =
+            text.replace(/\s/g, "").length;
+
+
+        const words =
+            text.trim()
+                ? text.trim().split(/\s+/).length
+                : 0;
+
+
+        document.getElementById(
+            "wordCount"
+        ).textContent =
+            words;
+
+
+        const lines =
+            text
+                ? text.split(/\r?\n/).length
+                : 0;
+
+
+        document.getElementById(
+            "lineCount"
+        ).textContent =
+            lines;
+
+    }
+
+
+    input.addEventListener(
+        "input",
+        updateBasicStats
+    );
+
+
+    /* ==========================================
+       ANALYZE
+    ========================================== */
+
+    analyzeButton.addEventListener(
+        "click",
+        function () {
+
+            const text =
+                input.value;
+
+
+            if (!text.trim()) {
+
+                alert(
+                    "Please enter some text first."
+                );
+
+                return;
+
+            }
+
+
+            updateBasicStats();
+
+
+            if (currentPlan !== "pro") {
+
+                return;
+
+            }
+
+
+            generateProReport(text);
+
+        }
+    );
+
+
+    /* ==========================================
+       PRO REPORT
+    ========================================== */
+
+    function generateProReport(text) {
+
+        const characters =
+            text.length;
+
+
+        const noSpaces =
+            text.replace(/\s/g, "").length;
+
+
+        const words =
+            text.trim()
+                ? text.trim().split(/\s+/).length
+                : 0;
+
+
+        const lines =
+            text.split(/\r?\n/).length;
+
+
+        const sentences =
+            text.trim()
+                ? text
+                    .split(/[.!?]+/)
+                    .filter(
+                        sentence =>
+                            sentence.trim().length > 0
+                    )
+                    .length
+                : 0;
+
+
+        const paragraphs =
+            text.trim()
+                ? text
+                    .split(/\n\s*\n/)
+                    .filter(
+                        paragraph =>
+                            paragraph.trim().length > 0
+                    )
+                    .length
+                : 0;
+
+
+        const letters =
+            (text.match(/[A-Za-z]/g) || []).length;
+
+
+        const numbers =
+            (text.match(/[0-9]/g) || []).length;
+
+
+        const punctuation =
+            (text.match(
+                /[!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]/g
+            ) || []).length;
+
+
+        const spaces =
+            (text.match(/\s/g) || []).length;
+
+
+        const limit =
+            parseInt(
+                document.getElementById(
+                    "proLimit"
+                ).value,
+                10
+            );
+
+
+        const target =
+            document.getElementById(
+                "proTarget"
+            ).value;
+
+
+        const minWords =
+            parseInt(
+                document.getElementById(
+                    "proMinWords"
+                ).value,
+                10
+            ) || 0;
+
+
+        const showLimitStatus =
+            document.getElementById(
+                "showLimitStatus"
+            ).checked;
+
+
+        let report = "";
+
+
+        report +=
+            `<div class="report-row">
+                <span>Total Characters</span>
+                <strong>${characters}</strong>
+            </div>`;
+
+
+        report +=
+            `<div class="report-row">
+                <span>Characters Without Spaces</span>
+                <strong>${noSpaces}</strong>
+            </div>`;
+
+
+        report +=
+            `<div class="report-row">
+                <span>Words</span>
+                <strong>${words}</strong>
+            </div>`;
+
+
+        report +=
+            `<div class="report-row">
+                <span>Lines</span>
+                <strong>${lines}</strong>
+            </div>`;
+
+
+        report +=
+            `<div class="report-row">
+                <span>Sentences</span>
+                <strong>${sentences}</strong>
+            </div>`;
+
+
+        report +=
+            `<div class="report-row">
+                <span>Paragraphs</span>
+                <strong>${paragraphs}</strong>
+            </div>`;
+
+
+        report +=
+            `<div class="report-row">
+                <span>Letters</span>
+                <strong>${letters}</strong>
+            </div>`;
+
+
+        report +=
+            `<div class="report-row">
+                <span>Numbers</span>
+                <strong>${numbers}</strong>
+            </div>`;
+
+
+        if (
+            document.getElementById(
+                "countPunctuation"
+            ).checked
+        ) {
+
+            report +=
+                `<div class="report-row">
+                    <span>Punctuation</span>
+                    <strong>${punctuation}</strong>
+                </div>`;
+
+        }
+
+
+        if (
+            document.getElementById(
+                "countSpaces"
+            ).checked
+        ) {
+
+            report +=
+                `<div class="report-row">
+                    <span>Spaces / Whitespace</span>
+                    <strong>${spaces}</strong>
+                </div>`;
+
+        }
+
+
+        report +=
+            `<div class="report-row">
+                <span>Target Type</span>
+                <strong>${target}</strong>
+            </div>`;
+
+
+        if (minWords > 0) {
+
+            const wordStatus =
+                words >= minWords
+                    ? "✓ Minimum reached"
+                    : "⚠ Below minimum";
+
+            report +=
+                `<div class="report-row">
+                    <span>Minimum Words</span>
+                    <strong>${minWords} — ${wordStatus}</strong>
+                </div>`;
+
+        }
+
+
+        if (
+            showLimitStatus &&
+            limit > 0
+        ) {
+
+            const remaining =
+                limit - characters;
+
+
+            const status =
+                remaining >= 0
+                    ? `${remaining} characters remaining`
+                    : `${Math.abs(remaining)} characters over limit`;
+
+
+            report +=
+                `<div class="report-row">
+                    <span>Character Limit</span>
+                    <strong>${limit}</strong>
+                </div>`;
+
+
+            report +=
+                `<div class="report-row">
+                    <span>Limit Status</span>
+                    <strong>${status}</strong>
+                </div>`;
+
+        }
+
+
+        document.getElementById(
+            "reportContent"
+        ).innerHTML =
+            report;
+
+
+        document.getElementById(
+            "proReport"
+        ).style.display =
+            "block";
+
+
+        document.getElementById(
+            "proReport"
+        ).scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    }
+
+
+    /* ==========================================
+       COPY
+    ========================================== */
+
+    document
+        .getElementById("copyButton")
+        .addEventListener(
+            "click",
+            async function () {
+
+                const text =
+                    input.value;
+
+
+                if (!text) {
+
+                    alert(
+                        "There is no text to copy."
+                    );
+
+                    return;
+
+                }
+
+
+                try {
+
+                    await navigator.clipboard.writeText(
+                        text
+                    );
+
+                    this.textContent =
+                        "✅ Copied!";
+
+                    setTimeout(() => {
+
+                        this.textContent =
+                            "📋 Copy Text";
+
+                    }, 1500);
+
+                } catch (error) {
+
+                    alert(
+                        "Copy failed. Please copy the text manually."
+                    );
+
+                }
+
+            }
+        );
+
+
+    /* ==========================================
+       CLEAR
+    ========================================== */
+
+    document
+        .getElementById("clearButton")
+        .addEventListener(
+            "click",
+            function () {
+
+                input.value = "";
+
+                updateBasicStats();
+
+                document.getElementById(
+                    "proReport"
+                ).style.display =
+                    "none";
+
+                document.getElementById(
+                    "proLimit"
+                ).value = "";
+
+                document.getElementById(
+                    "proMinWords"
+                ).value = "";
+
+            }
+        );
+
+
+    /* ==========================================
+       AUTH STATE
+    ========================================== */
+
+    supabaseClient.auth.onAuthStateChange(
+        async function () {
+
+            await loadPlan();
+
+        }
+    );
+
 });
 
 </script>
-    
-<!-- ================= HOMEPAGE INTERNAL LINK ================= -->
 
-<div class="back-home-link">
-  <a href="index.html">← Explore All AIHub Tools</a>
-</div>
-    
+
 </body>
 
 </html>
