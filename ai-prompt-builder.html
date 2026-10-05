@@ -8,7 +8,7 @@
 
   <meta
     name="description"
-    content="Create detailed, professional AI prompts from a simple task with AIHub's free Smart AI Prompt Builder. Automatically structure your task, audience, tone, goals and output format."
+    content="Create detailed, professional AI prompts with AIHub's free Smart Prompt Builder. Pro users get advanced roles, goals, constraints, optimization and multiple prompt variations."
   >
 
   <meta name="robots" content="index, follow">
@@ -19,18 +19,23 @@
   >
 
   <meta property="og:title" content="AI Prompt Builder – AIHub">
+
   <meta
     property="og:description"
-    content="Turn a simple idea into a detailed, structured AI prompt with AIHub's free Smart Prompt Builder."
+    content="Turn a simple idea into a detailed, structured AI prompt with AIHub's Smart Prompt Builder."
   >
+
   <meta property="og:type" content="website">
 
   <link rel="stylesheet" href="style.css">
 
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <style>
+
     /* =========================================
        AIHUB SMART PROMPT BUILDER
-       Page-specific styling
     ========================================= */
 
     .prompt-page {
@@ -76,6 +81,62 @@
       box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
     }
 
+    /* =========================================
+       PLAN STATUS
+    ========================================= */
+
+    .plan-box {
+      margin-bottom: 24px;
+      padding: 15px 17px;
+      border-radius: 13px;
+      border: 1px solid #ddd;
+      background: #fafafa;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .plan-info {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .plan-title {
+      font-weight: 800;
+      font-size: 15px;
+    }
+
+    .plan-description {
+      opacity: 0.7;
+      margin-top: 2px;
+    }
+
+    .plan-button {
+      display: inline-block;
+      text-decoration: none;
+      padding: 9px 13px;
+      border-radius: 9px;
+      background: #6c63ff;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .pro-status {
+      border-color: rgba(108, 99, 255, 0.35);
+      background: rgba(108, 99, 255, 0.06);
+    }
+
+    .pro-status .plan-title {
+      color: #635bff;
+    }
+
+    /* =========================================
+       INPUT
+    ========================================= */
+
     .input-label {
       display: block;
       font-size: 16px;
@@ -116,6 +177,174 @@
       opacity: 0.6;
       margin-top: 6px;
     }
+
+    /* =========================================
+       PRO PANEL
+    ========================================= */
+
+    .pro-panel {
+      margin-top: 25px;
+      padding: 22px;
+      border-radius: 16px;
+      border: 1px solid rgba(108, 99, 255, 0.28);
+      background: linear-gradient(
+        135deg,
+        rgba(108, 99, 255, 0.06),
+        rgba(108, 99, 255, 0.02)
+      );
+    }
+
+    .pro-panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .pro-panel-title {
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .pro-badge {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: #6c63ff;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .pro-subtitle {
+      font-size: 13px;
+      opacity: 0.7;
+      margin: 0 0 18px;
+      line-height: 1.5;
+    }
+
+    .pro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .pro-field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .pro-field.full {
+      grid-column: 1 / -1;
+    }
+
+    .pro-field label {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .pro-field select,
+    .pro-field input,
+    .pro-field textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 11px 12px;
+      border-radius: 9px;
+      border: 1px solid #d8d8d8;
+      background: #fff;
+      font-family: inherit;
+      font-size: 14px;
+      color: #222;
+    }
+
+    .pro-field textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .pro-field select:focus,
+    .pro-field input:focus,
+    .pro-field textarea:focus {
+      outline: none;
+      border-color: #6c63ff;
+      box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.08);
+    }
+
+    .pro-options {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-top: 17px;
+    }
+
+    .check-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .check-option input {
+      accent-color: #6c63ff;
+    }
+
+    .pro-locked {
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 12px;
+      background: #f5f5f5;
+      border: 1px dashed #ccc;
+      line-height: 1.6;
+      font-size: 13px;
+    }
+
+    .pro-locked strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .pro-locked a {
+      color: #635bff;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    /* =========================================
+       EXAMPLES
+    ========================================= */
+
+    .example-section {
+      margin-top: 25px;
+    }
+
+    .example-title {
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .example-chip {
+      display: inline-block;
+      margin: 5px 5px 0 0;
+      padding: 9px 12px;
+      border-radius: 9px;
+      border: 1px solid #ddd;
+      background: #f7f7f7;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .example-chip:hover {
+      background: #eeeeee;
+    }
+
+    /* =========================================
+       ACTIONS
+    ========================================= */
 
     .action-row {
       display: flex;
@@ -163,6 +392,10 @@
       opacity: 0.7;
     }
 
+    /* =========================================
+       RESULT
+    ========================================= */
+
     .result-box {
       margin-top: 28px;
       border: 1px solid #ddd;
@@ -202,29 +435,9 @@
       overflow-wrap: anywhere;
     }
 
-    .example-section {
-      margin-top: 25px;
-    }
-
-    .example-title {
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    .example-chip {
-      display: inline-block;
-      margin: 5px 5px 0 0;
-      padding: 9px 12px;
-      border-radius: 9px;
-      border: 1px solid #ddd;
-      background: #f7f7f7;
-      cursor: pointer;
-      font-size: 13px;
-    }
-
-    .example-chip:hover {
-      background: #eeeeee;
-    }
+    /* =========================================
+       SEO
+    ========================================= */
 
     .info-section {
       margin-top: 60px;
@@ -278,7 +491,18 @@
       font-weight: 700;
     }
 
+    .back-home-link {
+      text-align: center;
+      padding: 25px 20px;
+    }
+
+    .back-home-link a {
+      text-decoration: none;
+      font-weight: 700;
+    }
+
     @media (max-width: 650px) {
+
       .prompt-page {
         padding: 28px 15px 60px;
       }
@@ -295,7 +519,17 @@
       .secondary-btn {
         width: 100%;
       }
+
+      .pro-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pro-field.full {
+        grid-column: auto;
+      }
+
     }
+
   </style>
 </head>
 
@@ -330,6 +564,35 @@
     <!-- Builder -->
     <section class="builder-card">
 
+      <!-- PLAN STATUS -->
+      <div class="plan-box" id="planBox">
+
+        <div class="plan-info">
+
+          <div class="plan-title" id="planTitle">
+            Checking your plan...
+          </div>
+
+          <div class="plan-description" id="planDescription">
+            Please wait while AIHub checks your account.
+          </div>
+
+        </div>
+
+        <a
+          href="pricing.html"
+          class="plan-button"
+          id="planButton"
+          style="display:none;"
+        >
+          ⭐ Upgrade to Pro
+        </a>
+
+      </div>
+
+
+      <!-- MAIN INPUT -->
+
       <label class="input-label" for="taskInput">
         What do you want AI to do?
       </label>
@@ -349,40 +612,291 @@
       </div>
 
 
+      <!-- PRO ADVANCED PANEL -->
+
+      <div class="pro-panel" id="proPanel" style="display:none;">
+
+        <div class="pro-panel-header">
+
+          <div class="pro-panel-title">
+            ⭐ Advanced Prompt Controls
+          </div>
+
+          <span class="pro-badge">
+            PRO
+          </span>
+
+        </div>
+
+        <p class="pro-subtitle">
+          Customize how AI should think about your task. These controls create
+          a more detailed and structured prompt instead of simply expanding the text.
+        </p>
+
+
+        <div class="pro-grid">
+
+          <!-- Role -->
+
+          <div class="pro-field">
+
+            <label for="proRole">
+              Expert Role
+            </label>
+
+            <select id="proRole">
+
+              <option value="auto">
+                Auto Detect
+              </option>
+
+              <option value="expert">
+                Expert Assistant
+              </option>
+
+              <option value="teacher">
+                Expert Teacher
+              </option>
+
+              <option value="youtube">
+                YouTube Strategist
+              </option>
+
+              <option value="copywriter">
+                Professional Copywriter
+              </option>
+
+              <option value="developer">
+                Senior Developer
+              </option>
+
+              <option value="marketing">
+                Marketing Strategist
+              </option>
+
+              <option value="career">
+                Career Coach
+              </option>
+
+              <option value="research">
+                Research Analyst
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- Depth -->
+
+          <div class="pro-field">
+
+            <label for="proDepth">
+              Output Depth
+            </label>
+
+            <select id="proDepth">
+
+              <option value="standard">
+                Standard
+              </option>
+
+              <option value="detailed" selected>
+                Detailed
+              </option>
+
+              <option value="expert">
+                Expert
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- Audience -->
+
+          <div class="pro-field">
+
+            <label for="proAudience">
+              Custom Audience
+            </label>
+
+            <input
+              id="proAudience"
+              type="text"
+              placeholder="Example: Kids aged 6–10"
+            >
+
+          </div>
+
+
+          <!-- Goal -->
+
+          <div class="pro-field">
+
+            <label for="proGoal">
+              Custom Goal
+            </label>
+
+            <input
+              id="proGoal"
+              type="text"
+              placeholder="Example: Maximize learning and engagement"
+            >
+
+          </div>
+
+
+          <!-- Constraints -->
+
+          <div class="pro-field full">
+
+            <label for="proConstraints">
+              Advanced Constraints
+            </label>
+
+            <textarea
+              id="proConstraints"
+              placeholder="Example:
+Keep the answer under 800 words.
+Use simple language.
+Include practical examples.
+Avoid unsupported claims."
+            ></textarea>
+
+          </div>
+
+        </div>
+
+
+        <div class="pro-options">
+
+          <label class="check-option">
+
+            <input
+              type="checkbox"
+              id="proOptimize"
+              checked
+            >
+
+            Optimize prompt for clarity and reliability
+
+          </label>
+
+
+          <label class="check-option">
+
+            <input
+              type="checkbox"
+              id="proExecution"
+              checked
+            >
+
+            Add step-by-step execution guidance
+
+          </label>
+
+        </div>
+
+
+        <div class="pro-field" style="margin-top:18px;">
+
+          <label for="proVariations">
+            Prompt Variations
+          </label>
+
+          <select id="proVariations">
+
+            <option value="1">
+              1 Advanced Prompt
+            </option>
+
+            <option value="3">
+              3 Advanced Variations
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <!-- LOCKED PRO PANEL -->
+
+      <div class="pro-locked" id="proLocked">
+
+        <strong>
+          🔒 Advanced Pro features are locked
+        </strong>
+
+        Free users can use the Smart Prompt Builder.
+        Upgrade to Pro to unlock expert roles, custom goals,
+        advanced constraints, optimization and multiple prompt variations.
+
+        <br><br>
+
+        <a href="pricing.html">
+          ⭐ Upgrade to AIHub Pro →
+        </a>
+
+      </div>
+
+
       <!-- Examples -->
+
       <div class="example-section">
 
         <div class="example-title">
           Try an example:
         </div>
 
-        <button class="example-chip" type="button"
-          data-example="Make a YouTube video about space for kids">
+        <button
+          class="example-chip"
+          type="button"
+          data-example="Make a YouTube video about space for kids"
+        >
           YouTube Video
         </button>
 
-        <button class="example-chip" type="button"
-          data-example="Explain photosynthesis for a Class 10 student">
+        <button
+          class="example-chip"
+          type="button"
+          data-example="Explain photosynthesis for a Class 10 student"
+        >
           Education
         </button>
 
-        <button class="example-chip" type="button"
-          data-example="Write an Instagram caption for a new clothing brand">
+        <button
+          class="example-chip"
+          type="button"
+          data-example="Write an Instagram caption for a new clothing brand"
+        >
           Social Media
         </button>
 
-        <button class="example-chip" type="button"
-          data-example="Write a professional resume for a student">
+        <button
+          class="example-chip"
+          type="button"
+          data-example="Write a professional resume for a student"
+        >
           Resume
         </button>
 
-        <button class="example-chip" type="button"
-          data-example="Create a blog article about healthy study habits">
+        <button
+          class="example-chip"
+          type="button"
+          data-example="Create a blog article about healthy study habits"
+        >
           Blog
         </button>
 
-        <button class="example-chip" type="button"
-          data-example="Create a Python program that calculates the average of numbers">
+        <button
+          class="example-chip"
+          type="button"
+          data-example="Create a Python program that calculates the average of numbers"
+        >
           Coding
         </button>
 
@@ -390,6 +904,7 @@
 
 
       <!-- Actions -->
+
       <div class="action-row">
 
         <button
@@ -410,6 +925,7 @@
 
       </div>
 
+
       <div
         class="status-message"
         id="statusMessage"
@@ -418,11 +934,15 @@
 
 
       <!-- Result -->
+
       <div class="result-box">
 
         <div class="result-header">
 
-          <span class="result-title">
+          <span
+            class="result-title"
+            id="resultTitle"
+          >
             Your Smart Prompt
           </span>
 
@@ -439,9 +959,7 @@
         <div
           id="promptResult"
           aria-live="polite"
-        >
-Your detailed prompt will appear here.
-        </div>
+        >Your detailed prompt will appear here.</div>
 
       </div>
 
@@ -449,6 +967,7 @@ Your detailed prompt will appear here.
 
 
     <!-- SEO / Educational Content -->
+
     <section class="info-section">
 
       <h2>What Is an AI Prompt Builder?</h2>
@@ -470,22 +989,80 @@ Your detailed prompt will appear here.
       <h2>How to Create a Better AI Prompt</h2>
 
       <ol>
-        <li>Describe what you want the AI to accomplish.</li>
-        <li>Give important context when you have it.</li>
-        <li>Mention the intended audience if it matters.</li>
-        <li>Specify important limitations or requirements.</li>
-        <li>Tell the AI what type of output you want when necessary.</li>
+
+        <li>
+          Describe what you want the AI to accomplish.
+        </li>
+
+        <li>
+          Give important context when you have it.
+        </li>
+
+        <li>
+          Mention the intended audience if it matters.
+        </li>
+
+        <li>
+          Specify important limitations or requirements.
+        </li>
+
+        <li>
+          Tell the AI what type of output you want when necessary.
+        </li>
+
       </ol>
 
 
       <h2>Why Use a Smart Prompt Builder?</h2>
 
       <ul>
-        <li>You don't need to know complicated prompt-writing techniques.</li>
-        <li>You can start with a simple idea.</li>
-        <li>Common task types receive more relevant instructions.</li>
-        <li>The resulting prompt is easier to copy and reuse.</li>
-        <li>You can adapt the generated prompt for different AI assistants.</li>
+
+        <li>
+          You don't need to know complicated prompt-writing techniques.
+        </li>
+
+        <li>
+          You can start with a simple idea.
+        </li>
+
+        <li>
+          Common task types receive more relevant instructions.
+        </li>
+
+        <li>
+          The resulting prompt is easier to copy and reuse.
+        </li>
+
+        <li>
+          You can adapt the generated prompt for different AI assistants.
+        </li>
+
+      </ul>
+
+
+      <h2>What Does AIHub Pro Add?</h2>
+
+      <p>
+        AIHub Pro adds advanced prompt-building controls for users who want
+        more control over how their prompts are structured.
+      </p>
+
+      <ul>
+
+        <li>Expert role selection</li>
+
+        <li>Custom audience and goal instructions</li>
+
+        <li>Advanced constraints</li>
+
+        <li>Detailed and expert output depth</li>
+
+        <li>Prompt optimization for clarity and reliability</li>
+
+        <li>Step-by-step execution guidance</li>
+
+        <li>Multiple prompt variations</li>
+
       </ul>
 
 
@@ -499,60 +1076,99 @@ Your detailed prompt will appear here.
 
 
       <!-- FAQ -->
+
       <h2>Frequently Asked Questions</h2>
 
+
       <details class="faq-item">
-        <summary>Is the AI Prompt Builder free?</summary>
+
+        <summary>
+          Is the AI Prompt Builder free?
+        </summary>
 
         <p>
-          Yes. AIHub provides this basic Smart Prompt Builder as a free
-          browser-based tool.
+          Yes. AIHub's basic Smart Prompt Builder is available for free.
+          AIHub Pro adds advanced prompt-building features and multiple
+          prompt variations.
         </p>
+
       </details>
 
 
       <details class="faq-item">
-        <summary>Do I need to know prompt engineering?</summary>
+
+        <summary>
+          What does AIHub Pro add?
+        </summary>
+
+        <p>
+          Pro adds expert role selection, custom audience and goals,
+          advanced constraints, prompt optimization, execution guidance,
+          detailed output controls and multiple prompt variations.
+        </p>
+
+      </details>
+
+
+      <details class="faq-item">
+
+        <summary>
+          Do I need to know prompt engineering?
+        </summary>
 
         <p>
           No. You can describe your task in normal language. The builder
           structures the information into a more detailed prompt.
         </p>
+
       </details>
 
 
       <details class="faq-item">
-        <summary>Can I use the generated prompt with ChatGPT?</summary>
+
+        <summary>
+          Can I use the generated prompt with ChatGPT?
+        </summary>
 
         <p>
           Yes. You can copy the generated prompt and use it with ChatGPT
           or another AI assistant that accepts text prompts.
         </p>
+
       </details>
 
 
       <details class="faq-item">
-        <summary>Does this tool require an API key?</summary>
+
+        <summary>
+          Does this tool require an API key?
+        </summary>
 
         <p>
           No. This version runs its prompt-building logic directly in the
           browser and does not require you to enter an AI API key.
         </p>
+
       </details>
 
 
       <details class="faq-item">
-        <summary>What types of tasks can it handle?</summary>
+
+        <summary>
+          What types of tasks can it handle?
+        </summary>
 
         <p>
           It includes smart handling for common categories such as
           YouTube content, education, writing, social media, resumes,
           blogging, coding, marketing and general tasks.
         </p>
+
       </details>
 
 
       <!-- Related -->
+
       <h2>Explore More AIHub Tools</h2>
 
       <div class="related-tools">
@@ -581,6 +1197,7 @@ Your detailed prompt will appear here.
 
 
   <!-- Footer -->
+
   <footer style="text-align:center; padding:30px 20px;">
 
     <p>
@@ -594,28 +1211,310 @@ Your detailed prompt will appear here.
   </footer>
 
 
+  <!-- Homepage Internal Link -->
+
+  <div class="back-home-link">
+    <a href="index.html">
+      ← Explore All AIHub Tools
+    </a>
+  </div>
+
+
   <script>
 
     /* =========================================
-       AIHUB SMART PROMPT ENGINE
+       SUPABASE CONFIG
     ========================================= */
 
-    const taskInput = document.getElementById("taskInput");
-    const buildPromptBtn = document.getElementById("buildPromptBtn");
-    const clearBtn = document.getElementById("clearBtn");
-    const copyBtn = document.getElementById("copyBtn");
-    const promptResult = document.getElementById("promptResult");
-    const charCount = document.getElementById("charCount");
-    const statusMessage = document.getElementById("statusMessage");
+    const SUPABASE_URL =
+      "https://stjkvlkeysyefhxocjzm.supabase.co";
+
+    const SUPABASE_PUBLISHABLE_KEY =
+      "sb_publishable_TGBEUnPnXQMw82y6X2hQiA_CLfc9ffB";
+
+    const supabaseClient =
+      supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
 
 
-    /* Character counter */
+    /* =========================================
+       ELEMENTS
+    ========================================= */
 
-    taskInput.addEventListener("input", function() {
+    const taskInput =
+      document.getElementById("taskInput");
 
-      charCount.textContent = taskInput.value.length;
+    const buildPromptBtn =
+      document.getElementById("buildPromptBtn");
 
-    });
+    const clearBtn =
+      document.getElementById("clearBtn");
+
+    const copyBtn =
+      document.getElementById("copyBtn");
+
+    const promptResult =
+      document.getElementById("promptResult");
+
+    const charCount =
+      document.getElementById("charCount");
+
+    const statusMessage =
+      document.getElementById("statusMessage");
+
+    const planBox =
+      document.getElementById("planBox");
+
+    const planTitle =
+      document.getElementById("planTitle");
+
+    const planDescription =
+      document.getElementById("planDescription");
+
+    const planButton =
+      document.getElementById("planButton");
+
+    const proPanel =
+      document.getElementById("proPanel");
+
+    const proLocked =
+      document.getElementById("proLocked");
+
+    const resultTitle =
+      document.getElementById("resultTitle");
+
+
+    /* =========================================
+       PRO ELEMENTS
+    ========================================= */
+
+    const proRole =
+      document.getElementById("proRole");
+
+    const proDepth =
+      document.getElementById("proDepth");
+
+    const proAudience =
+      document.getElementById("proAudience");
+
+    const proGoal =
+      document.getElementById("proGoal");
+
+    const proConstraints =
+      document.getElementById("proConstraints");
+
+    const proOptimize =
+      document.getElementById("proOptimize");
+
+    const proExecution =
+      document.getElementById("proExecution");
+
+    const proVariations =
+      document.getElementById("proVariations");
+
+
+    /* =========================================
+       CURRENT PLAN
+    ========================================= */
+
+    let currentPlan = "guest";
+
+    let currentSession = null;
+
+
+    /* =========================================
+       LOAD USER PLAN
+    ========================================= */
+
+    async function loadPlan() {
+
+      try {
+
+        const {
+          data: {
+            session
+          }
+        } = await supabaseClient.auth.getSession();
+
+
+        currentSession = session;
+
+
+        /* GUEST */
+
+        if (!session) {
+
+          currentPlan = "guest";
+
+          planBox.classList.remove("pro-status");
+
+          planTitle.textContent =
+            "👤 Guest Mode";
+
+          planDescription.textContent =
+            "Basic Smart Prompt Builder is available. Login to unlock account-based Pro features.";
+
+          planButton.textContent =
+            "🔐 Login";
+
+          planButton.href =
+            "login.html";
+
+          planButton.style.display =
+            "inline-block";
+
+          proPanel.style.display =
+            "none";
+
+          proLocked.style.display =
+            "block";
+
+          buildPromptBtn.textContent =
+            "✨ Build Smart Prompt";
+
+          resultTitle.textContent =
+            "Your Smart Prompt";
+
+          return;
+
+        }
+
+
+        /* LOGGED IN USER */
+
+        const {
+          data: profile,
+          error
+        } = await supabaseClient
+          .from("profiles")
+          .select("plan")
+          .eq("user_id", session.user.id)
+          .single();
+
+
+        if (
+          !error &&
+          profile &&
+          profile.plan === "pro"
+        ) {
+
+          currentPlan = "pro";
+
+        } else {
+
+          currentPlan = "free";
+
+        }
+
+
+        updatePlanUI();
+
+      } catch (error) {
+
+        console.error(
+          "Plan loading error:",
+          error
+        );
+
+        currentPlan = "free";
+
+        updatePlanUI();
+
+      }
+
+    }
+
+
+    /* =========================================
+       UPDATE PLAN UI
+    ========================================= */
+
+    function updatePlanUI() {
+
+      if (currentPlan === "pro") {
+
+        planBox.classList.add("pro-status");
+
+        planTitle.textContent =
+          "⭐ AIHub Pro Plan";
+
+        planDescription.textContent =
+          "Advanced Prompt Builder is unlocked for your account.";
+
+        planButton.textContent =
+          "👤 My Account";
+
+        planButton.href =
+          "account.html";
+
+        planButton.style.display =
+          "inline-block";
+
+        proPanel.style.display =
+          "block";
+
+        proLocked.style.display =
+          "none";
+
+        buildPromptBtn.textContent =
+          "✨ Build Advanced Pro Prompt";
+
+        resultTitle.textContent =
+          "Your Advanced Prompt";
+
+      }
+
+      else {
+
+        planBox.classList.remove("pro-status");
+
+        planTitle.textContent =
+          "🆓 AIHub Free Plan";
+
+        planDescription.textContent =
+          "Basic Smart Prompt Builder is available. Upgrade to unlock advanced controls.";
+
+        planButton.textContent =
+          "⭐ Upgrade to Pro";
+
+        planButton.href =
+          "pricing.html";
+
+        planButton.style.display =
+          "inline-block";
+
+        proPanel.style.display =
+          "none";
+
+        proLocked.style.display =
+          "block";
+
+        buildPromptBtn.textContent =
+          "✨ Build Smart Prompt";
+
+        resultTitle.textContent =
+          "Your Smart Prompt";
+
+      }
+
+    }
+
+
+    /* =========================================
+       CHARACTER COUNTER
+    ========================================= */
+
+    taskInput.addEventListener(
+      "input",
+      function() {
+
+        charCount.textContent =
+          taskInput.value.length;
+
+      }
+    );
 
 
     /* =========================================
@@ -635,7 +1534,10 @@ Your detailed prompt will appear here.
 
       if (!text) return "";
 
-      return text.charAt(0).toUpperCase() + text.slice(1);
+      return (
+        text.charAt(0).toUpperCase() +
+        text.slice(1)
+      );
 
     }
 
@@ -646,55 +1548,81 @@ Your detailed prompt will appear here.
 
     function detectTask(text) {
 
-      const lower = text.toLowerCase();
+      const lower =
+        text.toLowerCase();
+
 
       if (
         /youtube|video|shorts|reel|channel|thumbnail|title|description/.test(lower)
       ) {
+
         return "content";
+
       }
+
 
       if (
         /class\s*(6|7|8|9|10|11|12)|student|homework|study|exam|lesson|chapter|explain.*science|math|biology|chemistry|physics/.test(lower)
       ) {
+
         return "education";
+
       }
+
 
       if (
         /instagram|facebook|social media|caption|hashtag|linkedin|tweet|post/.test(lower)
       ) {
+
         return "social";
+
       }
+
 
       if (
         /resume|cv|cover letter|job application|career|interview/.test(lower)
       ) {
+
         return "career";
+
       }
+
 
       if (
         /python|javascript|html|css|code|coding|program|programming|website|bug|function|api/.test(lower)
       ) {
+
         return "coding";
+
       }
+
 
       if (
         /blog|article|essay|story|script|write|rewrite|paragraph|email|letter/.test(lower)
       ) {
+
         return "writing";
+
       }
+
 
       if (
         /business|marketing|brand|product|customer|advertisement|ad copy|sales/.test(lower)
       ) {
+
         return "business";
+
       }
+
 
       if (
         /research|report|analysis|compare|comparison|data|survey/.test(lower)
       ) {
+
         return "research";
+
       }
+
 
       return "general";
 
@@ -705,49 +1633,97 @@ Your detailed prompt will appear here.
        AUDIENCE DETECTION
     ========================================= */
 
-    function detectAudience(text, category) {
+    function detectAudience(
+      text,
+      category
+    ) {
 
-      const lower = text.toLowerCase();
+      const lower =
+        text.toLowerCase();
 
-      const ageMatch = lower.match(
-        /(?:age|aged)\s*(\d+)\s*(?:to|-)\s*(\d+)/
-      );
+
+      const ageMatch =
+        lower.match(
+          /(?:age|aged)\s*(\d+)\s*(?:to|-)\s*(\d+)/
+        );
+
 
       if (ageMatch) {
-        return `People aged ${ageMatch[1]}–${ageMatch[2]}`;
+
+        return (
+          `People aged ${ageMatch[1]}–${ageMatch[2]}`
+        );
+
       }
 
-      if (/kids|children|child/.test(lower)) {
+
+      if (
+        /kids|children|child/.test(lower)
+      ) {
+
         return "Children";
+
       }
 
-      if (/student|class\s*\d+|school/.test(lower)) {
+
+      if (
+        /student|class\s*\d+|school/.test(lower)
+      ) {
+
         return "Students";
+
       }
 
-      if (/teacher|teachers|educator/.test(lower)) {
+
+      if (
+        /teacher|teachers|educator/.test(lower)
+      ) {
+
         return "Teachers and educators";
+
       }
 
-      if (/developer|programmer|coding/.test(lower)) {
+
+      if (
+        /developer|programmer|coding/.test(lower)
+      ) {
+
         return "Developers and technical users";
+
       }
 
-      if (/customer|customers|buyer|buyers/.test(lower)) {
+
+      if (
+        /customer|customers|buyer|buyers/.test(lower)
+      ) {
+
         return "Potential customers";
+
       }
 
-      if (/business|marketing|brand/.test(lower)) {
+
+      if (
+        /business|marketing|brand/.test(lower)
+      ) {
+
         return "Business and marketing audiences";
+
       }
+
 
       if (category === "social") {
+
         return "Social media audience";
+
       }
 
+
       if (category === "career") {
+
         return "Recruiters and professional audiences";
+
       }
+
 
       return "A general audience";
 
@@ -758,47 +1734,91 @@ Your detailed prompt will appear here.
        TONE DETECTION
     ========================================= */
 
-    function detectTone(text, category) {
+    function detectTone(
+      text,
+      category
+    ) {
 
-      const lower = text.toLowerCase();
+      const lower =
+        text.toLowerCase();
 
-      if (/kids|children|child/.test(lower)) {
+
+      if (
+        /kids|children|child/.test(lower)
+      ) {
+
         return "Friendly, fun, engaging and age-appropriate";
+
       }
+
 
       if (
         /class\s*\d+|student|homework|exam|study|lesson/.test(lower)
       ) {
+
         return "Clear, educational and easy to understand";
+
       }
 
-      if (/resume|cv|job|career|interview/.test(lower)) {
+
+      if (
+        /resume|cv|job|career|interview/.test(lower)
+      ) {
+
         return "Professional, confident and concise";
+
       }
 
-      if (/business|marketing|brand|sales|customer/.test(lower)) {
+
+      if (
+        /business|marketing|brand|sales|customer/.test(lower)
+      ) {
+
         return "Professional, persuasive and audience-focused";
+
       }
 
-      if (/research|report|analysis|compare/.test(lower)) {
+
+      if (
+        /research|report|analysis|compare/.test(lower)
+      ) {
+
         return "Objective, analytical and informative";
+
       }
 
-      if (/code|coding|program|developer|api/.test(lower)) {
+
+      if (
+        /code|coding|program|developer|api/.test(lower)
+      ) {
+
         return "Technical, precise and practical";
+
       }
 
-      if (/instagram|social media|caption|reel/.test(lower)) {
+
+      if (
+        /instagram|social media|caption|reel/.test(lower)
+      ) {
+
         return "Engaging, concise and platform-appropriate";
+
       }
+
 
       if (category === "writing") {
+
         return "Clear, natural and polished";
+
       }
 
+
       if (category === "content") {
+
         return "Engaging, clear and audience-focused";
+
       }
+
 
       return "Clear, helpful and professional";
 
@@ -809,41 +1829,86 @@ Your detailed prompt will appear here.
        GOAL DETECTION
     ========================================= */
 
-    function detectGoal(text, category) {
+    function detectGoal(
+      text,
+      category
+    ) {
 
-      const lower = text.toLowerCase();
+      const lower =
+        text.toLowerCase();
 
-      if (/youtube|video|shorts/.test(lower)) {
+
+      if (
+        /youtube|video|shorts/.test(lower)
+      ) {
+
         return "Create useful and engaging video content that keeps the intended audience interested.";
+
       }
 
-      if (/study|exam|homework|student|explain/.test(lower)) {
+
+      if (
+        /study|exam|homework|student|explain/.test(lower)
+      ) {
+
         return "Make the subject easy to understand and useful for learning.";
+
       }
 
-      if (/resume|cv|career|job/.test(lower)) {
+
+      if (
+        /resume|cv|career|job/.test(lower)
+      ) {
+
         return "Present information clearly and professionally for a career-related purpose.";
+
       }
 
-      if (/instagram|social media|caption|reel/.test(lower)) {
+
+      if (
+        /instagram|social media|caption|reel/.test(lower)
+      ) {
+
         return "Create concise and engaging content suitable for social media.";
+
       }
 
-      if (/blog|article|essay/.test(lower)) {
+
+      if (
+        /blog|article|essay/.test(lower)
+      ) {
+
         return "Create useful, well-organized written content that is easy to read.";
+
       }
 
-      if (/code|coding|program|website/.test(lower)) {
+
+      if (
+        /code|coding|program|website/.test(lower)
+      ) {
+
         return "Provide a practical and reliable technical solution with clear implementation guidance.";
+
       }
 
-      if (/marketing|business|sales|brand/.test(lower)) {
+
+      if (
+        /marketing|business|sales|brand/.test(lower)
+      ) {
+
         return "Create practical content designed to communicate value and achieve a business objective.";
+
       }
 
-      if (/research|analysis|compare/.test(lower)) {
+
+      if (
+        /research|analysis|compare/.test(lower)
+      ) {
+
         return "Provide an organized and evidence-oriented response that supports understanding and decision-making.";
+
       }
+
 
       return "Complete the requested task accurately and provide a useful, practical result.";
 
@@ -854,25 +1919,33 @@ Your detailed prompt will appear here.
        REQUIREMENTS
     ========================================= */
 
-    function getRequirements(category, text) {
+    function getRequirements(
+      category,
+      text
+    ) {
 
       const requirements = [];
+
 
       requirements.push(
         "Understand the user's task before producing the final answer."
       );
 
+
       requirements.push(
         "Do not add unnecessary information."
       );
+
 
       requirements.push(
         "Use clear structure with appropriate headings or sections."
       );
 
+
       requirements.push(
         "Keep the response practical and easy to use."
       );
+
 
       if (category === "content") {
 
@@ -885,6 +1958,7 @@ Your detailed prompt will appear here.
         );
 
       }
+
 
       if (category === "education") {
 
@@ -902,6 +1976,7 @@ Your detailed prompt will appear here.
 
       }
 
+
       if (category === "social") {
 
         requirements.push(
@@ -914,6 +1989,7 @@ Your detailed prompt will appear here.
 
       }
 
+
       if (category === "career") {
 
         requirements.push(
@@ -925,6 +2001,7 @@ Your detailed prompt will appear here.
         );
 
       }
+
 
       if (category === "coding") {
 
@@ -942,6 +2019,7 @@ Your detailed prompt will appear here.
 
       }
 
+
       if (category === "writing") {
 
         requirements.push(
@@ -953,6 +2031,7 @@ Your detailed prompt will appear here.
         );
 
       }
+
 
       if (category === "business") {
 
@@ -966,6 +2045,7 @@ Your detailed prompt will appear here.
 
       }
 
+
       if (category === "research") {
 
         requirements.push(
@@ -978,6 +2058,7 @@ Your detailed prompt will appear here.
 
       }
 
+
       return requirements;
 
     }
@@ -987,11 +2068,18 @@ Your detailed prompt will appear here.
        OUTPUT FORMAT
     ========================================= */
 
-    function getOutputFormat(category, text) {
+    function getOutputFormat(
+      category,
+      text
+    ) {
 
-      const lower = text.toLowerCase();
+      const lower =
+        text.toLowerCase();
 
-      if (/youtube|video|shorts/.test(lower)) {
+
+      if (
+        /youtube|video|shorts/.test(lower)
+      ) {
 
         return [
           "Provide:",
@@ -1004,6 +2092,7 @@ Your detailed prompt will appear here.
         ];
 
       }
+
 
       if (category === "education") {
 
@@ -1018,6 +2107,7 @@ Your detailed prompt will appear here.
 
       }
 
+
       if (category === "social") {
 
         return [
@@ -1028,6 +2118,7 @@ Your detailed prompt will appear here.
         ];
 
       }
+
 
       if (category === "career") {
 
@@ -1041,6 +2132,7 @@ Your detailed prompt will appear here.
 
       }
 
+
       if (category === "coding") {
 
         return [
@@ -1052,6 +2144,7 @@ Your detailed prompt will appear here.
         ];
 
       }
+
 
       if (category === "business") {
 
@@ -1065,6 +2158,7 @@ Your detailed prompt will appear here.
 
       }
 
+
       if (category === "research") {
 
         return [
@@ -1076,6 +2170,7 @@ Your detailed prompt will appear here.
         ];
 
       }
+
 
       return [
         "Provide:",
@@ -1089,12 +2184,406 @@ Your detailed prompt will appear here.
 
 
     /* =========================================
-       SMART PROMPT GENERATOR
+       AUTO ROLE
+    ========================================= */
+
+    function getAutoRole(category) {
+
+      const roles = {
+
+        content:
+          "You are an expert YouTube and content strategy specialist.",
+
+        education:
+          "You are an expert teacher and educational content specialist.",
+
+        social:
+          "You are an expert social media content strategist.",
+
+        career:
+          "You are an experienced career and resume specialist.",
+
+        coding:
+          "You are a senior software developer and technical problem-solving specialist.",
+
+        writing:
+          "You are a professional writer and editor.",
+
+        business:
+          "You are an experienced business and marketing strategist.",
+
+        research:
+          "You are a careful research and analysis specialist.",
+
+        general:
+          "You are an expert general-purpose AI assistant."
+
+      };
+
+      return roles[category] ||
+        roles.general;
+
+    }
+
+
+    /* =========================================
+       SELECTED ROLE
+    ========================================= */
+
+    function getSelectedRole(
+      selected,
+      category
+    ) {
+
+      if (selected === "auto") {
+
+        return getAutoRole(category);
+
+      }
+
+
+      const roles = {
+
+        expert:
+          "You are an expert assistant specialized in the user's requested task.",
+
+        teacher:
+          "You are an expert teacher focused on clear explanations, learning outcomes and practical examples.",
+
+        youtube:
+          "You are an expert YouTube strategist focused on audience retention, discoverability, storytelling and useful content.",
+
+        copywriter:
+          "You are a professional copywriter focused on clarity, persuasion, audience psychology and strong communication.",
+
+        developer:
+          "You are a senior software developer focused on secure, maintainable, reliable and practical solutions.",
+
+        marketing:
+          "You are an experienced marketing strategist focused on audience needs, positioning, messaging and measurable outcomes.",
+
+        career:
+          "You are an experienced career coach focused on professional positioning, clarity and realistic career guidance.",
+
+        research:
+          "You are a careful research analyst focused on evidence, logical reasoning, uncertainty and accurate conclusions."
+
+      };
+
+      return roles[selected] ||
+        getAutoRole(category);
+
+    }
+
+
+    /* =========================================
+       DEPTH INSTRUCTIONS
+    ========================================= */
+
+    function getDepthInstructions(depth) {
+
+      if (depth === "standard") {
+
+        return [
+          "Be clear and direct.",
+          "Prioritize the most useful information.",
+          "Avoid unnecessary detail."
+        ];
+
+      }
+
+
+      if (depth === "expert") {
+
+        return [
+          "Think through the task systematically before answering.",
+          "Consider important edge cases and hidden requirements.",
+          "Use expert-level reasoning while keeping the final answer understandable.",
+          "Provide deeper detail when it genuinely improves the result.",
+          "Do not expose private chain-of-thought; provide concise reasoning or conclusions when useful."
+        ];
+
+      }
+
+
+      return [
+        "Provide enough detail to make the result genuinely useful.",
+        "Explain important decisions and assumptions when relevant.",
+        "Include practical examples when they improve the result.",
+        "Balance completeness with readability."
+      ];
+
+    }
+
+
+    /* =========================================
+       VARIATION STYLE
+    ========================================= */
+
+    function getVariationStyle(number) {
+
+      if (number === 1) {
+
+        return {
+          name: "Precision First",
+          instruction:
+            "Prioritize accuracy, clarity, structure and direct task completion."
+        };
+
+      }
+
+
+      if (number === 2) {
+
+        return {
+          name: "Creative First",
+          instruction:
+            "Prioritize engaging ideas, originality and audience appeal while preserving the user's actual intent."
+        };
+
+      }
+
+
+      return {
+        name: "Execution First",
+        instruction:
+          "Prioritize practical implementation, actionable steps and a ready-to-use final result."
+      };
+
+    }
+
+
+    /* =========================================
+       ADVANCED PROMPT
+    ========================================= */
+
+    function buildAdvancedPrompt(
+      rawTask,
+      variationNumber
+    ) {
+
+      const category =
+        detectTask(rawTask);
+
+      const detectedAudience =
+        detectAudience(
+          rawTask,
+          category
+        );
+
+      const detectedTone =
+        detectTone(
+          rawTask,
+          category
+        );
+
+      const detectedGoal =
+        detectGoal(
+          rawTask,
+          category
+        );
+
+      const requirements =
+        getRequirements(
+          category,
+          rawTask
+        );
+
+      const outputFormat =
+        getOutputFormat(
+          category,
+          rawTask
+        );
+
+
+      const selectedAudience =
+        normalizeText(
+          proAudience.value
+        );
+
+
+      const selectedGoal =
+        normalizeText(
+          proGoal.value
+        );
+
+
+      const audience =
+        selectedAudience ||
+        detectedAudience;
+
+
+      const goal =
+        selectedGoal ||
+        detectedGoal;
+
+
+      const role =
+        getSelectedRole(
+          proRole.value,
+          category
+        );
+
+
+      const depth =
+        getDepthInstructions(
+          proDepth.value
+        );
+
+
+      const variation =
+        getVariationStyle(
+          variationNumber
+        );
+
+
+      let customConstraints = [];
+
+
+      if (proConstraints.value.trim()) {
+
+        customConstraints =
+          proConstraints.value
+            .split(/\n+/)
+            .map(item => item.trim())
+            .filter(Boolean);
+
+      }
+
+
+      let allRequirements = [
+        ...requirements
+      ];
+
+
+      if (
+        proOptimize.checked
+      ) {
+
+        allRequirements.push(
+          "Resolve ambiguity intelligently without changing the user's intended task."
+        );
+
+        allRequirements.push(
+          "Check the final response for clarity, completeness, consistency and unnecessary repetition."
+        );
+
+        allRequirements.push(
+          "Never invent facts, statistics, sources, names, credentials or technical capabilities."
+        );
+
+      }
+
+
+      if (
+        proExecution.checked
+      ) {
+
+        allRequirements.push(
+          "When appropriate, provide clear step-by-step execution guidance that the user can directly follow."
+        );
+
+      }
+
+
+      if (
+        category === "coding"
+      ) {
+
+        allRequirements.push(
+          "Consider security, error handling, maintainability and edge cases when relevant."
+        );
+
+      }
+
+
+      const customConstraintText =
+        customConstraints.length
+          ? customConstraints
+              .map(item => "- " + item)
+              .join("\n")
+          : "- No additional custom constraints provided.";
+
+
+      const finalPrompt = `${role}
+
+You are operating in ADVANCED PROMPT MODE.
+
+VARIATION STYLE:
+${variation.name}
+
+VARIATION FOCUS:
+${variation.instruction}
+
+PRIMARY TASK:
+${capitalizeFirst(rawTask)}
+
+TASK CATEGORY:
+${capitalizeFirst(category)}
+
+TARGET AUDIENCE:
+${audience}
+
+PRIMARY OBJECTIVE:
+${goal}
+
+TONE AND STYLE:
+${detectedTone}
+
+OUTPUT DEPTH:
+${proDepth.value.charAt(0).toUpperCase() + proDepth.value.slice(1)}
+
+CONTEXT AND INTERPRETATION:
+Treat the user's original task as the primary source of truth.
+Infer only reasonable details required to complete the task.
+Do not invent specific facts, statistics, sources, names, requirements or capabilities.
+
+ADVANCED REQUIREMENTS:
+${allRequirements
+  .map(item => "- " + item)
+  .join("\n")}
+
+CUSTOM CONSTRAINTS:
+${customConstraintText}
+
+OUTPUT FORMAT:
+${outputFormat.join("\n")}
+
+QUALITY CONTROL:
+- Match the requested audience and purpose.
+- Keep the answer logically organized.
+- Prioritize useful information over filler.
+- Make important assumptions explicit when necessary.
+- Preserve the user's intent.
+- Avoid unsupported claims.
+- Avoid unnecessary repetition.
+- Make the final result practical and ready to use.
+- If an essential detail is genuinely missing, ask only the minimum necessary clarification.
+
+${proExecution.checked
+  ? "EXECUTION GUIDANCE:\nProvide actionable steps or implementation guidance whenever that would improve the result."
+  : ""}
+
+FINAL INSTRUCTION:
+Complete the user's task using the role, objective, audience, constraints, requirements and quality rules above.
+Return the strongest possible final result for this variation.`;
+
+      return finalPrompt;
+
+    }
+
+
+    /* =========================================
+       FREE SMART PROMPT
     ========================================= */
 
     function buildSmartPrompt() {
 
-      const rawTask = normalizeText(taskInput.value);
+      const rawTask =
+        normalizeText(
+          taskInput.value
+        );
+
 
       if (!rawTask) {
 
@@ -1107,20 +2596,43 @@ Your detailed prompt will appear here.
 
       }
 
-      const category = detectTask(rawTask);
 
-      const audience = detectAudience(rawTask, category);
+      const category =
+        detectTask(rawTask);
 
-      const tone = detectTone(rawTask, category);
+      const audience =
+        detectAudience(
+          rawTask,
+          category
+        );
 
-      const goal = detectGoal(rawTask, category);
+      const tone =
+        detectTone(
+          rawTask,
+          category
+        );
 
-      const requirements = getRequirements(category, rawTask);
+      const goal =
+        detectGoal(
+          rawTask,
+          category
+        );
 
-      const outputFormat = getOutputFormat(category, rawTask);
+      const requirements =
+        getRequirements(
+          category,
+          rawTask
+        );
+
+      const outputFormat =
+        getOutputFormat(
+          category,
+          rawTask
+        );
 
 
-      const taskSentence = capitalizeFirst(rawTask);
+      const taskSentence =
+        capitalizeFirst(rawTask);
 
 
       const finalPrompt = `Act as an expert assistant specialized in the user's requested task.
@@ -1144,7 +2656,9 @@ CONTEXT:
 Use the user's original task as the primary source of intent. Infer only reasonable details that are necessary to complete the task. Do not invent specific facts, names, statistics, sources or requirements that were not provided.
 
 REQUIREMENTS:
-${requirements.map(item => "- " + item).join("\n")}
+${requirements
+  .map(item => "- " + item)
+  .join("\n")}
 
 OUTPUT FORMAT:
 ${outputFormat.join("\n")}
@@ -1162,8 +2676,8 @@ QUALITY RULES:
 FINAL INSTRUCTION:
 Complete the task above and return the best possible result while following all relevant requirements.`;
 
-
-      promptResult.textContent = finalPrompt;
+      promptResult.textContent =
+        finalPrompt;
 
       statusMessage.textContent =
         "Smart prompt created successfully.";
@@ -1172,14 +2686,95 @@ Complete the task above and return the best possible result while following all 
 
 
     /* =========================================
-       BUTTONS
+       PRO BUILD
+    ========================================= */
+
+    function buildProPrompts() {
+
+      const rawTask =
+        normalizeText(
+          taskInput.value
+        );
+
+
+      if (!rawTask) {
+
+        statusMessage.textContent =
+          "Please describe what you want AI to do.";
+
+        taskInput.focus();
+
+        return;
+
+      }
+
+
+      const count =
+        Number(
+          proVariations.value
+        );
+
+
+      const prompts = [];
+
+
+      for (
+        let i = 1;
+        i <= count;
+        i++
+      ) {
+
+        prompts.push(
+          `==============================
+ADVANCED PROMPT — VARIATION ${i}
+==============================
+
+${buildAdvancedPrompt(
+  rawTask,
+  i
+)}`
+        );
+
+      }
+
+
+      promptResult.textContent =
+        prompts.join("\n\n\n");
+
+
+      statusMessage.textContent =
+        count === 1
+          ? "Advanced Pro prompt created successfully. ⭐"
+          : `${count} advanced prompt variations created successfully. ⭐`;
+
+    }
+
+
+    /* =========================================
+       MAIN BUTTON
     ========================================= */
 
     buildPromptBtn.addEventListener(
       "click",
-      buildSmartPrompt
+      function() {
+
+        if (currentPlan === "pro") {
+
+          buildProPrompts();
+
+        } else {
+
+          buildSmartPrompt();
+
+        }
+
+      }
     );
 
+
+    /* =========================================
+       CLEAR
+    ========================================= */
 
     clearBtn.addEventListener(
       "click",
@@ -1187,12 +2782,23 @@ Complete the task above and return the best possible result while following all 
 
         taskInput.value = "";
 
-        charCount.textContent = "0";
+        charCount.textContent =
+          "0";
 
         promptResult.textContent =
           "Your detailed prompt will appear here.";
 
-        statusMessage.textContent = "";
+        statusMessage.textContent =
+          "";
+
+        proAudience.value =
+          "";
+
+        proGoal.value =
+          "";
+
+        proConstraints.value =
+          "";
 
         taskInput.focus();
 
@@ -1208,11 +2814,14 @@ Complete the task above and return the best possible result while following all 
       "click",
       async function() {
 
-        const text = promptResult.textContent;
+        const text =
+          promptResult.textContent;
+
 
         if (
           !text ||
-          text === "Your detailed prompt will appear here."
+          text ===
+            "Your detailed prompt will appear here."
         ) {
 
           statusMessage.textContent =
@@ -1222,22 +2831,35 @@ Complete the task above and return the best possible result while following all 
 
         }
 
+
         try {
 
-          await navigator.clipboard.writeText(text);
+          await navigator.clipboard.writeText(
+            text
+          );
 
-          copyBtn.textContent = "Copied!";
 
-          setTimeout(function() {
+          copyBtn.textContent =
+            "Copied!";
 
-            copyBtn.textContent = "Copy";
 
-          }, 1500);
+          setTimeout(
+            function() {
+
+              copyBtn.textContent =
+                "Copy";
+
+            },
+            1500
+          );
+
 
           statusMessage.textContent =
             "Prompt copied to clipboard.";
 
-        } catch (error) {
+        }
+
+        catch (error) {
 
           statusMessage.textContent =
             "Copy failed. Please select and copy the prompt manually.";
@@ -1249,53 +2871,93 @@ Complete the task above and return the best possible result while following all 
 
 
     /* =========================================
-       EXAMPLE BUTTONS
+       EXAMPLES
     ========================================= */
 
-    document.querySelectorAll(".example-chip")
-      .forEach(function(button) {
+    document
+      .querySelectorAll(".example-chip")
+      .forEach(
+        function(button) {
 
-        button.addEventListener("click", function() {
+          button.addEventListener(
+            "click",
+            function() {
 
-          taskInput.value =
-            button.getAttribute("data-example");
+              taskInput.value =
+                button.getAttribute(
+                  "data-example"
+                );
 
-          charCount.textContent =
-            taskInput.value.length;
 
-          taskInput.focus();
+              charCount.textContent =
+                taskInput.value.length;
 
-        });
 
-      });
+              taskInput.focus();
+
+            }
+          );
+
+        }
+      );
 
 
     /* =========================================
-       CTRL + ENTER SHORTCUT
+       CTRL + ENTER
     ========================================= */
 
     taskInput.addEventListener(
       "keydown",
       function(event) {
 
-        if (event.ctrlKey && event.key === "Enter") {
+        if (
+          event.ctrlKey &&
+          event.key === "Enter"
+        ) {
 
           event.preventDefault();
 
-          buildSmartPrompt();
+          if (
+            currentPlan === "pro"
+          ) {
+
+            buildProPrompts();
+
+          } else {
+
+            buildSmartPrompt();
+
+          }
 
         }
 
       }
     );
 
-  </script>
-  
-<!-- ================= HOMEPAGE INTERNAL LINK ================= -->
 
-<div class="back-home-link">
-  <a href="index.html">← Explore All AIHub Tools</a>
-</div>
-  
+    /* =========================================
+       AUTH STATE CHANGE
+    ========================================= */
+
+    supabaseClient.auth.onAuthStateChange(
+      function() {
+
+        setTimeout(
+          loadPlan,
+          100
+        );
+
+      }
+    );
+
+
+    /* =========================================
+       INITIAL LOAD
+    ========================================= */
+
+    loadPlan();
+
+  </script>
+
 </body>
 </html>
