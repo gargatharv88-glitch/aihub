@@ -1,6 +1,6 @@
-```html id="r8k2vd"
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="UTF-8">
@@ -21,6 +21,233 @@
 
     <link rel="stylesheet"
           href="style.css">
+
+    <style>
+
+        /* ================= TOP BACK LINK ================= */
+
+        .top-back-link {
+            max-width: 1200px;
+            margin: 20px auto 0;
+            padding: 0 20px;
+        }
+
+        .top-back-link a {
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+
+        /* ================= PLAN BOX ================= */
+
+        .plan-box {
+            margin: 20px 0;
+            padding: 18px;
+            border-radius: 14px;
+            border: 1px solid #ddd;
+            background: #fff;
+        }
+
+        .plan-box.pro {
+            border-color: #7c3aed;
+            background: #faf7ff;
+        }
+
+        .plan-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .plan-description {
+            color: #555;
+            margin-bottom: 12px;
+        }
+
+        .plan-button {
+            display: inline-block;
+            padding: 10px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            background: #111;
+            color: #fff;
+        }
+
+
+        /* ================= TOOL ================= */
+
+        .quiz-controls {
+            margin-top: 20px;
+        }
+
+        .field-group {
+            margin-bottom: 18px;
+        }
+
+        .field-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 7px;
+        }
+
+        .field-group input,
+        .field-group select,
+        .field-group textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .field-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+
+        /* ================= PRO ================= */
+
+        .pro-panel {
+            margin-top: 22px;
+            padding: 20px;
+            border-radius: 14px;
+            border: 1px solid #ddd;
+            background: #fafafa;
+        }
+
+        .pro-panel h3 {
+            margin-top: 0;
+        }
+
+        .pro-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .checkbox-row input {
+            width: auto;
+        }
+
+
+        /* ================= LOCKED PRO ================= */
+
+        .locked-pro {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 14px;
+            border: 1px dashed #999;
+            background: #f7f7f7;
+        }
+
+        .locked-pro h3 {
+            margin-top: 0;
+        }
+
+
+        /* ================= BUTTONS ================= */
+
+        .tool-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .tool-buttons button {
+            padding: 11px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .primary-button {
+            background: #111;
+            color: #fff;
+        }
+
+        .secondary-button {
+            background: #e9e9e9;
+            color: #111;
+        }
+
+
+        /* ================= RESULTS ================= */
+
+        .results-box {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 14px;
+            border: 1px solid #ddd;
+            background: #fff;
+        }
+
+        .question-card {
+            padding: 18px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            background: #f7f7f7;
+            border: 1px solid #ddd;
+        }
+
+        .question-card h4 {
+            margin-top: 0;
+        }
+
+        .options-list {
+            margin: 12px 0;
+            padding-left: 22px;
+        }
+
+        .answer-box {
+            margin-top: 12px;
+            padding: 10px;
+            border-radius: 8px;
+            background: #eee;
+            font-weight: 600;
+        }
+
+        .quiz-summary {
+            padding: 14px;
+            margin-bottom: 18px;
+            border-radius: 10px;
+            background: #f1f1f1;
+        }
+
+        .status-message {
+            margin-top: 12px;
+            font-size: 14px;
+        }
+
+
+        @media (max-width: 700px) {
+
+            .pro-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tool-buttons {
+                flex-direction: column;
+            }
+
+            .tool-buttons button {
+                width: 100%;
+            }
+
+        }
+
+    </style>
 
 </head>
 
@@ -71,6 +298,17 @@
 </header>
 
 
+<!-- ================= TOP BACK ================= -->
+
+<div class="top-back-link">
+
+    <a href="index.html">
+        ← Back to AIHub
+    </a>
+
+</div>
+
+
 <main>
 
 <section class="hero">
@@ -115,7 +353,400 @@
 
             </div>
 
-            <div id="toolInterface"></div>
+            <div id="toolInterface">
+
+                <!-- ================= PLAN ================= -->
+
+                <div id="planBox"
+                     class="plan-box">
+
+                    <div id="planTitle"
+                         class="plan-title">
+
+                        Free Mode
+
+                    </div>
+
+                    <div id="planDescription"
+                         class="plan-description">
+
+                        Create basic quizzes for free.
+
+                    </div>
+
+                    <a id="planButton"
+                       class="plan-button"
+                       href="login.html">
+
+                        Login
+
+                    </a>
+
+                </div>
+
+
+                <!-- ================= BASIC CONTROLS ================= -->
+
+                <div class="quiz-controls">
+
+                    <div class="field-group">
+
+                        <label for="topicInput">
+                            Quiz Topic
+                        </label>
+
+                        <textarea
+                            id="topicInput"
+                            placeholder="Example: Class 10 Biology - Life Processes"
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="field-group">
+
+                        <label for="questionCount">
+                            Number of Questions
+                        </label>
+
+                        <select id="questionCount">
+
+                            <option value="5">
+                                5 Questions
+                            </option>
+
+                            <option value="10">
+                                10 Questions
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="field-group">
+
+                        <label for="difficultySelect">
+                            Difficulty
+                        </label>
+
+                        <select id="difficultySelect">
+
+                            <option value="Easy">
+                                Easy
+                            </option>
+
+                            <option value="Medium">
+                                Medium
+                            </option>
+
+                            <option value="Hard">
+                                Hard
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- ================= PRO PANEL ================= -->
+
+                    <div id="proPanel"
+                         class="pro-panel"
+                         style="display:none;">
+
+                        <h3>
+                            🚀 Pro Quiz Controls
+                        </h3>
+
+                        <p>
+                            Create more detailed quizzes with advanced
+                            question types, difficulty, audience and
+                            answer controls.
+                        </p>
+
+
+                        <div class="pro-grid">
+
+                            <div class="field-group">
+
+                                <label for="proQuestionCount">
+                                    Pro Question Count
+                                </label>
+
+                                <select id="proQuestionCount">
+
+                                    <option value="10">
+                                        10
+                                    </option>
+
+                                    <option value="15">
+                                        15
+                                    </option>
+
+                                    <option value="20">
+                                        20
+                                    </option>
+
+                                    <option value="30">
+                                        30
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="field-group">
+
+                                <label for="questionType">
+                                    Question Type
+                                </label>
+
+                                <select id="questionType">
+
+                                    <option value="Multiple Choice">
+                                        Multiple Choice
+                                    </option>
+
+                                    <option value="True or False">
+                                        True or False
+                                    </option>
+
+                                    <option value="Mixed">
+                                        Mixed
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="field-group">
+
+                                <label for="audienceSelect">
+                                    Target Learner
+                                </label>
+
+                                <select id="audienceSelect">
+
+                                    <option value="School Students">
+                                        School Students
+                                    </option>
+
+                                    <option value="College Students">
+                                        College Students
+                                    </option>
+
+                                    <option value="Beginners">
+                                        Beginners
+                                    </option>
+
+                                    <option value="General Learners">
+                                        General Learners
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="field-group">
+
+                                <label for="difficultyPro">
+                                    Pro Difficulty
+                                </label>
+
+                                <select id="difficultyPro">
+
+                                    <option value="Easy">
+                                        Easy
+                                    </option>
+
+                                    <option value="Medium">
+                                        Medium
+                                    </option>
+
+                                    <option value="Hard">
+                                        Hard
+                                    </option>
+
+                                    <option value="Mixed">
+                                        Mixed
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="field-group">
+
+                            <label for="focusInput">
+                                Quiz Focus
+                            </label>
+
+                            <input
+                                id="focusInput"
+                                type="text"
+                                placeholder="Example: Important definitions, concepts and exam questions"
+                            >
+
+                        </div>
+
+
+                        <div class="field-group">
+
+                            <label for="keywordsInput">
+                                Important Keywords
+                            </label>
+
+                            <input
+                                id="keywordsInput"
+                                type="text"
+                                placeholder="Example: photosynthesis, respiration, nutrition"
+                            >
+
+                        </div>
+
+
+                        <div class="field-group">
+
+                            <label for="instructionsInput">
+                                Special Instructions
+                            </label>
+
+                            <textarea
+                                id="instructionsInput"
+                                placeholder="Example: Keep questions Class 10 level and exam-focused."
+                            ></textarea>
+
+                        </div>
+
+
+                        <label class="checkbox-row">
+
+                            <input
+                                type="checkbox"
+                                id="showAnswers"
+                                checked
+                            >
+
+                            Show answer key
+
+                        </label>
+
+
+                        <label class="checkbox-row">
+
+                            <input
+                                type="checkbox"
+                                id="showExplanations"
+                                checked
+                            >
+
+                            Include short explanations
+
+                        </label>
+
+
+                        <label class="checkbox-row">
+
+                            <input
+                                type="checkbox"
+                                id="includeRevision"
+                                checked
+                            >
+
+                            Include revision tip
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- ================= LOCKED PRO ================= -->
+
+                    <div id="lockedPro"
+                         class="locked-pro">
+
+                        <h3>
+                            🔒 Unlock Pro Quiz Generator
+                        </h3>
+
+                        <p>
+                            Pro users get larger quizzes, mixed question
+                            types, advanced difficulty, learner targeting,
+                            explanations and revision-focused controls.
+                        </p>
+
+                        <a href="pricing.html"
+                           class="plan-button">
+
+                            Upgrade to Pro
+
+                        </a>
+
+                    </div>
+
+
+                    <!-- ================= BUTTONS ================= -->
+
+                    <div class="tool-buttons">
+
+                        <button
+                            id="generateButton"
+                            class="primary-button">
+
+                            Generate Quiz
+
+                        </button>
+
+
+                        <button
+                            id="copyButton"
+                            class="secondary-button">
+
+                            Copy Quiz
+
+                        </button>
+
+
+                        <button
+                            id="clearButton"
+                            class="secondary-button">
+
+                            Clear
+
+                        </button>
+
+                    </div>
+
+
+                    <div id="statusMessage"
+                         class="status-message">
+                    </div>
+
+
+                    <!-- ================= RESULTS ================= -->
+
+                    <div id="resultsBox"
+                         class="results-box"
+                         style="display:none;">
+
+                        <h3>
+                            Generated Quiz
+                        </h3>
+
+                        <div id="resultsContent"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 
@@ -123,6 +754,8 @@
 
 </section>
 
+
+<!-- ================= SEO CONTENT ================= -->
 
 <section class="content-section">
 
@@ -336,15 +969,16 @@
 </footer>
 
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script src="script.js"></script>
 
 
 <script>
 
-    /*
-     * Automatically open the Quiz Generator
-     * when this SEO page loads.
-     */
+    /* =========================================================
+       EXISTING AIHUB TOOL SYSTEM
+       ========================================================= */
 
     document.addEventListener("DOMContentLoaded", function () {
 
@@ -356,14 +990,797 @@
 
     });
 
-</script>
-    
-<!-- ================= HOMEPAGE INTERNAL LINK ================= -->
 
-<div class="back-home-link">
-  <a href="index.html">← Explore All AIHub Tools</a>
-</div>
-    
+    /* =========================================================
+       SUPABASE
+       ========================================================= */
+
+    const SUPABASE_URL =
+        "https://stjkvlkeysyefhxocjzm.supabase.co";
+
+    const SUPABASE_PUBLISHABLE_KEY =
+        "sb_publishable_TGBEUnPnXQMw82y6X2hQiA_CLfc9ffB";
+
+    const supabaseClient =
+        supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY
+        );
+
+
+    let currentPlan = "guest";
+
+
+    /* =========================================================
+       ELEMENTS
+       ========================================================= */
+
+    const planBox =
+        document.getElementById("planBox");
+
+    const planTitle =
+        document.getElementById("planTitle");
+
+    const planDescription =
+        document.getElementById("planDescription");
+
+    const planButton =
+        document.getElementById("planButton");
+
+    const proPanel =
+        document.getElementById("proPanel");
+
+    const lockedPro =
+        document.getElementById("lockedPro");
+
+    const topicInput =
+        document.getElementById("topicInput");
+
+    const resultsBox =
+        document.getElementById("resultsBox");
+
+    const resultsContent =
+        document.getElementById("resultsContent");
+
+    const statusMessage =
+        document.getElementById("statusMessage");
+
+
+    /* =========================================================
+       LOAD USER PLAN
+       ========================================================= */
+
+    async function loadPlan() {
+
+        const {
+            data: { session }
+        } = await supabaseClient.auth.getSession();
+
+
+        if (!session) {
+
+            currentPlan = "guest";
+
+            planBox.classList.remove("pro");
+
+            planTitle.textContent =
+                "Free Mode";
+
+            planDescription.textContent =
+                "Create basic quizzes for free.";
+
+            planButton.textContent =
+                "Login";
+
+            planButton.href =
+                "login.html";
+
+            proPanel.style.display =
+                "none";
+
+            lockedPro.style.display =
+                "block";
+
+            return;
+        }
+
+
+        const user =
+            session.user;
+
+
+        const {
+            data: profile,
+            error
+        } = await supabaseClient
+            .from("profiles")
+            .select("plan")
+            .eq("user_id", user.id)
+            .maybeSingle();
+
+
+        if (error) {
+
+            console.error(
+                "Profile error:",
+                error
+            );
+
+            currentPlan = "free";
+
+        } else {
+
+            currentPlan =
+                profile?.plan === "pro"
+                    ? "pro"
+                    : "free";
+
+        }
+
+
+        if (currentPlan === "pro") {
+
+            planBox.classList.add("pro");
+
+            planTitle.textContent =
+                "⭐ Pro Mode";
+
+            planDescription.textContent =
+                "Advanced quiz generation controls are unlocked.";
+
+            planButton.textContent =
+                "My Account";
+
+            planButton.href =
+                "account.html";
+
+            proPanel.style.display =
+                "block";
+
+            lockedPro.style.display =
+                "none";
+
+        } else {
+
+            planBox.classList.remove("pro");
+
+            planTitle.textContent =
+                "Free Mode";
+
+            planDescription.textContent =
+                "Upgrade to Pro to unlock advanced quiz controls.";
+
+            planButton.textContent =
+                "Upgrade to Pro";
+
+            planButton.href =
+                "pricing.html";
+
+            proPanel.style.display =
+                "none";
+
+            lockedPro.style.display =
+                "block";
+
+        }
+
+    }
+
+
+    /* =========================================================
+       QUESTION DATA
+       ========================================================= */
+
+    const questionTemplates = [
+
+        {
+            pattern: "What is the main purpose or importance of {topic}?",
+            options: [
+                "To understand an important concept",
+                "To avoid learning the topic",
+                "To remove the need for practice",
+                "None of these"
+            ],
+            answer: 0
+        },
+
+        {
+            pattern: "Which statement best describes {topic}?",
+            options: [
+                "It is an important area of study",
+                "It has no educational value",
+                "It cannot be studied",
+                "None of these"
+            ],
+            answer: 0
+        },
+
+        {
+            pattern: "Why is studying {topic} useful?",
+            options: [
+                "It helps develop understanding",
+                "It makes learning impossible",
+                "It removes the need for revision",
+                "It has no practical value"
+            ],
+            answer: 0
+        },
+
+        {
+            pattern: "Which approach is generally useful when learning {topic}?",
+            options: [
+                "Understand concepts and practise questions",
+                "Never review the topic",
+                "Ignore important concepts",
+                "Avoid examples"
+            ],
+            answer: 0
+        },
+
+        {
+            pattern: "What should a learner do after studying {topic}?",
+            options: [
+                "Review and practise",
+                "Stop learning completely",
+                "Ignore mistakes",
+                "Avoid revision"
+            ],
+            answer: 0
+        },
+
+        {
+            pattern: "Which of the following is most closely related to {topic}?",
+            options: [
+                "Its key concepts",
+                "An unrelated subject",
+                "Random information",
+                "None of these"
+            ],
+            answer: 0
+        },
+
+        {
+            pattern: "What is an effective way to revise {topic}?",
+            options: [
+                "Use questions and review mistakes",
+                "Avoid practice",
+                "Skip important sections",
+                "Never check understanding"
+            ],
+            answer: 0
+        },
+
+        {
+            pattern: "What can help improve understanding of {topic}?",
+            options: [
+                "Examples, practice and revision",
+                "Avoiding questions",
+                "Ignoring difficult concepts",
+                "Skipping all explanations"
+            ],
+            answer: 0
+        },
+
+        {
+            pattern: "Which learner is most likely to benefit from studying {topic}?",
+            options: [
+                "A learner interested in understanding the subject",
+                "Only someone avoiding revision",
+                "Nobody",
+                "Only someone who never practises"
+            ],
+            answer: 0
+        },
+
+        {
+            pattern: "What is a good first step when learning {topic}?",
+            options: [
+                "Understand the basic concepts",
+                "Memorize random answers",
+                "Skip the introduction",
+                "Avoid examples"
+            ],
+            answer: 0
+        }
+
+    ];
+
+
+    /* =========================================================
+       GENERATE QUIZ
+       ========================================================= */
+
+    function generateQuiz() {
+
+        const topic =
+            topicInput.value.trim();
+
+
+        if (!topic) {
+
+            statusMessage.textContent =
+                "Please enter a quiz topic first.";
+
+            return;
+
+        }
+
+
+        let count =
+            Number(
+                document.getElementById("questionCount").value
+            );
+
+
+        let difficulty =
+            document.getElementById("difficultySelect").value;
+
+
+        let questionType =
+            "Multiple Choice";
+
+        let audience =
+            "General Learners";
+
+        let focus =
+            "";
+
+        let keywords =
+            "";
+
+        let instructions =
+            "";
+
+        let showAnswers =
+            true;
+
+        let showExplanations =
+            false;
+
+        let includeRevision =
+            false;
+
+
+        if (currentPlan === "pro") {
+
+            count =
+                Number(
+                    document.getElementById(
+                        "proQuestionCount"
+                    ).value
+                );
+
+            questionType =
+                document.getElementById(
+                    "questionType"
+                ).value;
+
+            audience =
+                document.getElementById(
+                    "audienceSelect"
+                ).value;
+
+            difficulty =
+                document.getElementById(
+                    "difficultyPro"
+                ).value;
+
+            focus =
+                document.getElementById(
+                    "focusInput"
+                ).value.trim();
+
+            keywords =
+                document.getElementById(
+                    "keywordsInput"
+                ).value.trim();
+
+            instructions =
+                document.getElementById(
+                    "instructionsInput"
+                ).value.trim();
+
+            showAnswers =
+                document.getElementById(
+                    "showAnswers"
+                ).checked;
+
+            showExplanations =
+                document.getElementById(
+                    "showExplanations"
+                ).checked;
+
+            includeRevision =
+                document.getElementById(
+                    "includeRevision"
+                ).checked;
+
+        }
+
+
+        const questions = [];
+
+
+        for (
+            let i = 0;
+            i < count;
+            i++
+        ) {
+
+            const template =
+                questionTemplates[
+                    i % questionTemplates.length
+                ];
+
+
+            const questionText =
+                template.pattern.replace(
+                    "{topic}",
+                    topic
+                );
+
+
+            questions.push({
+
+                number:
+                    i + 1,
+
+                question:
+                    questionText,
+
+                options:
+                    template.options,
+
+                answer:
+                    template.answer,
+
+                difficulty:
+                    difficulty
+
+            });
+
+        }
+
+
+        renderQuiz(
+            questions,
+            topic,
+            questionType,
+            audience,
+            focus,
+            keywords,
+            instructions,
+            showAnswers,
+            showExplanations,
+            includeRevision
+        );
+
+
+        statusMessage.textContent =
+            currentPlan === "pro"
+                ? "Pro quiz generated successfully."
+                : "Free quiz generated successfully.";
+
+    }
+
+
+    /* =========================================================
+       RENDER QUIZ
+       ========================================================= */
+
+    function renderQuiz(
+        questions,
+        topic,
+        questionType,
+        audience,
+        focus,
+        keywords,
+        instructions,
+        showAnswers,
+        showExplanations,
+        includeRevision
+    ) {
+
+        resultsContent.innerHTML = "";
+
+
+        const summary =
+            document.createElement("div");
+
+        summary.className =
+            "quiz-summary";
+
+
+        const summaryText =
+            document.createElement("div");
+
+        summaryText.textContent =
+            "Topic: " +
+            topic +
+            " | Questions: " +
+            questions.length +
+            " | Type: " +
+            questionType;
+
+
+        summary.appendChild(
+            summaryText
+        );
+
+
+        if (currentPlan === "pro") {
+
+            const proDetails =
+                document.createElement("div");
+
+            proDetails.textContent =
+                "Audience: " +
+                audience +
+                (focus
+                    ? " | Focus: " + focus
+                    : "") +
+                (keywords
+                    ? " | Keywords: " + keywords
+                    : "") +
+                (instructions
+                    ? " | Special Instructions: " + instructions
+                    : "");
+
+
+            summary.appendChild(
+                document.createElement("br")
+            );
+
+            summary.appendChild(
+                proDetails
+            );
+
+        }
+
+
+        resultsContent.appendChild(
+            summary
+        );
+
+
+        questions.forEach(
+            function (item) {
+
+                const card =
+                    document.createElement("div");
+
+                card.className =
+                    "question-card";
+
+
+                const heading =
+                    document.createElement("h4");
+
+                heading.textContent =
+                    item.number +
+                    ". " +
+                    item.question;
+
+
+                card.appendChild(
+                    heading
+                );
+
+
+                const list =
+                    document.createElement("ol");
+
+                list.className =
+                    "options-list";
+
+
+                item.options.forEach(
+                    function (option, index) {
+
+                        const li =
+                            document.createElement("li");
+
+                        li.textContent =
+                            option;
+
+                        list.appendChild(
+                            li
+                        );
+
+                    }
+                );
+
+
+                card.appendChild(
+                    list
+                );
+
+
+                if (showAnswers) {
+
+                    const answer =
+                        document.createElement("div");
+
+                    answer.className =
+                        "answer-box";
+
+                    answer.textContent =
+                        "Answer: " +
+                        item.options[item.answer];
+
+
+                    card.appendChild(
+                        answer
+                    );
+
+
+                    if (showExplanations) {
+
+                        const explanation =
+                            document.createElement("p");
+
+                        explanation.textContent =
+                            "Explanation: This option best matches the main concept being tested in this question.";
+
+                        card.appendChild(
+                            explanation
+                        );
+
+                    }
+
+                }
+
+
+                resultsContent.appendChild(
+                    card
+                );
+
+            }
+        );
+
+
+        if (
+            currentPlan === "pro" &&
+            includeRevision
+        ) {
+
+            const revision =
+                document.createElement("div");
+
+            revision.className =
+                "quiz-summary";
+
+            revision.textContent =
+                "Revision Tip: After completing the quiz, review every incorrect answer and revisit that concept in your textbook or study material.";
+
+            resultsContent.appendChild(
+                revision
+            );
+
+        }
+
+
+        resultsBox.style.display =
+            "block";
+
+    }
+
+
+    /* =========================================================
+       COPY QUIZ
+       ========================================================= */
+
+    document.getElementById("copyButton")
+        .addEventListener(
+            "click",
+            async function () {
+
+                const text =
+                    resultsContent.innerText.trim();
+
+
+                if (!text) {
+
+                    statusMessage.textContent =
+                        "Generate a quiz first.";
+
+                    return;
+
+                }
+
+
+                try {
+
+                    await navigator.clipboard.writeText(
+                        text
+                    );
+
+                    statusMessage.textContent =
+                        "Quiz copied successfully.";
+
+                } catch (error) {
+
+                    statusMessage.textContent =
+                        "Copy failed. Please copy the quiz manually.";
+
+                }
+
+            }
+        );
+
+
+    /* =========================================================
+       CLEAR
+       ========================================================= */
+
+    document.getElementById("clearButton")
+        .addEventListener(
+            "click",
+            function () {
+
+                topicInput.value = "";
+
+                resultsContent.innerHTML = "";
+
+                resultsBox.style.display =
+                    "none";
+
+                statusMessage.textContent =
+                    "";
+
+
+                if (currentPlan === "pro") {
+
+                    document.getElementById(
+                        "focusInput"
+                    ).value = "";
+
+                    document.getElementById(
+                        "keywordsInput"
+                    ).value = "";
+
+                    document.getElementById(
+                        "instructionsInput"
+                    ).value = "";
+
+                }
+
+            }
+        );
+
+
+    /* =========================================================
+       GENERATE BUTTON
+       ========================================================= */
+
+    document.getElementById("generateButton")
+        .addEventListener(
+            "click",
+            generateQuiz
+        );
+
+
+    /* =========================================================
+       AUTH STATE
+       ========================================================= */
+
+    supabaseClient.auth.onAuthStateChange(
+        async function () {
+
+            await loadPlan();
+
+        }
+    );
+
+
+    /* =========================================================
+       INITIAL LOAD
+       ========================================================= */
+
+    loadPlan();
+
+</script>
+
 </body>
+
 </html>
-```
