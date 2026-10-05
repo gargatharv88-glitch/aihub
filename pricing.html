@@ -230,12 +230,23 @@
     After payment, submit your payment reference/UTR for verification.
   </p>
 
-  <button
-    class="button free-button"
-    onclick="alert('Payment proof form will be added next.')">
-    ✅ I Have Paid
+<form id="paymentForm" style="margin-top:20px;">
+
+  <input
+    type="text"
+    id="paymentReference"
+    placeholder="Enter UTR / Transaction ID"
+    required
+    style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px;"
+  >
+
+  <button type="submit" class="button pro-button">
+    📤 Submit Payment
   </button>
 
+</form>
+
+<p id="paymentMessage" style="margin-top:12px;"></p>
 </div>
 
       </div>
