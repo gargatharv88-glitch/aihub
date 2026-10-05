@@ -368,6 +368,47 @@
   }
 
   checkPlan();
+  document.getElementById("paymentForm").addEventListener("submit", async function(event) {
+
+  event.preventDefault();
+
+  const {
+    data: { session }
+  } = await supabaseClient.auth.getSession();
+
+  if (!session) {
+    alert("Please login first.");
+    window.location.href = "login.html";
+    return;
+  }
+
+  const paymentReference =
+    document.getElementById("paymentReference").value.trim();
+
+  if (!paymentReference) {
+    alert("Please enter your UTR / Transaction ID.");
+    return;
+  }
+
+  const { error } = await supabaseClient
+    .from("payment_requests")
+    .insert({
+      user_id: session.user.id,
+      email: session.user.email,
+      payment_reference: paymentReference
+    });
+
+  if (error) {
+    console.error(error);
+    alert("Submission failed: " + error.message);
+    return;
+  }
+
+  document.getElementById("paymentMessage").textContent =
+    "✅ Payment proof submitted. It will be verified before Pro access is activated.";
+
+  document.getElementById("paymentForm").reset();
+});
   function copyUPI() {
 
   const upi = document.getElementById("upiId").textContent;
