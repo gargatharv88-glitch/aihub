@@ -1,4 +1,3 @@
-```html id="w3j8qa"
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,6 +21,161 @@
     <link rel="stylesheet"
           href="style.css">
 
+    <style>
+
+        .back-aihub {
+            display: inline-block;
+            margin: 18px 0 10px;
+            padding: 9px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            background: #f1f5f9;
+            color: #1e293b;
+            border: 1px solid #cbd5e1;
+        }
+
+        .back-aihub:hover {
+            opacity: 0.85;
+        }
+
+        .plan-box {
+            margin: 15px 0;
+            padding: 14px 16px;
+            border-radius: 10px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
+
+        .plan-free {
+            color: #475569;
+        }
+
+        .plan-pro {
+            color: #166534;
+            font-weight: 700;
+        }
+
+        .pro-panel {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
+
+        .pro-panel h3 {
+            margin-top: 0;
+        }
+
+        .pro-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 14px;
+            margin-top: 15px;
+        }
+
+        .pro-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .pro-field label {
+            font-weight: 600;
+        }
+
+        .pro-field select,
+        .pro-field input,
+        .pro-field textarea {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            font: inherit;
+        }
+
+        .pro-field textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .pro-checks {
+            margin-top: 16px;
+            display: grid;
+            gap: 9px;
+        }
+
+        .pro-checks label {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .locked-pro {
+            margin-top: 18px;
+            padding: 16px;
+            border-radius: 10px;
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+        }
+
+        .pro-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+            background: #fef3c7;
+            color: #92400e;
+            margin-left: 6px;
+        }
+
+        .prompt-report {
+            margin-top: 20px;
+            padding: 18px;
+            border-radius: 10px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
+
+        .prompt-result {
+            margin-top: 14px;
+            padding: 16px;
+            border-radius: 10px;
+            background: white;
+            border: 1px solid #cbd5e1;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+
+        .variation-box {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            background: white;
+            border: 1px solid #e2e8f0;
+        }
+
+        .variation-box h4 {
+            margin-top: 0;
+        }
+
+        .tool-note {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        @media (max-width: 600px) {
+
+            .pro-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
 </head>
 
 <body>
@@ -29,6 +183,12 @@
 <header class="site-header">
 
     <div class="container">
+
+        <!-- TOP BACK TO AIHUB -->
+
+        <a href="index.html" class="back-aihub">
+            ← Back to AIHub
+        </a>
 
         <a href="index.html" class="logo">
             AIHub
@@ -83,6 +243,10 @@
             Thumbnail Prompt Generator.
         </p>
 
+        <div id="planStatus" class="plan-box">
+            Checking your plan...
+        </div>
+
     </div>
 
 </section>
@@ -113,6 +277,469 @@
             </div>
 
             <div id="toolInterface"></div>
+
+        </div>
+
+
+        <!-- ================= PRO FEATURES ================= -->
+
+        <div
+            id="proFeatures"
+            class="pro-panel"
+            style="display:none;"
+        >
+
+            <h3>
+                🎨 Pro Thumbnail Prompt Controls
+                <span class="pro-badge">PRO</span>
+            </h3>
+
+            <p>
+                Create more detailed and targeted thumbnail prompts
+                with advanced creative controls.
+            </p>
+
+
+            <div class="pro-grid">
+
+                <div class="pro-field">
+
+                    <label for="thumbnailStyle">
+                        Visual Style
+                    </label>
+
+                    <select id="thumbnailStyle">
+
+                        <option value="cinematic">
+                            Cinematic
+                        </option>
+
+                        <option value="3d">
+                            3D Render
+                        </option>
+
+                        <option value="cartoon">
+                            Cartoon
+                        </option>
+
+                        <option value="realistic">
+                            Photorealistic
+                        </option>
+
+                        <option value="anime">
+                            Anime Inspired
+                        </option>
+
+                        <option value="minimal">
+                            Minimal Modern
+                        </option>
+
+                        <option value="gaming">
+                            Gaming
+                        </option>
+
+                        <option value="kids">
+                            Kids / Colorful
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="pro-field">
+
+                    <label for="thumbnailMood">
+                        Mood
+                    </label>
+
+                    <select id="thumbnailMood">
+
+                        <option value="exciting">
+                            Exciting
+                        </option>
+
+                        <option value="dramatic">
+                            Dramatic
+                        </option>
+
+                        <option value="fun">
+                            Fun
+                        </option>
+
+                        <option value="curious">
+                            Curiosity
+                        </option>
+
+                        <option value="mysterious">
+                            Mysterious
+                        </option>
+
+                        <option value="professional">
+                            Professional
+                        </option>
+
+                        <option value="energetic">
+                            Energetic
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="pro-field">
+
+                    <label for="composition">
+                        Composition
+                    </label>
+
+                    <select id="composition">
+
+                        <option value="center">
+                            Center Focus
+                        </option>
+
+                        <option value="rule">
+                            Rule of Thirds
+                        </option>
+
+                        <option value="closeup">
+                            Close-Up
+                        </option>
+
+                        <option value="split">
+                            Split Screen
+                        </option>
+
+                        <option value="beforeafter">
+                            Before & After
+                        </option>
+
+                        <option value="dynamic">
+                            Dynamic Action
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="pro-field">
+
+                    <label for="lighting">
+                        Lighting
+                    </label>
+
+                    <select id="lighting">
+
+                        <option value="bright">
+                            Bright Studio
+                        </option>
+
+                        <option value="cinematic">
+                            Cinematic Lighting
+                        </option>
+
+                        <option value="neon">
+                            Neon Lighting
+                        </option>
+
+                        <option value="golden">
+                            Golden Hour
+                        </option>
+
+                        <option value="dramatic">
+                            Dramatic Contrast
+                        </option>
+
+                        <option value="soft">
+                            Soft Lighting
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="pro-field">
+
+                    <label for="background">
+                        Background
+                    </label>
+
+                    <select id="background">
+
+                        <option value="clean">
+                            Clean Background
+                        </option>
+
+                        <option value="gradient">
+                            Color Gradient
+                        </option>
+
+                        <option value="environment">
+                            Detailed Environment
+                        </option>
+
+                        <option value="blurred">
+                            Blurred Background
+                        </option>
+
+                        <option value="dramatic">
+                            Dramatic Background
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="pro-field">
+
+                    <label for="textPlacement">
+                        Thumbnail Text
+                    </label>
+
+                    <select id="textPlacement">
+
+                        <option value="none">
+                            No Text
+                        </option>
+
+                        <option value="top">
+                            Top
+                        </option>
+
+                        <option value="left">
+                            Left
+                        </option>
+
+                        <option value="right">
+                            Right
+                        </option>
+
+                        <option value="bottom">
+                            Bottom
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="pro-field">
+
+                    <label for="variations">
+                        Prompt Variations
+                    </label>
+
+                    <select id="variations">
+
+                        <option value="1">
+                            1 Prompt
+                        </option>
+
+                        <option value="2">
+                            2 Prompts
+                        </option>
+
+                        <option value="3">
+                            3 Prompts
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="pro-field">
+
+                    <label for="audience">
+                        Target Audience
+                    </label>
+
+                    <select id="audience">
+
+                        <option value="general">
+                            General
+                        </option>
+
+                        <option value="kids">
+                            Kids
+                        </option>
+
+                        <option value="students">
+                            Students
+                        </option>
+
+                        <option value="gamers">
+                            Gamers
+                        </option>
+
+                        <option value="creators">
+                            Creators
+                        </option>
+
+                        <option value="business">
+                            Business Audience
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="pro-field" style="margin-top:15px;">
+
+                <label for="thumbnailText">
+                    Thumbnail Text / Main Message
+                </label>
+
+                <input
+                    type="text"
+                    id="thumbnailText"
+                    placeholder="Example: YOU WON'T BELIEVE THIS!"
+                >
+
+            </div>
+
+
+            <div class="pro-field" style="margin-top:15px;">
+
+                <label for="visualDetails">
+                    Additional Visual Details
+                </label>
+
+                <textarea
+                    id="visualDetails"
+                    placeholder="Example: glowing object, surprised expression, arrows, particles, dramatic foreground..."
+                ></textarea>
+
+            </div>
+
+
+            <div class="pro-field" style="margin-top:15px;">
+
+                <label for="negativePrompt">
+                    Things to Avoid
+                </label>
+
+                <textarea
+                    id="negativePrompt"
+                    placeholder="Example: blurry image, cluttered composition, unreadable text, low quality..."
+                ></textarea>
+
+            </div>
+
+
+            <div class="pro-checks">
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="highContrast"
+                        checked
+                    >
+                    High contrast for better thumbnail visibility
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="mobileReadable"
+                        checked
+                    >
+                    Optimize composition for mobile screens
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="faceFocus"
+                    >
+                    Strong facial-expression focus
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="depthEffect"
+                        checked
+                    >
+                    Add foreground/background depth
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        id="noWatermark"
+                        checked
+                    >
+                    Request a clean image without watermark
+                </label>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="generateProPrompt"
+                style="margin-top:18px;"
+            >
+                Generate Pro Thumbnail Prompt
+            </button>
+
+
+            <p class="tool-note">
+                Pro prompts are generated directly in your browser.
+                No external API key is required.
+            </p>
+
+        </div>
+
+
+        <!-- ================= LOCKED PRO ================= -->
+
+        <div
+            id="lockedPro"
+            class="locked-pro"
+            style="display:none;"
+        >
+
+            <strong>
+                🔒 Pro Thumbnail Features
+            </strong>
+
+            <p>
+                Upgrade to Pro to unlock advanced visual styles,
+                composition controls, lighting, audience targeting,
+                multiple prompt variations and detailed thumbnail
+                optimization.
+            </p>
+
+            <a href="pricing.html">
+                Upgrade to Pro →
+            </a>
+
+        </div>
+
+
+        <!-- ================= PRO RESULTS ================= -->
+
+        <div
+            id="promptReport"
+            class="prompt-report"
+            style="display:none;"
+        >
+
+            <h3>
+                ✨ Pro Thumbnail Prompts
+            </h3>
+
+            <div id="promptResults"></div>
 
         </div>
 
@@ -333,32 +960,506 @@
 
 <script src="script.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 
 <script>
 
-    /*
-     * Automatically open the Thumbnail Prompt Generator
-     * when this SEO page loads.
-     */
+const SUPABASE_URL =
+    "https://stjkvlkeysyefhxocjzm.supabase.co";
 
-    document.addEventListener("DOMContentLoaded", function () {
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_TGBEUnPnXQMw82y6X2hQiA_CLfc9ffB";
 
-        if (typeof openTool === "function") {
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+let currentPlan = "guest";
+
+
+/* ================= PLAN CHECK ================= */
+
+async function loadPlan() {
+
+    const {
+        data: { session }
+    } = await supabaseClient.auth.getSession();
+
+
+    const planStatus =
+        document.getElementById("planStatus");
+
+    const proFeatures =
+        document.getElementById("proFeatures");
+
+    const lockedPro =
+        document.getElementById("lockedPro");
+
+
+    if (!session) {
+
+        currentPlan = "guest";
+
+        planStatus.innerHTML =
+            '<span class="plan-free">👤 Guest Mode — Free features available. <a href="login.html">Login</a> for your account.</span>';
+
+        proFeatures.style.display = "none";
+        lockedPro.style.display = "block";
+
+        return;
+    }
+
+
+    const user = session.user;
+
+
+    const {
+        data: profile,
+        error
+    } = await supabaseClient
+        .from("profiles")
+        .select("plan")
+        .eq("user_id", user.id)
+        .maybeSingle();
+
+
+    if (error) {
+
+        console.error(error);
+
+        currentPlan = "free";
+
+    } else {
+
+        currentPlan =
+            profile?.plan === "pro"
+                ? "pro"
+                : "free";
+
+    }
+
+
+    if (currentPlan === "pro") {
+
+        planStatus.innerHTML =
+            '<span class="plan-pro">⭐ Pro Plan Active — Advanced thumbnail prompts unlocked.</span>';
+
+        proFeatures.style.display = "block";
+        lockedPro.style.display = "none";
+
+    } else {
+
+        planStatus.innerHTML =
+            '<span class="plan-free">🆓 Free Plan — Basic thumbnail prompts available.</span>';
+
+        proFeatures.style.display = "none";
+        lockedPro.style.display = "block";
+
+    }
+
+}
+
+
+supabaseClient.auth.onAuthStateChange(
+    async function () {
+        await loadPlan();
+    }
+);
+
+
+/* ================= HELPERS ================= */
+
+function escapeHTML(value) {
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+function getMainTopic() {
+
+    const toolInterface =
+        document.getElementById("toolInterface");
+
+    if (!toolInterface) {
+        return "creative YouTube video";
+    }
+
+
+    const inputs =
+        toolInterface.querySelectorAll(
+            "input, textarea"
+        );
+
+
+    for (const input of inputs) {
+
+        if (
+            input.value &&
+            input.value.trim()
+        ) {
+
+            return input.value.trim();
+
+        }
+
+    }
+
+
+    return "creative YouTube video";
+
+}
+
+
+/* ================= PRO PROMPT ENGINE ================= */
+
+function buildProPrompt(variationNumber) {
+
+    const topic =
+        getMainTopic();
+
+    const style =
+        document.getElementById("thumbnailStyle").value;
+
+    const mood =
+        document.getElementById("thumbnailMood").value;
+
+    const composition =
+        document.getElementById("composition").value;
+
+    const lighting =
+        document.getElementById("lighting").value;
+
+    const background =
+        document.getElementById("background").value;
+
+    const textPlacement =
+        document.getElementById("textPlacement").value;
+
+    const audience =
+        document.getElementById("audience").value;
+
+    const thumbnailText =
+        document.getElementById("thumbnailText").value.trim();
+
+    const visualDetails =
+        document.getElementById("visualDetails").value.trim();
+
+    const negativePrompt =
+        document.getElementById("negativePrompt").value.trim();
+
+    const highContrast =
+        document.getElementById("highContrast").checked;
+
+    const mobileReadable =
+        document.getElementById("mobileReadable").checked;
+
+    const faceFocus =
+        document.getElementById("faceFocus").checked;
+
+    const depthEffect =
+        document.getElementById("depthEffect").checked;
+
+    const noWatermark =
+        document.getElementById("noWatermark").checked;
+
+
+    const compositionMap = {
+
+        center:
+            "strong centered composition with the main subject clearly dominant",
+
+        rule:
+            "rule-of-thirds composition with strong visual balance",
+
+        closeup:
+            "dramatic close-up composition emphasizing the main subject",
+
+        split:
+            "split-screen composition showing two contrasting visual elements",
+
+        beforeafter:
+            "clear before-and-after composition with strong visual contrast",
+
+        dynamic:
+            "dynamic action composition with strong movement and visual energy"
+
+    };
+
+
+    const textMap = {
+
+        none:
+            "No thumbnail text.",
+
+        top:
+            "Place short bold thumbnail text at the top.",
+
+        left:
+            "Place short bold thumbnail text on the left side.",
+
+        right:
+            "Place short bold thumbnail text on the right side.",
+
+        bottom:
+            "Place short bold thumbnail text at the bottom."
+
+    };
+
+
+    let variationDirection = "";
+
+
+    if (variationNumber === 2) {
+
+        variationDirection =
+            "Use a more dramatic camera angle and stronger visual contrast while keeping the concept clear.";
+
+    }
+
+
+    if (variationNumber === 3) {
+
+        variationDirection =
+            "Use a more creative and unexpected composition with strong curiosity-driven visual storytelling.";
+
+    }
+
+
+    let prompt =
+
+`Create a high-quality YouTube thumbnail for a video about "${topic}".
+
+STYLE:
+${style} visual style with a polished professional appearance.
+
+MOOD:
+${mood} and attention-grabbing emotional tone.
+
+COMPOSITION:
+${compositionMap[composition]}.
+
+LIGHTING:
+Use ${lighting} lighting that clearly separates the subject from the background.
+
+BACKGROUND:
+Use a ${background} background that supports the main subject without creating unnecessary clutter.
+
+TARGET AUDIENCE:
+Design the visual for ${audience}.
+
+THUMBNAIL TEXT:
+${textMap[textPlacement]}
+${thumbnailText ? `Suggested text: "${thumbnailText}".` : "Keep text minimal and highly readable."}
+
+VISUAL DETAILS:
+${visualDetails || "Strong focal subject, clear visual hierarchy, clean composition and high visual impact."}
+
+THUMBNAIL OPTIMIZATION:
+${highContrast ? "Use strong contrast so the thumbnail remains visible at small sizes." : ""}
+${mobileReadable ? "Make the main subject and important elements readable on mobile screens." : ""}
+${faceFocus ? "Use a strong expressive facial reaction as a major visual focal point." : ""}
+${depthEffect ? "Create clear foreground, middle-ground and background depth." : ""}
+${noWatermark ? "Do not include watermarks, logos or unnecessary branding." : ""}
+
+QUALITY:
+High detail, sharp focus, clean edges, professional composition, strong subject separation, visually balanced, YouTube-ready thumbnail, 16:9 aspect ratio.
+
+${negativePrompt ? `AVOID:\n${negativePrompt}` : "AVOID: blurry visuals, cluttered composition, weak focal point, unreadable text and low-quality details."}
+
+${variationDirection}`;
+
+    return prompt.trim();
+
+}
+
+
+/* ================= GENERATE ================= */
+
+document.addEventListener(
+    "click",
+    function (event) {
+
+        if (
+            event.target.id !==
+            "generateProPrompt"
+        ) {
+            return;
+        }
+
+
+        if (currentPlan !== "pro") {
+
+            alert(
+                "This feature is available for Pro users. Please upgrade to Pro."
+            );
+
+            return;
+
+        }
+
+
+        const count =
+            Number(
+                document.getElementById("variations").value
+            );
+
+
+        const results =
+            document.getElementById("promptResults");
+
+        const report =
+            document.getElementById("promptReport");
+
+
+        results.innerHTML = "";
+
+
+        for (
+            let i = 1;
+            i <= count;
+            i++
+        ) {
+
+            const prompt =
+                buildProPrompt(i);
+
+
+            const box =
+                document.createElement("div");
+
+            box.className =
+                "variation-box";
+
+
+            box.innerHTML = `
+
+                <h4>
+                    Thumbnail Prompt ${i}
+                </h4>
+
+                <div class="prompt-result">
+                    ${escapeHTML(prompt)}
+                </div>
+
+                <button
+                    type="button"
+                    class="copy-pro-prompt"
+                    data-prompt="${escapeHTML(prompt)}"
+                    style="margin-top:10px;"
+                >
+                    Copy Prompt
+                </button>
+
+            `;
+
+
+            results.appendChild(box);
+
+        }
+
+
+        report.style.display = "block";
+
+    }
+);
+
+
+/* ================= COPY PROMPT ================= */
+
+document.addEventListener(
+    "click",
+    async function (event) {
+
+        if (
+            !event.target.classList.contains(
+                "copy-pro-prompt"
+            )
+        ) {
+            return;
+        }
+
+
+        const prompt =
+            event.target.getAttribute(
+                "data-prompt"
+            );
+
+
+        if (!prompt) return;
+
+
+        try {
+
+            await navigator.clipboard.writeText(
+                prompt
+            );
+
+            const oldText =
+                event.target.textContent;
+
+            event.target.textContent =
+                "Copied ✓";
+
+
+            setTimeout(
+                function () {
+
+                    event.target.textContent =
+                        oldText;
+
+                },
+                1500
+            );
+
+        } catch (error) {
+
+            alert(
+                "Copy failed. Please select and copy the prompt manually."
+            );
+
+        }
+
+    }
+);
+
+
+/* ================= OPEN TOOL ================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async function () {
+
+        await loadPlan();
+
+
+        /*
+         * Automatically open the Thumbnail Prompt Generator
+         * when this SEO page loads.
+         */
+
+        if (
+            typeof openTool ===
+            "function"
+        ) {
 
             openTool("thumbnail");
 
         }
 
-    });
+    }
+);
 
 </script>
-    
-<!-- ================= HOMEPAGE INTERNAL LINK ================= -->
 
-<div class="back-home-link">
-  <a href="index.html">← Explore All AIHub Tools</a>
-</div>
-    
 </body>
 </html>
-```
