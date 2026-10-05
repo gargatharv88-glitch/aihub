@@ -8,22 +8,222 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Case Converter - Free Online Text Case Converter | AIHub</title>
+    <title>Case Converter - Free & Pro Text Case Converter | AIHub</title>
 
     <meta name="description"
-          content="Convert text to uppercase, lowercase, title case and more with AIHub's free online Case Converter.">
+          content="Convert text to uppercase, lowercase, title case, sentence case and more with AIHub's Free and Pro Case Converter.">
 
     <meta name="keywords"
-          content="case converter, uppercase converter, lowercase converter, title case converter, text case converter">
+          content="case converter, uppercase converter, lowercase converter, title case converter, text case converter, sentence case converter">
 
     <link rel="canonical"
           href="https://gargatharv88-glitch.github.io/aihub/case-converter.html">
 
     <link rel="stylesheet" href="style.css">
 
+    <style>
+
+        /* =========================
+           BACK TO AIHUB
+        ========================= */
+
+        .back-aihub {
+            max-width: 1100px;
+            margin: 18px auto 0;
+            padding: 0 20px;
+        }
+
+        .back-aihub a {
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+
+        /* =========================
+           PLAN BOX
+        ========================= */
+
+        .plan-box {
+            margin: 20px 0;
+            padding: 18px;
+            border-radius: 14px;
+            background: #f5f7ff;
+            border: 1px solid #e0e4ff;
+        }
+
+        .plan-box h3 {
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+
+
+        /* =========================
+           CASE TOOL
+        ========================= */
+
+        .case-input {
+            width: 100%;
+            min-height: 180px;
+            box-sizing: border-box;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            resize: vertical;
+            font: inherit;
+            line-height: 1.5;
+        }
+
+        .case-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 18px;
+        }
+
+        .case-field {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .case-field label {
+            font-weight: 600;
+        }
+
+        .case-field select,
+        .case-field input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 11px;
+            border: 1px solid #ccc;
+            border-radius: 9px;
+            font: inherit;
+        }
+
+
+        /* =========================
+           PRO PANEL
+        ========================= */
+
+        .pro-panel {
+            margin-top: 20px;
+            padding: 22px;
+            border-radius: 16px;
+            border: 1px solid #ddd;
+            background: #fff;
+        }
+
+        .pro-panel h3 {
+            margin-top: 0;
+        }
+
+        .pro-checks {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .pro-checks label {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-weight: 500;
+        }
+
+
+        /* =========================
+           LOCKED PRO
+        ========================= */
+
+        .locked-pro {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            background: #fafafa;
+            border: 1px dashed #bbb;
+        }
+
+        .locked-pro a {
+            font-weight: 700;
+        }
+
+
+        /* =========================
+           BUTTONS
+        ========================= */
+
+        .case-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .case-button {
+            border: none;
+            padding: 12px 18px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .primary-button {
+            background: #111;
+            color: #fff;
+        }
+
+        .secondary-button {
+            background: #eee;
+            color: #111;
+        }
+
+
+        /* =========================
+           RESULT
+        ========================= */
+
+        .case-result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 14px;
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+        }
+
+        .case-result textarea {
+            width: 100%;
+            min-height: 180px;
+            box-sizing: border-box;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            resize: vertical;
+            font: inherit;
+            line-height: 1.5;
+        }
+
+
+        @media (max-width: 700px) {
+
+            .case-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .back-aihub {
+                padding: 0 15px;
+            }
+
+        }
+
+    </style>
+
 </head>
 
+
 <body>
+
 
 <header class="header">
 
@@ -46,7 +246,15 @@
 </header>
 
 
+<!-- ================= BACK TO AIHUB ================= -->
+
+<div class="back-aihub">
+    <a href="index.html">← Back to AIHub</a>
+</div>
+
+
 <main>
+
 
     <!-- HERO -->
 
@@ -54,11 +262,11 @@
 
         <div class="container">
 
-            <h1>Free Case Converter</h1>
+            <h1>Free & Pro Case Converter</h1>
 
             <p>
-                Convert your text to uppercase, lowercase, title case
-                and other formats instantly with AIHub.
+                Convert your text to uppercase, lowercase, title case,
+                sentence case and more instantly with AIHub.
             </p>
 
         </div>
@@ -92,7 +300,329 @@
 
                 </div>
 
-                <div id="toolInterface"></div>
+
+                <!-- PLAN -->
+
+                <div class="plan-box">
+
+                    <h3 id="planTitle">
+                        Checking your plan...
+                    </h3>
+
+                    <p id="planDescription">
+                        Please wait while AIHub checks your account.
+                    </p>
+
+                    <a id="planButton"
+                       href="login.html"
+                       style="display:none;">
+                        Login
+                    </a>
+
+                </div>
+
+
+                <!-- TEXT INPUT -->
+
+                <div class="case-field">
+
+                    <label for="caseInput">
+                        Enter or paste your text
+                    </label>
+
+                    <textarea
+                        id="caseInput"
+                        class="case-input"
+                        maxlength="10000"
+                        placeholder="Type or paste your text here..."></textarea>
+
+                </div>
+
+
+                <!-- BASIC OPTIONS -->
+
+                <div class="case-grid">
+
+                    <div class="case-field">
+
+                        <label for="caseType">
+                            Case Format
+                        </label>
+
+                        <select id="caseType">
+
+                            <option value="uppercase">
+                                UPPERCASE
+                            </option>
+
+                            <option value="lowercase">
+                                lowercase
+                            </option>
+
+                            <option value="titlecase">
+                                Title Case
+                            </option>
+
+                            <option value="sentencecase">
+                                Sentence case
+                            </option>
+
+                            <option value="capitalize">
+                                Capitalize Each Word
+                            </option>
+
+                            <option value="togglecase">
+                                tOGGLE cASE
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="case-field">
+
+                        <label for="caseLanguage">
+                            Text Style
+                        </label>
+
+                        <select id="caseLanguage">
+
+                            <option value="standard">
+                                Standard
+                            </option>
+
+                            <option value="professional">
+                                Professional
+                            </option>
+
+                            <option value="social">
+                                Social Media
+                            </option>
+
+                            <option value="heading">
+                                Heading / Title
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PRO PANEL -->
+
+                <div id="proPanel"
+                     class="pro-panel"
+                     style="display:none;">
+
+                    <h3>✨ Pro Case Controls</h3>
+
+                    <p>
+                        Pro users get advanced text formatting controls
+                        and multi-step cleanup options.
+                    </p>
+
+
+                    <div class="case-grid">
+
+
+                        <div class="case-field">
+
+                            <label for="proCaseMode">
+                                Formatting Mode
+                            </label>
+
+                            <select id="proCaseMode">
+
+                                <option value="Clean & Convert">
+                                    Clean & Convert
+                                </option>
+
+                                <option value="Preserve Formatting">
+                                    Preserve Formatting
+                                </option>
+
+                                <option value="Professional Formatting">
+                                    Professional Formatting
+                                </option>
+
+                                <option value="Social Media Formatting">
+                                    Social Media Formatting
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="case-field">
+
+                            <label for="proOutput">
+                                Output Style
+                            </label>
+
+                            <select id="proOutput">
+
+                                <option value="Clean Text">
+                                    Clean Text
+                                </option>
+
+                                <option value="Polished Text">
+                                    Polished Text
+                                </option>
+
+                                <option value="Ready to Publish">
+                                    Ready to Publish
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="case-field">
+
+                            <label for="proPrefix">
+                                Optional Prefix
+                            </label>
+
+                            <input
+                                id="proPrefix"
+                                placeholder="Example: NOTE:">
+
+                        </div>
+
+
+                        <div class="case-field">
+
+                            <label for="proSuffix">
+                                Optional Suffix
+                            </label>
+
+                            <input
+                                id="proSuffix"
+                                placeholder="Example: - AIHub">
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="pro-checks">
+
+                        <label>
+
+                            <input
+                                type="checkbox"
+                                id="removeExtraSpaces"
+                                checked>
+
+                            Remove extra spaces
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="checkbox"
+                                id="removeEmptyLines">
+
+                            Remove empty lines
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="checkbox"
+                                id="trimText"
+                                checked>
+
+                            Trim text
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <!-- LOCKED PRO -->
+
+                <div id="proLocked"
+                     class="locked-pro">
+
+                    <h3>🔒 Unlock Pro Case Converter</h3>
+
+                    <p>
+                        Pro users get advanced formatting controls,
+                        text cleanup options and ready-to-publish
+                        formatting.
+                    </p>
+
+                    <a href="pricing.html">
+                        Upgrade to Pro →
+                    </a>
+
+                </div>
+
+
+                <!-- ACTIONS -->
+
+                <div class="case-actions">
+
+                    <button
+                        id="convertButton"
+                        class="case-button primary-button">
+
+                        ✨ Convert Text
+
+                    </button>
+
+
+                    <button
+                        id="clearButton"
+                        class="case-button secondary-button">
+
+                        Clear
+
+                    </button>
+
+                </div>
+
+
+                <!-- RESULT -->
+
+                <div id="resultBox"
+                     class="case-result"
+                     style="display:none;">
+
+                    <h3>
+                        Converted Text
+                    </h3>
+
+                    <textarea
+                        id="resultText"
+                        readonly></textarea>
+
+                    <div class="case-actions">
+
+                        <button
+                            id="copyButton"
+                            class="case-button secondary-button">
+
+                            📋 Copy
+
+                        </button>
+
+                    </div>
+
+                </div>
+
 
             </div>
 
@@ -113,7 +643,7 @@
                 A Case Converter is a text formatting tool that changes
                 the capitalization of your text. You can quickly convert
                 text into uppercase, lowercase, title case and other
-                available formats.
+                formats.
             </p>
 
 
@@ -125,7 +655,9 @@
 
                 <li>Select the case format you want.</li>
 
-                <li>Generate the converted text.</li>
+                <li>Choose additional Pro formatting options if available.</li>
+
+                <li>Convert your text.</li>
 
                 <li>Copy the result and use it wherever you need.</li>
 
@@ -163,13 +695,15 @@
 
             <ul>
 
-                <li>Free and easy to use.</li>
+                <li>Free basic text conversion.</li>
 
                 <li>No software installation required.</li>
 
                 <li>Useful for students and writers.</li>
 
                 <li>Helpful for content creators.</li>
+
+                <li>Advanced Pro formatting controls.</li>
 
                 <li>Works directly in your browser.</li>
 
@@ -182,15 +716,23 @@
             <h3>Is the Case Converter free?</h3>
 
             <p>
-                Yes. AIHub's Case Converter is completely free to use.
+                Yes. AIHub provides a free version with basic
+                text case conversion.
+            </p>
+
+
+            <h3>What does Pro add?</h3>
+
+            <p>
+                Pro adds advanced formatting and text cleanup controls
+                for users who need more control over their text.
             </p>
 
 
             <h3>Can I convert uppercase text to lowercase?</h3>
 
             <p>
-                Yes. Enter your text and choose the appropriate
-                lowercase option.
+                Yes. Enter your text and choose the lowercase option.
             </p>
 
 
@@ -205,11 +747,12 @@
             <h3>Do I need an account?</h3>
 
             <p>
-                No. You can use the tool directly in your browser.
+                No. Basic case conversion can be used directly in
+                your browser.
             </p>
 
 
-            <h2>More Free AIHub Tools</h2>
+            <h2>More AIHub Tools</h2>
 
             <p>
 
@@ -263,11 +806,19 @@
 </footer>
 
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script src="script.js"></script>
+
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
+
+
+    /* ==========================================
+       EXISTING AIHUB TOOL
+    ========================================== */
 
     if (typeof openTool === "function") {
 
@@ -275,16 +826,505 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
+
+    /* ==========================================
+       SUPABASE
+    ========================================== */
+
+    const SUPABASE_URL =
+        "https://stjkvlkeysyefhxocjzm.supabase.co";
+
+    const SUPABASE_PUBLISHABLE_KEY =
+        "sb_publishable_TGBEUnPnXQMw82y6X2hQiA_CLfc9ffB";
+
+    const supabaseClient =
+        supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY
+        );
+
+
+    let currentPlan = "guest";
+
+
+    const planTitle =
+        document.getElementById("planTitle");
+
+    const planDescription =
+        document.getElementById("planDescription");
+
+    const planButton =
+        document.getElementById("planButton");
+
+    const proPanel =
+        document.getElementById("proPanel");
+
+    const proLocked =
+        document.getElementById("proLocked");
+
+    const convertButton =
+        document.getElementById("convertButton");
+
+
+    /* ==========================================
+       PLAN CHECK
+    ========================================== */
+
+    async function loadPlan() {
+
+        const {
+            data: {
+                session
+            }
+        } = await supabaseClient.auth.getSession();
+
+
+        if (!session) {
+
+            currentPlan = "guest";
+
+            planTitle.textContent =
+                "Free Mode";
+
+            planDescription.textContent =
+                "Basic case conversion is available. Login to access your account.";
+
+            planButton.textContent =
+                "Login";
+
+            planButton.href =
+                "login.html";
+
+            planButton.style.display =
+                "inline-block";
+
+            proPanel.style.display =
+                "none";
+
+            proLocked.style.display =
+                "block";
+
+            convertButton.textContent =
+                "✨ Convert Text";
+
+            return;
+
+        }
+
+
+        const user =
+            session.user;
+
+
+        const {
+            data: profile,
+            error
+        } = await supabaseClient
+            .from("profiles")
+            .select("plan")
+            .eq("user_id", user.id)
+            .maybeSingle();
+
+
+        if (error) {
+
+            console.error(error);
+
+            currentPlan = "free";
+
+        } else {
+
+            currentPlan =
+                profile?.plan === "pro"
+                    ? "pro"
+                    : "free";
+
+        }
+
+
+        if (currentPlan === "pro") {
+
+            planTitle.textContent =
+                "✨ Pro Plan";
+
+            planDescription.textContent =
+                "Advanced Case Converter features are unlocked.";
+
+            planButton.textContent =
+                "My Account";
+
+            planButton.href =
+                "account.html";
+
+            planButton.style.display =
+                "inline-block";
+
+            proPanel.style.display =
+                "block";
+
+            proLocked.style.display =
+                "none";
+
+            convertButton.textContent =
+                "✨ Convert with Pro";
+
+        } else {
+
+            planTitle.textContent =
+                "Free Plan";
+
+            planDescription.textContent =
+                "Basic case conversion is available. Upgrade to Pro for advanced controls.";
+
+            planButton.textContent =
+                "Upgrade to Pro";
+
+            planButton.href =
+                "pricing.html";
+
+            planButton.style.display =
+                "inline-block";
+
+            proPanel.style.display =
+                "none";
+
+            proLocked.style.display =
+                "block";
+
+            convertButton.textContent =
+                "✨ Convert Text";
+
+        }
+
+    }
+
+
+    await loadPlan();
+
+
+    /* ==========================================
+       CONVERT
+    ========================================== */
+
+    convertButton.addEventListener(
+        "click",
+        function () {
+
+            let text =
+                document.getElementById("caseInput")
+                    .value;
+
+
+            if (!text.trim()) {
+
+                alert(
+                    "Please enter some text first."
+                );
+
+                return;
+
+            }
+
+
+            /* PRO CLEANUP */
+
+            if (currentPlan === "pro") {
+
+                const removeSpaces =
+                    document.getElementById(
+                        "removeExtraSpaces"
+                    ).checked;
+
+                const removeEmptyLines =
+                    document.getElementById(
+                        "removeEmptyLines"
+                    ).checked;
+
+                const trimText =
+                    document.getElementById(
+                        "trimText"
+                    ).checked;
+
+
+                if (removeSpaces) {
+
+                    text =
+                        text.replace(
+                            /[ \t]+/g,
+                            " "
+                        );
+
+                }
+
+
+                if (removeEmptyLines) {
+
+                    text =
+                        text.replace(
+                            /\n\s*\n+/g,
+                            "\n"
+                        );
+
+                }
+
+
+                if (trimText) {
+
+                    text =
+                        text.trim();
+
+                }
+
+            }
+
+
+            const caseType =
+                document.getElementById("caseType")
+                    .value;
+
+
+            let result = "";
+
+
+            if (caseType === "uppercase") {
+
+                result =
+                    text.toUpperCase();
+
+            }
+
+
+            else if (caseType === "lowercase") {
+
+                result =
+                    text.toLowerCase();
+
+            }
+
+
+            else if (caseType === "titlecase") {
+
+                result =
+                    text
+                        .toLowerCase()
+                        .replace(
+                            /\b\w/g,
+                            function (letter) {
+                                return letter.toUpperCase();
+                            }
+                        );
+
+            }
+
+
+            else if (caseType === "sentencecase") {
+
+                result =
+                    text
+                        .toLowerCase()
+                        .replace(
+                            /(^\s*\w|[.!?]\s+\w)/g,
+                            function (match) {
+                                return match.toUpperCase();
+                            }
+                        );
+
+            }
+
+
+            else if (caseType === "capitalize") {
+
+                result =
+                    text
+                        .toLowerCase()
+                        .replace(
+                            /\b\w/g,
+                            function (letter) {
+                                return letter.toUpperCase();
+                            }
+                        );
+
+            }
+
+
+            else if (caseType === "togglecase") {
+
+                result =
+                    [...text]
+                        .map(function (char) {
+
+                            if (
+                                char === char.toUpperCase() &&
+                                char !== char.toLowerCase()
+                            ) {
+
+                                return char.toLowerCase();
+
+                            }
+
+                            if (
+                                char === char.toLowerCase() &&
+                                char !== char.toUpperCase()
+                            ) {
+
+                                return char.toUpperCase();
+
+                            }
+
+                            return char;
+
+                        })
+                        .join("");
+
+            }
+
+
+            /* =================================
+               PRO PREFIX / SUFFIX
+            ================================= */
+
+            if (currentPlan === "pro") {
+
+                const prefix =
+                    document.getElementById("proPrefix")
+                        .value.trim();
+
+                const suffix =
+                    document.getElementById("proSuffix")
+                        .value.trim();
+
+
+                if (prefix) {
+
+                    result =
+                        prefix + " " + result;
+
+                }
+
+
+                if (suffix) {
+
+                    result =
+                        result + " " + suffix;
+
+                }
+
+            }
+
+
+            document.getElementById("resultText")
+                .value = result;
+
+
+            document.getElementById("resultBox")
+                .style.display = "block";
+
+
+            document.getElementById("resultBox")
+                .scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+        }
+    );
+
+
+    /* ==========================================
+       COPY
+    ========================================== */
+
+    document
+        .getElementById("copyButton")
+        .addEventListener(
+            "click",
+            async function () {
+
+                const result =
+                    document.getElementById(
+                        "resultText"
+                    ).value;
+
+
+                try {
+
+                    await navigator.clipboard.writeText(
+                        result
+                    );
+
+                    this.textContent =
+                        "✅ Copied!";
+
+                    setTimeout(() => {
+
+                        this.textContent =
+                            "📋 Copy";
+
+                    }, 1500);
+
+                } catch (error) {
+
+                    alert(
+                        "Copy failed. Please copy the text manually."
+                    );
+
+                }
+
+            }
+        );
+
+
+    /* ==========================================
+       CLEAR
+    ========================================== */
+
+    document
+        .getElementById("clearButton")
+        .addEventListener(
+            "click",
+            function () {
+
+                document.getElementById(
+                    "caseInput"
+                ).value = "";
+
+                document.getElementById(
+                    "resultText"
+                ).value = "";
+
+                document.getElementById(
+                    "resultBox"
+                ).style.display = "none";
+
+                document.getElementById(
+                    "proPrefix"
+                ).value = "";
+
+                document.getElementById(
+                    "proSuffix"
+                ).value = "";
+
+            }
+        );
+
+
+    /* ==========================================
+       AUTH STATE
+    ========================================== */
+
+    supabaseClient.auth.onAuthStateChange(
+        async function () {
+
+            await loadPlan();
+
+        }
+    );
+
 });
 
 </script>
-    
-<!-- ================= HOMEPAGE INTERNAL LINK ================= -->
 
-<div class="back-home-link">
-  <a href="index.html">← Explore All AIHub Tools</a>
-</div>
-    
+
 </body>
 
 </html>
