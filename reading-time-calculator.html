@@ -21,6 +21,142 @@
 
     <link rel="stylesheet" href="style.css">
 
+    <style>
+
+        .back-aihub {
+            display: block;
+            max-width: 1100px;
+            margin: 18px auto 0;
+            padding: 0 20px;
+        }
+
+        .back-aihub a {
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .plan-box {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 12px;
+            background: #f5f7fb;
+            border: 1px solid #ddd;
+        }
+
+        .plan-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 13px;
+            background: #e8e8e8;
+        }
+
+        .pro-panel {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 14px;
+            background: #fafafa;
+        }
+
+        .pro-panel h3 {
+            margin-top: 0;
+        }
+
+        .pro-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .pro-field {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .pro-field label {
+            font-weight: 600;
+        }
+
+        .pro-field input,
+        .pro-field select {
+            padding: 11px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .locked {
+            opacity: 0.65;
+            background: #f1f1f1;
+        }
+
+        .results-box {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 14px;
+            background: #f7f9fc;
+            border: 1px solid #ddd;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .result-card {
+            padding: 15px;
+            border-radius: 10px;
+            background: white;
+            border: 1px solid #ddd;
+        }
+
+        .result-card strong {
+            display: block;
+            font-size: 20px;
+            margin-top: 5px;
+        }
+
+        .pro-only {
+            display: none;
+        }
+
+        .pro-active {
+            display: block;
+        }
+
+        .small-note {
+            font-size: 13px;
+            opacity: 0.75;
+            margin-top: 8px;
+        }
+
+        @media (max-width: 700px) {
+
+            .pro-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .result-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+        }
+
+        @media (max-width: 450px) {
+
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
 </head>
 
 <body>
@@ -44,6 +180,13 @@
     </div>
 
 </header>
+
+
+<!-- BACK TO AIHUB -->
+
+<div class="back-aihub">
+    <a href="index.html">← Back to AIHub</a>
+</div>
 
 
 <main>
@@ -92,7 +235,218 @@
 
                 </div>
 
+                <!-- PLAN -->
+
+                <div class="plan-box">
+
+                    <span id="planBadge" class="plan-badge">
+                        Checking Plan...
+                    </span>
+
+                    <p id="planMessage" class="small-note">
+                        Checking your AIHub account plan...
+                    </p>
+
+                </div>
+
+
                 <div id="toolInterface"></div>
+
+
+                <!-- PRO SETTINGS -->
+
+                <div id="proPanel" class="pro-panel pro-only">
+
+                    <h3>🚀 Pro Reading Analysis</h3>
+
+                    <p>
+                        Get a more detailed reading-time analysis with
+                        custom reading speed and content settings.
+                    </p>
+
+                    <div class="pro-grid">
+
+                        <div class="pro-field">
+
+                            <label for="readingSpeed">
+                                Reading Speed
+                            </label>
+
+                            <input
+                                type="number"
+                                id="readingSpeed"
+                                value="200"
+                                min="50"
+                                max="1000"
+                            >
+
+                        </div>
+
+
+                        <div class="pro-field">
+
+                            <label for="speedMode">
+                                Reading Level
+                            </label>
+
+                            <select id="speedMode">
+
+                                <option value="custom">
+                                    Custom Speed
+                                </option>
+
+                                <option value="slow">
+                                    Slow Reader
+                                </option>
+
+                                <option value="average" selected>
+                                    Average Reader
+                                </option>
+
+                                <option value="fast">
+                                    Fast Reader
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="pro-field">
+
+                            <label for="contentType">
+                                Content Type
+                            </label>
+
+                            <select id="contentType">
+
+                                <option value="general">
+                                    General Text
+                                </option>
+
+                                <option value="blog">
+                                    Blog Article
+                                </option>
+
+                                <option value="academic">
+                                    Academic / Study
+                                </option>
+
+                                <option value="story">
+                                    Story / Fiction
+                                </option>
+
+                                <option value="speech">
+                                    Speech / Presentation
+                                </option>
+
+                                <option value="social">
+                                    Social Media
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="pro-field">
+
+                            <label for="targetTime">
+                                Target Reading Time (minutes)
+                            </label>
+
+                            <input
+                                type="number"
+                                id="targetTime"
+                                value="5"
+                                min="1"
+                                max="180"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div style="margin-top:15px;">
+
+                        <label>
+                            <input
+                                type="checkbox"
+                                id="showDetailed"
+                                checked
+                            >
+                            Show detailed analysis
+                        </label>
+
+                        <br><br>
+
+                        <label>
+                            <input
+                                type="checkbox"
+                                id="showPageEstimate"
+                                checked
+                            >
+                            Show estimated pages
+                        </label>
+
+                        <br><br>
+
+                        <label>
+                            <input
+                                type="checkbox"
+                                id="showSpeakingTime"
+                                checked
+                            >
+                            Show speaking time
+                        </label>
+
+                    </div>
+
+                    <p class="small-note">
+                        Pro users can customize reading speed and get
+                        additional content-length estimates.
+                    </p>
+
+                </div>
+
+
+                <!-- LOCKED PRO -->
+
+                <div id="lockedPro" class="pro-panel">
+
+                    <h3>🔒 AIHub Pro</h3>
+
+                    <p>
+                        Upgrade to Pro to unlock custom reading speeds,
+                        detailed analysis, page estimates, speaking time
+                        and advanced reading insights.
+                    </p>
+
+                    <a href="pricing.html">
+                        Upgrade to Pro →
+                    </a>
+
+                </div>
+
+
+                <!-- RESULTS -->
+
+                <div id="readingResults"
+                     class="results-box"
+                     style="display:none;">
+
+                    <h3>📖 Reading Analysis</h3>
+
+                    <div id="resultGrid"
+                         class="result-grid">
+                    </div>
+
+                    <div id="detailedReport"
+                         style="margin-top:20px;">
+                    </div>
+
+                </div>
 
             </div>
 
@@ -261,28 +615,553 @@
 </footer>
 
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script src="script.js"></script>
+
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
+
+    /* ==========================================
+       EXISTING AIHUB TOOL
+    ========================================== */
 
     if (typeof openTool === "function") {
-
         openTool("reading");
+    }
+
+
+    /* ==========================================
+       SUPABASE
+    ========================================== */
+
+    const SUPABASE_URL =
+        "https://stjkvlkeysyefhxocjzm.supabase.co";
+
+    const SUPABASE_PUBLISHABLE_KEY =
+        "sb_publishable_TGBEUnPnXQMw82y6X2hQiA_CLfc9ffB";
+
+    const supabaseClient =
+        supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY
+        );
+
+
+    let currentPlan = "guest";
+
+
+    async function loadPlan() {
+
+        const planBadge =
+            document.getElementById("planBadge");
+
+        const planMessage =
+            document.getElementById("planMessage");
+
+        const proPanel =
+            document.getElementById("proPanel");
+
+        const lockedPro =
+            document.getElementById("lockedPro");
+
+
+        const {
+            data: { session }
+        } = await supabaseClient.auth.getSession();
+
+
+        if (!session) {
+
+            currentPlan = "guest";
+
+            planBadge.textContent = "Guest";
+
+            planMessage.textContent =
+                "Basic reading-time calculation is available. Sign in for your AIHub account.";
+
+            proPanel.classList.remove("pro-active");
+
+            lockedPro.style.display = "block";
+
+            return;
+        }
+
+
+        const user = session.user;
+
+
+        const {
+            data: profile,
+            error
+        } = await supabaseClient
+            .from("profiles")
+            .select("plan")
+            .eq("user_id", user.id)
+            .maybeSingle();
+
+
+        if (error) {
+
+            console.error(error);
+
+            currentPlan = "free";
+
+        } else {
+
+            currentPlan =
+                profile?.plan === "pro"
+                    ? "pro"
+                    : "free";
+
+        }
+
+
+        if (currentPlan === "pro") {
+
+            planBadge.textContent = "⭐ PRO PLAN";
+
+            planMessage.textContent =
+                "Advanced reading analysis is unlocked.";
+
+            proPanel.classList.add("pro-active");
+
+            lockedPro.style.display = "none";
+
+        } else {
+
+            planBadge.textContent = "FREE PLAN";
+
+            planMessage.textContent =
+                "Basic reading-time calculation is available. Upgrade to Pro for advanced analysis.";
+
+            proPanel.classList.remove("pro-active");
+
+            lockedPro.style.display = "block";
+
+        }
+
+    }
+
+
+    await loadPlan();
+
+
+    supabaseClient.auth.onAuthStateChange(
+        async function () {
+            await loadPlan();
+        }
+    );
+
+
+    /* ==========================================
+       READING CALCULATOR
+    ========================================== */
+
+    const textarea =
+        document.querySelector(
+            "#toolInterface textarea"
+        );
+
+
+    function getText() {
+
+        if (!textarea) return "";
+
+        return textarea.value.trim();
+
+    }
+
+
+    function calculateReadingTime() {
+
+        const text = getText();
+
+        if (!text) {
+
+            alert("Please enter or paste some text first.");
+
+            return;
+
+        }
+
+
+        const words =
+            text
+                .split(/\s+/)
+                .filter(Boolean);
+
+
+        const wordCount =
+            words.length;
+
+
+        let speed = 200;
+
+
+        if (currentPlan === "pro") {
+
+            const speedMode =
+                document.getElementById("speedMode").value;
+
+            if (speedMode === "slow") {
+                speed = 130;
+            }
+
+            else if (speedMode === "average") {
+                speed = 200;
+            }
+
+            else if (speedMode === "fast") {
+                speed = 300;
+            }
+
+            else {
+
+                speed =
+                    parseInt(
+                        document.getElementById("readingSpeed").value
+                    ) || 200;
+
+            }
+
+        }
+
+
+        const readingMinutes =
+            wordCount / speed;
+
+
+        const readingSeconds =
+            Math.max(
+                1,
+                Math.round(readingMinutes * 60)
+            );
+
+
+        const minutes =
+            Math.floor(readingSeconds / 60);
+
+
+        const seconds =
+            readingSeconds % 60;
+
+
+        let readingDisplay = "";
+
+
+        if (minutes > 0) {
+
+            readingDisplay =
+                minutes +
+                " min " +
+                seconds +
+                " sec";
+
+        } else {
+
+            readingDisplay =
+                seconds +
+                " sec";
+
+        }
+
+
+        const sentences =
+            text.split(/[.!?]+/).filter(
+                item => item.trim().length > 0
+            ).length;
+
+
+        const paragraphs =
+            text.split(/\n\s*\n/).filter(
+                item => item.trim().length > 0
+            ).length;
+
+
+        const characters =
+            text.length;
+
+
+        const speakingTime =
+            wordCount / 130;
+
+
+        const speakingMinutes =
+            Math.max(
+                1,
+                Math.ceil(speakingTime)
+            );
+
+
+        const pages =
+            Math.max(
+                1,
+                Math.ceil(wordCount / 250)
+            );
+
+
+        const targetTime =
+            parseInt(
+                document.getElementById("targetTime")?.value
+            ) || 5;
+
+
+        const targetWords =
+            targetTime * speed;
+
+
+        const results =
+            document.getElementById("readingResults");
+
+
+        const grid =
+            document.getElementById("resultGrid");
+
+
+        const detailed =
+            document.getElementById("detailedReport");
+
+
+        results.style.display = "block";
+
+
+        grid.innerHTML = "";
+
+
+        addResult(
+            "Words",
+            wordCount
+        );
+
+
+        addResult(
+            "Reading Time",
+            readingDisplay
+        );
+
+
+        addResult(
+            "Reading Speed",
+            speed + " WPM"
+        );
+
+
+        if (currentPlan === "pro") {
+
+            if (
+                document.getElementById("showPageEstimate")
+                    .checked
+            ) {
+
+                addResult(
+                    "Page Estimate",
+                    pages + " pages"
+                );
+
+            }
+
+
+            if (
+                document.getElementById("showSpeakingTime")
+                    .checked
+            ) {
+
+                addResult(
+                    "Speaking Time",
+                    speakingMinutes + " min"
+                );
+
+            }
+
+
+            if (
+                document.getElementById("showDetailed")
+                    .checked
+            ) {
+
+                addResult(
+                    "Sentences",
+                    sentences
+                );
+
+                addResult(
+                    "Paragraphs",
+                    paragraphs
+                );
+
+                addResult(
+                    "Characters",
+                    characters
+                );
+
+            }
+
+
+            const contentType =
+                document.getElementById("contentType").value;
+
+
+            const remaining =
+                Math.max(
+                    0,
+                    targetWords - wordCount
+                );
+
+
+            const targetStatus =
+                wordCount >= targetWords
+                    ? "Target reading time reached"
+                    : remaining +
+                      " more words for the target";
+
+
+            detailed.innerHTML = `
+
+                <h4>Pro Analysis</h4>
+
+                <p>
+                    <strong>Content Type:</strong>
+                    ${contentType}
+                </p>
+
+                <p>
+                    <strong>Target Time:</strong>
+                    ${targetTime} minutes
+                </p>
+
+                <p>
+                    <strong>Target Words:</strong>
+                    ${Math.round(targetWords)}
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    ${targetStatus}
+                </p>
+
+                <p>
+                    <strong>Estimated Pages:</strong>
+                    ${pages}
+                </p>
+
+            `;
+
+        } else {
+
+            detailed.innerHTML = `
+                <p>
+                    🔒 Detailed analysis is available with AIHub Pro.
+                </p>
+            `;
+
+        }
+
+    }
+
+
+    function addResult(label, value) {
+
+        const grid =
+            document.getElementById("resultGrid");
+
+
+        const card =
+            document.createElement("div");
+
+
+        card.className =
+            "result-card";
+
+
+        card.innerHTML = `
+            <span>${label}</span>
+            <strong>${value}</strong>
+        `;
+
+
+        grid.appendChild(card);
+
+    }
+
+
+    /* ==========================================
+       DETECT TOOL BUTTON
+    ========================================== */
+
+    document.addEventListener(
+        "click",
+        function (event) {
+
+            const button =
+                event.target.closest("button");
+
+
+            if (!button) return;
+
+
+            const text =
+                button.textContent
+                    .toLowerCase();
+
+
+            if (
+                text.includes("calculate") ||
+                text.includes("analyze") ||
+                text.includes("reading time")
+            ) {
+
+                setTimeout(
+                    calculateReadingTime,
+                    100
+                );
+
+            }
+
+        }
+    );
+
+
+    /* ==========================================
+       PRO SPEED AUTO UPDATE
+    ========================================== */
+
+    const speedMode =
+        document.getElementById("speedMode");
+
+    const speedInput =
+        document.getElementById("readingSpeed");
+
+
+    if (speedMode && speedInput) {
+
+        speedMode.addEventListener(
+            "change",
+            function () {
+
+                if (this.value === "slow") {
+                    speedInput.value = 130;
+                }
+
+                else if (this.value === "average") {
+                    speedInput.value = 200;
+                }
+
+                else if (this.value === "fast") {
+                    speedInput.value = 300;
+                }
+
+            }
+        );
 
     }
 
 });
 
 </script>
-    
-<!-- ================= HOMEPAGE INTERNAL LINK ================= -->
 
-<div class="back-home-link">
-  <a href="index.html">← Explore All AIHub Tools</a>
-</div>
-    
 </body>
 
 </html>
