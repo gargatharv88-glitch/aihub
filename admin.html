@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>AIHub Admin Panel</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #222;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    h1, h2 {
+      margin-top: 0;
+    }
+
+    .request {
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 18px;
+      margin-top: 15px;
+    }
+
+    .request p {
+      margin: 8px 0;
+    }
+
+    .approve-btn {
+      background: #16a34a;
+      color: white;
+      border: none;
+      padding: 11px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .approve-btn:hover {
+      background: #15803d;
+    }
+
+    .logout-btn {
+      background: #dc2626;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .status {
+      padding: 12px;
+      border-radius: 8px;
+      background: #f3f4f6;
+      margin-top: 15px;
+    }
+
+    .empty {
+      color: #666;
+      padding: 15px 0;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>⭐ AIHub Admin Panel</h1>
+  <p>Payment Verification & Pro Management</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h2>Admin</h2>
+
+    <p id="adminEmail">Checking login...</p>
+
+    <button id="logoutButton" class="logout-btn">
+      Logout
+    </button>
+  </div>
+
+  <div class="card">
+    <h2>💳 Pending Payment Requests</h2>
+
+    <div id="statusMessage" class="status">
+      Loading payment requests...
+    </div>
+
+    <div id="requestsContainer"></div>
+  </div>
+
+</div>
+
+<script>
+
+  const SUPABASE_URL =
+    "https://stjkvlkeysyefhxocjzm.supabase.co";
+
+  const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_TGBEUnPnXQMw82y6X2QiA_CLfc9ffB";
+
+  const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+  const ADMIN_EMAIL = "gargatharv88@gmail.com";
+
+
+  async function checkAdmin() {
+
+    const {
+      data: { session }
+    } = await supabaseClient.auth.getSession();
+
+    if (!session) {
+      window.location.href = "login.html";
+      return false;
+    }
+
+    const email = session.user.email;
+
+    document.getElementById("adminEmail").textContent =
+      "Logged in as: " + email;
+
+    if (email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+
+      alert("Access denied. Admin only.");
+
+      window.location.href = "index.html";
+
+      return false;
+    }
+
+    return true;
+  }
+
+
+  async function loadRequests() {
+
+    const allowed = await checkAdmin();
+
+    if (!allowed) {
+      return;
+    }
+
+    const {
+      data,
+      error
+    } = await supabaseClient
+      .from("payment_requests")
+      .select("id, user_id, email, payment_reference, status, created_at")
+      .eq("status", "pending")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+
+      console.error(error);
+
+      document.getElementById("statusMessage").textContent =
+        "❌ Could not load payment requests.";
+
+      return;
+    }
+
+    const container =
+      document.getElementById("requestsContainer");
+
+    const status =
+      document.getElementById("statusMessage");
+
+    container.innerHTML = "";
+
+    if (!data || data.length === 0) {
+
+      status.textContent =
+        "✅ No pending payment requests.";
+
+      return;
+    }
+
+    status.textContent =
+      data.length + " pending payment request(s)";
+
+    data.forEach(function(request) {
+
+      const div = document.createElement("div");
+
+      div.className = "request";
+
+      div.innerHTML = `
+        <p><strong>📧 Email:</strong> ${request.email}</p>
+
+        <p><strong>🧾 UTR / Transaction ID:</strong>
+          ${request.payment_reference}
+        </p>
+
+        <p><strong>📅 Submitted:</strong>
+          ${new Date(request.created_at).toLocaleString()}
+        </p>
+
+        <button
+          class="approve-btn"
+          onclick="approvePayment(${request.id})">
+          ⭐ Approve Pro
+        </button>
+      `;
+
+      container.appendChild(div);
+
+    });
+
+  }
+
+
+  async function approvePayment(requestId) {
+
+    const confirmed =
+      confirm(
+        "Are you sure you verified this payment and want to activate Pro?"
+      );
+
+    if (!confirmed) {
+      return;
+    }
+
+    const {
+      data,
+      error
+    } = await supabaseClient.rpc(
+      "approve_payment_request",
+      {
+        request_id: requestId
+      }
+    );
+
+    if (error) {
+
+      console.error(error);
+
+      alert(
+        "❌ Approval failed: " +
+        error.message
+      );
+
+      return;
+    }
+
+    if (data === true) {
+
+      alert(
+        "✅ Payment approved! Pro has been activated."
+      );
+
+      loadRequests();
+
+    } else {
+
+      alert(
+        "❌ Approval could not be completed."
+      );
+
+    }
+
+  }
+
+
+  document
+    .getElementById("logoutButton")
+    .addEventListener("click", async function() {
+
+      const { error } =
+        await supabaseClient.auth.signOut();
+
+      if (error) {
+
+        alert(
+          "Logout failed: " +
+          error.message
+        );
+
+        return;
+      }
+
+      window.location.href = "login.html";
+
+    });
+
+
+  loadRequests();
+
+</script>
+
+</body>
+</html>
