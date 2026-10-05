@@ -8,22 +8,190 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Bio Generator - Free AI Bio Generator | AIHub</title>
+    <title>Bio Generator - Free & Pro AI Bio Generator | AIHub</title>
 
     <meta name="description"
-          content="Create creative and professional bios with AIHub's free Bio Generator. Generate bios for social media, profiles, creators and personal branding.">
+          content="Create creative, professional and social media bios with AIHub's Free and Pro Bio Generator.">
 
     <meta name="keywords"
-          content="bio generator, AI bio generator, free bio generator, Instagram bio generator, social media bio generator, profile bio generator">
+          content="bio generator, AI bio generator, free bio generator, Instagram bio generator, professional bio generator, social media bio generator">
 
     <link rel="canonical"
           href="https://gargatharv88-glitch.github.io/aihub/bio-generator.html">
 
     <link rel="stylesheet" href="style.css">
 
+    <style>
+
+        /* =========================
+           BIO PRO TOOL STYLES
+        ========================= */
+
+        .back-aihub {
+            max-width: 1100px;
+            margin: 18px auto 0;
+            padding: 0 20px;
+        }
+
+        .back-aihub a {
+            display: inline-block;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .plan-box {
+            margin: 20px 0;
+            padding: 18px;
+            border-radius: 14px;
+            background: #f5f7ff;
+            border: 1px solid #e0e4ff;
+        }
+
+        .plan-box h3 {
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+
+        .pro-panel {
+            margin-top: 20px;
+            padding: 22px;
+            border-radius: 16px;
+            border: 1px solid #ddd;
+            background: #fff;
+        }
+
+        .pro-panel h3 {
+            margin-top: 0;
+        }
+
+        .pro-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .pro-field {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .pro-field.full {
+            grid-column: 1 / -1;
+        }
+
+        .pro-field label {
+            font-weight: 600;
+        }
+
+        .pro-field input,
+        .pro-field select,
+        .pro-field textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 11px;
+            border: 1px solid #ccc;
+            border-radius: 9px;
+            font: inherit;
+        }
+
+        .pro-field textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .pro-checks {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .pro-checks label {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-weight: 500;
+        }
+
+        .locked-pro {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            background: #fafafa;
+            border: 1px dashed #bbb;
+        }
+
+        .locked-pro a {
+            font-weight: 700;
+        }
+
+        .bio-result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 14px;
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+
+        .bio-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .bio-button {
+            border: none;
+            padding: 12px 18px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .generate-button {
+            background: #111;
+            color: #fff;
+        }
+
+        .copy-button {
+            background: #eee;
+            color: #111;
+        }
+
+        .variation-title {
+            font-weight: 800;
+            margin-top: 20px;
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 700px) {
+
+            .pro-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pro-field.full {
+                grid-column: auto;
+            }
+
+            .back-aihub {
+                padding: 0 15px;
+            }
+
+        }
+
+    </style>
+
 </head>
 
+
 <body>
+
 
 <header class="header">
 
@@ -46,7 +214,15 @@
 </header>
 
 
+<!-- ================= BACK TO AIHUB ================= -->
+
+<div class="back-aihub">
+    <a href="index.html">← Back to AIHub</a>
+</div>
+
+
 <main>
+
 
     <!-- HERO -->
 
@@ -54,11 +230,11 @@
 
         <div class="container">
 
-            <h1>Free Bio Generator</h1>
+            <h1>Free & Pro Bio Generator</h1>
 
             <p>
-                Create creative and professional bios for social media,
-                profiles and personal branding with AIHub.
+                Create creative, professional and social media bios
+                with AIHub's smart Bio Generator.
             </p>
 
         </div>
@@ -92,7 +268,369 @@
 
                 </div>
 
-                <div id="toolInterface"></div>
+
+                <!-- PLAN BOX -->
+
+                <div class="plan-box">
+
+                    <h3 id="planTitle">
+                        Checking your plan...
+                    </h3>
+
+                    <p id="planDescription">
+                        Please wait while AIHub checks your account.
+                    </p>
+
+                    <a id="planButton"
+                       href="login.html"
+                       style="display:none;">
+                        Login
+                    </a>
+
+                </div>
+
+
+                <!-- BASIC BIO TOOL -->
+
+                <div class="pro-field full">
+
+                    <label for="bioAbout">
+                        Tell us about yourself
+                    </label>
+
+                    <textarea
+                        id="bioAbout"
+                        placeholder="Example: I am a student who loves cricket, technology and creating YouTube videos."
+                        maxlength="1500"></textarea>
+
+                </div>
+
+
+                <div class="pro-grid">
+
+                    <div class="pro-field">
+
+                        <label for="bioPlatform">
+                            Platform
+                        </label>
+
+                        <select id="bioPlatform">
+
+                            <option value="Instagram">
+                                Instagram
+                            </option>
+
+                            <option value="YouTube">
+                                YouTube
+                            </option>
+
+                            <option value="LinkedIn">
+                                LinkedIn
+                            </option>
+
+                            <option value="Twitter / X">
+                                Twitter / X
+                            </option>
+
+                            <option value="Personal Profile">
+                                Personal Profile
+                            </option>
+
+                            <option value="Portfolio">
+                                Portfolio
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="pro-field">
+
+                        <label for="bioStyle">
+                            Style
+                        </label>
+
+                        <select id="bioStyle">
+
+                            <option value="Friendly">
+                                Friendly
+                            </option>
+
+                            <option value="Professional">
+                                Professional
+                            </option>
+
+                            <option value="Creative">
+                                Creative
+                            </option>
+
+                            <option value="Minimal">
+                                Minimal
+                            </option>
+
+                            <option value="Fun">
+                                Fun
+                            </option>
+
+                            <option value="Confident">
+                                Confident
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PRO PANEL -->
+
+                <div id="proPanel"
+                     class="pro-panel"
+                     style="display:none;">
+
+                    <h3>✨ Pro Bio Controls</h3>
+
+                    <p>
+                        Use advanced controls to create more targeted
+                        and personalized bios.
+                    </p>
+
+
+                    <div class="pro-grid">
+
+
+                        <div class="pro-field">
+
+                            <label for="proRole">
+                                Professional Role
+                            </label>
+
+                            <select id="proRole">
+
+                                <option value="Auto Detect">
+                                    Auto Detect
+                                </option>
+
+                                <option value="Student">
+                                    Student
+                                </option>
+
+                                <option value="Creator">
+                                    Content Creator
+                                </option>
+
+                                <option value="Entrepreneur">
+                                    Entrepreneur
+                                </option>
+
+                                <option value="Developer">
+                                    Developer
+                                </option>
+
+                                <option value="Designer">
+                                    Designer
+                                </option>
+
+                                <option value="Professional">
+                                    Professional
+                                </option>
+
+                                <option value="Personal Brand">
+                                    Personal Brand
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="pro-field">
+
+                            <label for="proLength">
+                                Bio Length
+                            </label>
+
+                            <select id="proLength">
+
+                                <option value="Short">
+                                    Short
+                                </option>
+
+                                <option value="Medium" selected>
+                                    Medium
+                                </option>
+
+                                <option value="Detailed">
+                                    Detailed
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="pro-field">
+
+                            <label for="proAudience">
+                                Target Audience
+                            </label>
+
+                            <input
+                                id="proAudience"
+                                placeholder="Example: students, clients, followers">
+
+                        </div>
+
+
+                        <div class="pro-field">
+
+                            <label for="proGoal">
+                                Main Goal
+                            </label>
+
+                            <input
+                                id="proGoal"
+                                placeholder="Example: grow followers">
+
+                        </div>
+
+
+                        <div class="pro-field full">
+
+                            <label for="proKeywords">
+                                Important Keywords
+                            </label>
+
+                            <input
+                                id="proKeywords"
+                                placeholder="Example: cricket, technology, creator">
+
+                        </div>
+
+
+                        <div class="pro-field full">
+
+                            <label for="proConstraints">
+                                Advanced Constraints
+                            </label>
+
+                            <textarea
+                                id="proConstraints"
+                                placeholder="Example: Keep it simple, avoid complicated words, include emojis."></textarea>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="pro-checks">
+
+                        <label>
+
+                            <input
+                                type="checkbox"
+                                id="includeEmoji"
+                                checked>
+
+                            Include emojis
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="checkbox"
+                                id="includeCTA">
+
+                            Include call-to-action
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="checkbox"
+                                id="createVariations"
+                                checked>
+
+                            Create multiple variations
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <!-- LOCKED PRO -->
+
+                <div id="proLocked"
+                     class="locked-pro">
+
+                    <h3>🔒 Unlock Pro Bio Generator</h3>
+
+                    <p>
+                        Pro users get advanced personalization,
+                        audience targeting, custom goals, keywords,
+                        constraints and multiple bio variations.
+                    </p>
+
+                    <a href="pricing.html">
+                        Upgrade to Pro →
+                    </a>
+
+                </div>
+
+
+                <!-- ACTIONS -->
+
+                <div class="bio-actions">
+
+                    <button
+                        id="generateBio"
+                        class="bio-button generate-button">
+
+                        ✨ Generate Bio
+
+                    </button>
+
+
+                    <button
+                        id="clearBio"
+                        class="bio-button copy-button">
+
+                        Clear
+
+                    </button>
+
+                </div>
+
+
+                <!-- RESULT -->
+
+                <div id="bioResult"
+                     class="bio-result"
+                     style="display:none;"></div>
+
+
+                <div id="resultActions"
+                     class="bio-actions"
+                     style="display:none;">
+
+                    <button
+                        id="copyBio"
+                        class="bio-button copy-button">
+
+                        📋 Copy Bio
+
+                    </button>
+
+                </div>
+
 
             </div>
 
@@ -112,9 +650,7 @@
             <p>
                 A Bio Generator is a tool that helps create short
                 descriptions for social media profiles, websites,
-                creator pages and personal profiles. It can help
-                you quickly turn your interests, skills or goals
-                into a clear bio.
+                creator pages and personal profiles.
             </p>
 
 
@@ -124,7 +660,9 @@
 
                 <li>Enter information about yourself or your profile.</li>
 
-                <li>Choose the available style or options.</li>
+                <li>Choose a platform and style.</li>
+
+                <li>Pro users can customize audience, goal and keywords.</li>
 
                 <li>Generate your bio.</li>
 
@@ -154,32 +692,17 @@
 
             <ul>
 
-                <li>Free and easy to use.</li>
+                <li>Free basic bio generation.</li>
 
-                <li>Quickly creates bio ideas.</li>
+                <li>Fast and easy to use.</li>
 
                 <li>Useful for creators and students.</li>
 
-                <li>Helps when you are unsure what to write.</li>
+                <li>Multiple writing styles.</li>
+
+                <li>Advanced Pro customization.</li>
 
                 <li>Works directly in your browser.</li>
-
-            </ul>
-
-
-            <h2>Tips for Writing a Good Bio</h2>
-
-            <ul>
-
-                <li>Keep your bio clear and easy to understand.</li>
-
-                <li>Mention relevant interests or skills.</li>
-
-                <li>Use a tone that matches your profile.</li>
-
-                <li>Avoid adding unnecessary information.</li>
-
-                <li>Personalize generated text before publishing it.</li>
 
             </ul>
 
@@ -190,37 +713,45 @@
             <h3>Is the Bio Generator free?</h3>
 
             <p>
-                Yes. AIHub's Bio Generator is free to use.
+                Yes. AIHub provides a free version with basic
+                bio generation features.
             </p>
 
 
-            <h3>Can I use it for an Instagram bio?</h3>
+            <h3>What does Pro add?</h3>
 
             <p>
-                Yes. You can use the generated ideas for Instagram
-                and other social media profiles, while adjusting
-                the text to fit the platform's limits.
+                Pro adds advanced personalization, audience targeting,
+                custom goals, keywords, constraints and multiple
+                bio variations.
+            </p>
+
+
+            <h3>Can I use it for Instagram?</h3>
+
+            <p>
+                Yes. You can create Instagram bio ideas and customize
+                them to fit your profile.
             </p>
 
 
             <h3>Can I create a professional bio?</h3>
 
             <p>
-                Yes. You can provide professional information and
-                select an appropriate style to create a professional
-                bio.
+                Yes. Select a professional style and provide relevant
+                information about your skills, role or experience.
             </p>
 
 
             <h3>Can I edit the generated bio?</h3>
 
             <p>
-                Yes. It is always a good idea to review and personalize
-                generated text before using it.
+                Yes. Always review and personalize generated text
+                before publishing it.
             </p>
 
 
-            <h2>More Free AIHub Tools</h2>
+            <h2>More AIHub Tools</h2>
 
             <p>
 
@@ -274,11 +805,19 @@
 </footer>
 
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script src="script.js"></script>
+
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
+
+
+    /* ==========================================
+       OPEN EXISTING AIHUB TOOL
+    ========================================== */
 
     if (typeof openTool === "function") {
 
@@ -286,16 +825,561 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
+
+    /* ==========================================
+       SUPABASE CONFIG
+    ========================================== */
+
+    const SUPABASE_URL =
+        "https://stjkvlkeysyefhxocjzm.supabase.co";
+
+    const SUPABASE_PUBLISHABLE_KEY =
+        "sb_publishable_TGBEUnPnXQMw82y6X2hQiA_CLfc9ffB";
+
+    const supabaseClient =
+        supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY
+        );
+
+
+    let currentPlan = "guest";
+
+
+    const planTitle =
+        document.getElementById("planTitle");
+
+    const planDescription =
+        document.getElementById("planDescription");
+
+    const planButton =
+        document.getElementById("planButton");
+
+    const proPanel =
+        document.getElementById("proPanel");
+
+    const proLocked =
+        document.getElementById("proLocked");
+
+    const generateBio =
+        document.getElementById("generateBio");
+
+    const bioResult =
+        document.getElementById("bioResult");
+
+    const resultActions =
+        document.getElementById("resultActions");
+
+
+    /* ==========================================
+       CHECK USER PLAN
+    ========================================== */
+
+    async function loadPlan() {
+
+        const {
+            data: {
+                session
+            }
+        } = await supabaseClient.auth.getSession();
+
+
+        if (!session) {
+
+            currentPlan = "guest";
+
+            planTitle.textContent =
+                "Free Mode";
+
+            planDescription.textContent =
+                "You can use the basic Bio Generator. Login to unlock account features.";
+
+            planButton.textContent =
+                "Login";
+
+            planButton.href =
+                "login.html";
+
+            planButton.style.display =
+                "inline-block";
+
+            proPanel.style.display =
+                "none";
+
+            proLocked.style.display =
+                "block";
+
+            return;
+
+        }
+
+
+        const user =
+            session.user;
+
+
+        const {
+            data: profile,
+            error
+        } = await supabaseClient
+            .from("profiles")
+            .select("plan")
+            .eq("user_id", user.id)
+            .maybeSingle();
+
+
+        if (error) {
+
+            console.error(error);
+
+            currentPlan = "free";
+
+        } else {
+
+            currentPlan =
+                profile?.plan === "pro"
+                    ? "pro"
+                    : "free";
+
+        }
+
+
+        if (currentPlan === "pro") {
+
+            planTitle.textContent =
+                "✨ Pro Plan";
+
+            planDescription.textContent =
+                "Advanced Bio Generator features are unlocked.";
+
+            planButton.textContent =
+                "My Account";
+
+            planButton.href =
+                "account.html";
+
+            planButton.style.display =
+                "inline-block";
+
+            proPanel.style.display =
+                "block";
+
+            proLocked.style.display =
+                "none";
+
+            generateBio.textContent =
+                "✨ Generate Pro Bios";
+
+        } else {
+
+            planTitle.textContent =
+                "Free Plan";
+
+            planDescription.textContent =
+                "Basic Bio Generator is available. Upgrade to Pro for advanced controls.";
+
+            planButton.textContent =
+                "Upgrade to Pro";
+
+            planButton.href =
+                "pricing.html";
+
+            planButton.style.display =
+                "inline-block";
+
+            proPanel.style.display =
+                "none";
+
+            proLocked.style.display =
+                "block";
+
+            generateBio.textContent =
+                "✨ Generate Bio";
+
+        }
+
+    }
+
+
+    await loadPlan();
+
+
+    /* ==========================================
+       GENERATE BIO
+    ========================================== */
+
+    generateBio.addEventListener("click", function () {
+
+
+        const about =
+            document.getElementById("bioAbout")
+                .value.trim();
+
+
+        if (!about) {
+
+            alert(
+                "Please enter some information about yourself first."
+            );
+
+            return;
+
+        }
+
+
+        const platform =
+            document.getElementById("bioPlatform")
+                .value;
+
+
+        const style =
+            document.getElementById("bioStyle")
+                .value;
+
+
+        let output = "";
+
+
+        if (currentPlan === "pro") {
+
+            output =
+                buildProBios(
+                    about,
+                    platform,
+                    style
+                );
+
+        } else {
+
+            output =
+                buildFreeBio(
+                    about,
+                    platform,
+                    style
+                );
+
+        }
+
+
+        bioResult.textContent =
+            output;
+
+        bioResult.style.display =
+            "block";
+
+        resultActions.style.display =
+            "flex";
+
+
+        bioResult.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    });
+
+
+    /* ==========================================
+       FREE BIO GENERATOR
+    ========================================== */
+
+    function buildFreeBio(
+        about,
+        platform,
+        style
+    ) {
+
+        const emoji =
+            style === "Professional"
+                ? ""
+                : " ✨";
+
+
+        return (
+            `BIO IDEA\n\n` +
+            `${about}${emoji}\n\n` +
+            `Platform: ${platform}\n` +
+            `Style: ${style}\n\n` +
+            `Tip: Personalize this bio with your own interests, ` +
+            `skills or personality before publishing it.`
+        );
+
+    }
+
+
+    /* ==========================================
+       PRO BIO GENERATOR
+    ========================================== */
+
+    function buildProBios(
+        about,
+        platform,
+        style
+    ) {
+
+
+        const role =
+            document.getElementById("proRole")
+                .value;
+
+        const length =
+            document.getElementById("proLength")
+                .value;
+
+        const audience =
+            document.getElementById("proAudience")
+                .value.trim();
+
+        const goal =
+            document.getElementById("proGoal")
+                .value.trim();
+
+        const keywords =
+            document.getElementById("proKeywords")
+                .value.trim();
+
+        const constraints =
+            document.getElementById("proConstraints")
+                .value.trim();
+
+        const includeEmoji =
+            document.getElementById("includeEmoji")
+                .checked;
+
+        const includeCTA =
+            document.getElementById("includeCTA")
+                .checked;
+
+        const createVariations =
+            document.getElementById("createVariations")
+                .checked;
+
+
+        const emoji =
+            includeEmoji
+                ? " ✨🚀"
+                : "";
+
+
+        const audienceText =
+            audience
+                ? ` for ${audience}`
+                : "";
+
+
+        const goalText =
+            goal
+                ? ` Focus: ${goal}.`
+                : "";
+
+
+        const keywordText =
+            keywords
+                ? ` Keywords: ${keywords}.`
+                : "";
+
+
+        const constraintText =
+            constraints
+                ? `\nConstraints: ${constraints}`
+                : "";
+
+
+        function makeBio(version) {
+
+            let bio =
+                `${about}${emoji}`;
+
+            if (role !== "Auto Detect") {
+
+                bio +=
+                    ` | ${role}`;
+
+            }
+
+            if (goal) {
+
+                bio +=
+                    ` | ${goal}`;
+
+            }
+
+            if (includeCTA) {
+
+                bio +=
+                    " | Follow for more!";
+
+            }
+
+            if (version === 2) {
+
+                bio =
+                    `${about}${emoji}` +
+                    ` | ${role !== "Auto Detect" ? role : "Creator"}` +
+                    `${goal ? " | " + goal : ""}` +
+                    `${includeCTA ? " | Let's connect!" : ""}`;
+
+            }
+
+            if (version === 3) {
+
+                bio =
+                    `${about}${emoji}` +
+                    `${keywords ? " | " + keywords : ""}` +
+                    `${includeCTA ? " | Follow along!" : ""}`;
+
+            }
+
+            return bio;
+
+        }
+
+
+        let output =
+            `✨ PRO BIO GENERATOR\n\n`;
+
+        output +=
+            `Platform: ${platform}\n`;
+
+        output +=
+            `Style: ${style}\n`;
+
+        output +=
+            `Length: ${length}\n`;
+
+        output +=
+            `Target Audience: ${audience || "General"}\n`;
+
+        output +=
+            `Goal: ${goal || "Personal branding"}\n\n`;
+
+
+        output +=
+            `BIO VARIATIONS\n\n`;
+
+
+        output +=
+            `1. ${makeBio(1)}\n\n`;
+
+
+        if (createVariations) {
+
+            output +=
+                `2. ${makeBio(2)}\n\n`;
+
+            output +=
+                `3. ${makeBio(3)}\n\n`;
+
+        }
+
+
+        output +=
+            `WHY THIS WORKS\n`;
+
+        output +=
+            `• Matches the selected ${platform} platform.\n`;
+
+        output +=
+            `• Uses the selected ${style} style.\n`;
+
+        output +=
+            `• Designed for ${audience || "a general audience"}.\n`;
+
+        output +=
+            `• Goal: ${goal || "personal branding"}.\n`;
+
+        output +=
+            `${keywordText}`;
+
+        output +=
+            `${constraintText}`;
+
+
+        return output;
+
+    }
+
+
+    /* ==========================================
+       COPY
+    ========================================== */
+
+    document
+        .getElementById("copyBio")
+        .addEventListener("click", async function () {
+
+            const text =
+                bioResult.textContent;
+
+            try {
+
+                await navigator.clipboard.writeText(text);
+
+                this.textContent =
+                    "✅ Copied!";
+
+                setTimeout(() => {
+
+                    this.textContent =
+                        "📋 Copy Bio";
+
+                }, 1500);
+
+            } catch (error) {
+
+                alert(
+                    "Copy failed. Please select and copy the text manually."
+                );
+
+            }
+
+        });
+
+
+    /* ==========================================
+       CLEAR
+    ========================================== */
+
+    document
+        .getElementById("clearBio")
+        .addEventListener("click", function () {
+
+            document.getElementById("bioAbout").value = "";
+
+            document.getElementById("proAudience").value = "";
+
+            document.getElementById("proGoal").value = "";
+
+            document.getElementById("proKeywords").value = "";
+
+            document.getElementById("proConstraints").value = "";
+
+            bioResult.style.display =
+                "none";
+
+            resultActions.style.display =
+                "none";
+
+        });
+
+
+    /* ==========================================
+       AUTH STATE CHANGE
+    ========================================== */
+
+    supabaseClient.auth.onAuthStateChange(
+        async function () {
+
+            await loadPlan();
+
+        }
+    );
+
 });
 
 </script>
-    
-<!-- ================= HOMEPAGE INTERNAL LINK ================= -->
 
-<div class="back-home-link">
-  <a href="index.html">← Explore All AIHub Tools</a>
-</div>
-    
+
 </body>
 
 </html>
