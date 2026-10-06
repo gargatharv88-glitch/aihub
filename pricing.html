@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,6 +20,23 @@
       font-family: Arial, sans-serif;
       background: #f5f7fb;
       color: #222;
+    }
+
+    .top-nav {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .back-top {
+      color: #4f46e5;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    .back-top:hover {
+      text-decoration: underline;
     }
 
     header {
@@ -119,6 +135,10 @@
       opacity: 0.9;
     }
 
+    .pro-button:disabled {
+      cursor: not-allowed;
+    }
+
     .faq {
       max-width: 800px;
       margin: 20px auto 50px;
@@ -151,20 +171,61 @@
       text-decoration: none;
       font-weight: bold;
     }
+
+    @media (max-width: 600px) {
+
+      header h1 {
+        font-size: 30px;
+      }
+
+      header p {
+        font-size: 16px;
+      }
+
+      .pricing-container {
+        margin-top: 25px;
+        padding: 15px;
+      }
+
+      .plan {
+        width: 100%;
+      }
+
+      .top-nav {
+        padding: 15px;
+      }
+    }
   </style>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
 
+  <!-- TOP BACK TO AIHUB -->
+
+  <div class="top-nav">
+    <a href="index.html" class="back-top">
+      ← Back to AIHub
+    </a>
+  </div>
+
+
   <header>
+
     <h1>AIHub Pro</h1>
-    <p>Unlock more powerful AI tools and creator features.</p>
+
+    <p>
+      Unlock more powerful AI tools and creator features.
+    </p>
+
   </header>
+
 
   <main>
 
     <section class="pricing-container">
+
 
       <!-- FREE PLAN -->
 
@@ -178,10 +239,15 @@
         </div>
 
         <ul class="features">
+
           <li>Access to free AIHub tools</li>
+
           <li>Basic tool features</li>
+
           <li>Limited daily usage</li>
+
           <li>No payment required</li>
+
         </ul>
 
 
@@ -204,55 +270,94 @@
         </div>
 
         <ul class="features">
+
           <li>Higher usage limits</li>
+
           <li>Advanced tool features</li>
+
           <li>Premium creator resources</li>
+
           <li>Exclusive prompt templates</li>
+
           <li>Priority access to new features</li>
+
         </ul>
 
-                <button id="upgradeButton" class="button pro-button">
-⭐ Upgrade to Pro
-</button>
 
-       <div id="paymentBox" style="display:none; margin-top:20px;">
+        <button
+          id="upgradeButton"
+          class="button pro-button">
 
-  <h3>💳 Pay ₹99 for AIHub Pro</h3>
+          ⭐ Upgrade to Pro
 
-  <p>Pay using UPI:</p>
+        </button>
 
-  <p>
-    <strong id="upiId">8979978542@fam</strong>
-  </p>
 
-  <button
-    class="button pro-button"
-    onclick="copyUPI()">
-    📋 Copy UPI ID
-  </button>
+        <!-- PAYMENT BOX -->
 
-  <p style="margin-top:15px;">
-    After payment, submit your payment reference/UTR for verification.
-  </p>
+        <div
+          id="paymentBox"
+          style="display:none; margin-top:20px;">
 
-<form id="paymentForm" style="margin-top:20px;">
+          <h3>💳 Pay ₹99 for AIHub Pro</h3>
 
-  <input
-    type="text"
-    id="paymentReference"
-    placeholder="Enter UTR / Transaction ID"
-    required
-    style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px;"
-  >
+          <p>Pay using UPI:</p>
 
-  <button type="submit" class="button pro-button">
-    📤 Submit Payment
-  </button>
+          <p>
+            <strong id="upiId">
+              8979978542@fam
+            </strong>
+          </p>
 
-</form>
 
-<p id="paymentMessage" style="margin-top:12px;"></p>
-</div>
+          <button
+            class="button pro-button"
+            onclick="copyUPI()">
+
+            📋 Copy UPI ID
+
+          </button>
+
+
+          <p style="margin-top:15px;">
+
+            After payment, submit your
+            payment reference/UTR for verification.
+
+          </p>
+
+
+          <form
+            id="paymentForm"
+            style="margin-top:20px;">
+
+            <input
+              type="text"
+              id="paymentReference"
+              placeholder="Enter UTR / Transaction ID"
+              required
+              style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px;"
+            >
+
+
+            <button
+              type="submit"
+              class="button pro-button">
+
+              📤 Submit Payment
+
+            </button>
+
+          </form>
+
+
+          <p
+            id="paymentMessage"
+            style="margin-top:12px;">
+
+          </p>
+
+        </div>
 
       </div>
 
@@ -263,57 +368,89 @@
 
     <section class="faq">
 
-      <h2>Frequently Asked Questions</h2>
+      <h2>
+        Frequently Asked Questions
+      </h2>
+
 
       <div class="faq-item">
-        <h3>What is AIHub Pro?</h3>
+
+        <h3>
+          What is AIHub Pro?
+        </h3>
+
         <p>
-          AIHub Pro is a premium subscription designed for users
-          who need higher limits and additional creator features.
+          AIHub Pro is a premium subscription designed
+          for users who need higher limits and
+          additional creator features.
         </p>
+
       </div>
 
-      <div class="faq-item">
-        <h3>Can I use AIHub for free?</h3>
-        <p>
-          Yes. AIHub will continue to offer free tools with
-          limited usage.
-        </p>
-      </div>
 
       <div class="faq-item">
-        <h3>How does the Pro subscription work?</h3>
+
+        <h3>
+          Can I use AIHub for free?
+        </h3>
+
         <p>
-          Pro users will receive access to additional features
-          after a successful subscription.
+          Yes. AIHub will continue to offer free tools
+          with limited usage.
         </p>
+
       </div>
 
+
       <div class="faq-item">
-        <h3>Can I cancel my subscription?</h3>
+
+        <h3>
+          How does the Pro subscription work?
+        </h3>
+
         <p>
-          Subscription cancellation details will be provided
-          when the payment system is launched.
+          Pro users will receive access to additional
+          features after a successful subscription.
         </p>
+
+      </div>
+
+
+      <div class="faq-item">
+
+        <h3>
+          Can I cancel my subscription?
+        </h3>
+
+        <p>
+          Subscription cancellation details will be
+          provided when the payment system is launched.
+        </p>
+
       </div>
 
     </section>
 
-    <div class="back-home">
-      <a href="index.html">← Back to AIHub Home</a>
-    </div>
 
   </main>
+
+
 <script>
-  const SUPABASE_URL = "https://stjkvlkeysyefhxocjzm.supabase.co";
+
+  const SUPABASE_URL =
+    "https://stjkvlkeysyefhxocjzm.supabase.co";
+
 
   const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_TGBEUnPnXQMw82y6X2hQiA_CLfc9ffB";
 
-  const supabaseClient = supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-  );
+
+  const supabaseClient =
+    supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
+
 
   async function checkPlan() {
 
@@ -321,103 +458,221 @@
       data: { session }
     } = await supabaseClient.auth.getSession();
 
+
     const upgradeButton =
       document.getElementById("upgradeButton");
 
-    if (!session) {
-      upgradeButton.textContent = "Login to Upgrade";
 
-      upgradeButton.onclick = function () {
-        window.location.href = "login.html";
-      };
+    if (!session) {
+
+      upgradeButton.textContent =
+        "Login to Upgrade";
+
+
+      upgradeButton.onclick =
+        function () {
+
+          window.location.href =
+            "login.html";
+
+        };
+
 
       return;
     }
 
-    const { data: profile, error } = await supabaseClient
+
+    const {
+      data: profile,
+      error
+    } = await supabaseClient
+
       .from("profiles")
+
       .select("plan")
+
       .eq("user_id", session.user.id)
+
       .single();
 
+
     if (error) {
-      console.error("Profile error:", error);
+
+      console.error(
+        "Profile error:",
+        error
+      );
+
       return;
     }
+
 
     if (profile.plan === "pro") {
 
-      upgradeButton.textContent = "✓ You're Already Pro";
-      upgradeButton.disabled = true;
-      upgradeButton.style.opacity = "0.7";
+      upgradeButton.textContent =
+        "✓ You're Already Pro";
+
+
+      upgradeButton.disabled =
+        true;
+
+
+      upgradeButton.style.opacity =
+        "0.7";
 
     } else {
 
-      upgradeButton.textContent = "Upgrade to Pro";
+      upgradeButton.textContent =
+        "Upgrade to Pro";
 
-     upgradeButton.onclick = function () {
 
-  document.getElementById("paymentBox").style.display = "block";
+      upgradeButton.onclick =
+        function () {
 
-  document.getElementById("paymentBox").scrollIntoView({
-    behavior: "smooth"
-  });
-};
+          const paymentBox =
+            document.getElementById(
+              "paymentBox"
+            );
+
+
+          paymentBox.style.display =
+            "block";
+
+
+          paymentBox.scrollIntoView({
+            behavior: "smooth"
+          });
+
+        };
 
     }
+
   }
+
 
   checkPlan();
-  document.getElementById("paymentForm").addEventListener("submit", async function(event) {
 
-  event.preventDefault();
 
-  const {
-    data: { session }
-  } = await supabaseClient.auth.getSession();
+  document
+    .getElementById("paymentForm")
+    .addEventListener(
+      "submit",
+      async function(event) {
 
-  if (!session) {
-    alert("Please login first.");
-    window.location.href = "login.html";
-    return;
-  }
+        event.preventDefault();
 
-  const paymentReference =
-    document.getElementById("paymentReference").value.trim();
 
-  if (!paymentReference) {
-    alert("Please enter your UTR / Transaction ID.");
-    return;
-  }
+        const {
+          data: { session }
+        } =
+          await supabaseClient.auth.getSession();
 
-  const { error } = await supabaseClient
-    .from("payment_requests")
-    .insert({
-      user_id: session.user.id,
-      email: session.user.email,
-      payment_reference: paymentReference
-    });
 
-  if (error) {
-    console.error(error);
-    alert("Submission failed: " + error.message);
-    return;
-  }
+        if (!session) {
 
-  document.getElementById("paymentMessage").textContent =
-    "✅ Payment proof submitted. It will be verified before Pro access is activated.";
+          alert(
+            "Please login first."
+          );
 
-  document.getElementById("paymentForm").reset();
-});
+
+          window.location.href =
+            "login.html";
+
+
+          return;
+        }
+
+
+        const paymentReference =
+          document
+            .getElementById(
+              "paymentReference"
+            )
+            .value
+            .trim();
+
+
+        if (!paymentReference) {
+
+          alert(
+            "Please enter your UTR / Transaction ID."
+          );
+
+
+          return;
+        }
+
+
+        const { error } =
+          await supabaseClient
+
+            .from("payment_requests")
+
+            .insert({
+
+              user_id:
+                session.user.id,
+
+              email:
+                session.user.email,
+
+              payment_reference:
+                paymentReference
+
+            });
+
+
+        if (error) {
+
+          console.error(error);
+
+
+          alert(
+            "Submission failed: " +
+            error.message
+          );
+
+
+          return;
+        }
+
+
+        document
+          .getElementById(
+            "paymentMessage"
+          )
+          .textContent =
+          "✅ Payment proof submitted. It will be verified before Pro access is activated.";
+
+
+        document
+          .getElementById(
+            "paymentForm"
+          )
+          .reset();
+
+      });
+
+
   function copyUPI() {
 
-  const upi = document.getElementById("upiId").textContent;
+    const upi =
+      document
+        .getElementById("upiId")
+        .textContent;
 
-  navigator.clipboard.writeText(upi);
 
-  alert("UPI ID copied!");
-}
+    navigator.clipboard
+      .writeText(upi);
+
+
+    alert(
+      "UPI ID copied!"
+    );
+
+  }
+
 </script>
+
 </body>
 </html>
-```
