@@ -139,6 +139,54 @@
       cursor: not-allowed;
     }
 
+    /* PAYMENT QR */
+
+    .payment-qr-box {
+      margin-top: 20px;
+      padding: 20px;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 15px;
+    }
+
+    .payment-qr-box h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+
+    .payment-qr-box p {
+      color: #555;
+      font-size: 14px;
+    }
+
+    #paymentQR {
+      width: 230px;
+      min-height: 230px;
+      margin: 18px auto;
+      padding: 10px;
+      background: white;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #paymentQR img {
+      max-width: 210px;
+      max-height: 210px;
+    }
+
+    .scan-instruction {
+      font-weight: bold;
+      color: #111827;
+      margin-bottom: 5px;
+    }
+
+    .upi-apps {
+      font-size: 13px;
+      color: #666;
+    }
+
     .faq {
       max-width: 800px;
       margin: 20px auto 50px;
@@ -172,6 +220,11 @@
       font-weight: bold;
     }
 
+    .payment-message {
+      margin-top: 12px;
+      font-weight: bold;
+    }
+
     @media (max-width: 600px) {
 
       header h1 {
@@ -194,10 +247,20 @@
       .top-nav {
         padding: 15px;
       }
+
+      #paymentQR {
+        width: 220px;
+        min-height: 220px;
+      }
     }
   </style>
 
+  <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- QR Code Generator -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
 </head>
 
 <body>
@@ -205,9 +268,11 @@
   <!-- TOP BACK TO AIHUB -->
 
   <div class="top-nav">
+
     <a href="index.html" class="back-top">
       ← Back to AIHub
     </a>
+
   </div>
 
 
@@ -249,7 +314,6 @@
           <li>No payment required</li>
 
         </ul>
-
 
         <a href="index.html" class="button free-button">
           Continue Free
@@ -301,31 +365,42 @@
 
           <h3>💳 Pay ₹99 for AIHub Pro</h3>
 
-          <p>Pay using UPI:</p>
-
           <p>
-            <strong id="upiId">
-              8979978542@fam
-            </strong>
+            Scan the QR code below using your UPI app.
           </p>
 
 
-          <button
-            class="button pro-button"
-            onclick="copyUPI()">
+          <!-- PAYMENT QR -->
 
-            📋 Copy UPI ID
+          <div class="payment-qr-box">
 
-          </button>
+            <p class="scan-instruction">
+              📱 Scan & Pay ₹99
+            </p>
+
+            <div id="paymentQR"></div>
+
+            <p>
+              Scan this QR using your preferred UPI app
+              and complete the ₹99 payment.
+            </p>
+
+            <p class="upi-apps">
+              Works with compatible UPI apps.
+            </p>
+
+          </div>
 
 
-          <p style="margin-top:15px;">
+          <p style="margin-top:20px;">
 
-            After payment, submit your
-            payment reference/UTR for verification.
+            After completing the payment, enter your
+            payment reference / UTR below for verification.
 
           </p>
 
+
+          <!-- PAYMENT FORM -->
 
           <form
             id="paymentForm"
@@ -353,7 +428,7 @@
 
           <p
             id="paymentMessage"
-            style="margin-top:12px;">
+            class="payment-message">
 
           </p>
 
@@ -437,6 +512,10 @@
 
 <script>
 
+  /* ==============================
+     SUPABASE
+  ============================== */
+
   const SUPABASE_URL =
     "https://stjkvlkeysyefhxocjzm.supabase.co";
 
@@ -452,11 +531,87 @@
     );
 
 
+  /* ==============================
+     PAYMENT QR
+  ============================== */
+
+  const UPI_ID =
+    "8979978542@fam";
+
+
+  const PAYMENT_AMOUNT =
+    "99";
+
+
+  const UPI_PAYMENT_LINK =
+    "upi://pay" +
+    "?pa=" + encodeURIComponent(UPI_ID) +
+    "&pn=" + encodeURIComponent("AIHub Pro") +
+    "&am=" + PAYMENT_AMOUNT +
+    "&cu=INR" +
+    "&tn=" + encodeURIComponent("AIHub Pro Subscription");
+
+
+  let paymentQRGenerated = false;
+
+
+  function generatePaymentQR() {
+
+    if (paymentQRGenerated) {
+      return;
+    }
+
+
+    const qrContainer =
+      document.getElementById("paymentQR");
+
+
+    if (!qrContainer) {
+      return;
+    }
+
+
+    if (typeof QRCode === "undefined") {
+
+      qrContainer.innerHTML =
+        "<p style='color:#dc2626;'>QR code could not load. Please refresh the page.</p>";
+
+      return;
+    }
+
+
+    new QRCode(qrContainer, {
+
+      text: UPI_PAYMENT_LINK,
+
+      width: 210,
+
+      height: 210,
+
+      colorDark: "#111827",
+
+      colorLight: "#ffffff",
+
+      correctLevel: QRCode.CorrectLevel.H
+
+    });
+
+
+    paymentQRGenerated = true;
+
+  }
+
+
+  /* ==============================
+     CHECK USER PLAN
+  ============================== */
+
   async function checkPlan() {
 
     const {
       data: { session }
-    } = await supabaseClient.auth.getSession();
+    } =
+      await supabaseClient.auth.getSession();
 
 
     const upgradeButton =
@@ -485,15 +640,16 @@
     const {
       data: profile,
       error
-    } = await supabaseClient
+    } =
+      await supabaseClient
 
-      .from("profiles")
+        .from("profiles")
 
-      .select("plan")
+        .select("plan")
 
-      .eq("user_id", session.user.id)
+        .eq("user_id", session.user.id)
 
-      .single();
+        .single();
 
 
     if (error) {
@@ -539,6 +695,9 @@
             "block";
 
 
+          generatePaymentQR();
+
+
           paymentBox.scrollIntoView({
             behavior: "smooth"
           });
@@ -552,6 +711,10 @@
 
   checkPlan();
 
+
+  /* ==============================
+     PAYMENT SUBMISSION
+  ============================== */
 
   document
     .getElementById("paymentForm")
@@ -652,25 +815,6 @@
           .reset();
 
       });
-
-
-  function copyUPI() {
-
-    const upi =
-      document
-        .getElementById("upiId")
-        .textContent;
-
-
-    navigator.clipboard
-      .writeText(upi);
-
-
-    alert(
-      "UPI ID copied!"
-    );
-
-  }
 
 </script>
 
